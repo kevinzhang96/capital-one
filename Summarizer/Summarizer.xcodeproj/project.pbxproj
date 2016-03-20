@@ -12,8 +12,14 @@
 		343C4C861C9CDEC400A67766 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 343C4C851C9CDEC400A67766 /* Assets.xcassets */; };
 		34BADB961C9E449E00582335 /* SMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BADB951C9E449E00582335 /* SMViewController.swift */; };
 		34BADB991C9E44F700582335 /* SMConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BADB981C9E44F700582335 /* SMConstants.swift */; };
-		34BADB9B1C9E468800582335 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 34BADB9A1C9E468800582335 /* Default-568h@2x.png */; };
 		34BADB9D1C9E470D00582335 /* SMArticleListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BADB9C1C9E470D00582335 /* SMArticleListController.swift */; };
+		34BADBA31C9E484300582335 /* NSLayoutConstraint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BADB9F1C9E484300582335 /* NSLayoutConstraint+Extensions.swift */; };
+		34BADBA41C9E484300582335 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BADBA01C9E484300582335 /* UIColor+Extensions.swift */; };
+		34BADBA51C9E484300582335 /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BADBA11C9E484300582335 /* UILabel+Extensions.swift */; };
+		34BADBA61C9E484300582335 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BADBA21C9E484300582335 /* UIView+Extensions.swift */; };
+		34BADBA91C9E4A7B00582335 /* SMArticleDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BADBA81C9E4A7B00582335 /* SMArticleDataSource.swift */; };
+		34DCF7571C9E4E2700E82D84 /* SMArticleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DCF7561C9E4E2700E82D84 /* SMArticleCell.swift */; };
+		34DCF75A1C9E4EFA00E82D84 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 34DCF7591C9E4EFA00E82D84 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,10 +28,16 @@
 		343C4C831C9CDEC400A67766 /* Summarizer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Summarizer.xcdatamodel; sourceTree = "<group>"; };
 		343C4C851C9CDEC400A67766 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		343C4C8A1C9CDEC400A67766 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		34BADB951C9E449E00582335 /* SMViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SMViewController.swift; path = "../../summarizer/Summarizer/Classes/View Controllers/SMViewController.swift"; sourceTree = "<group>"; };
-		34BADB981C9E44F700582335 /* SMConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SMConstants.swift; path = ../../summarizer/Summarizer/SMConstants.swift; sourceTree = "<group>"; };
-		34BADB9A1C9E468800582335 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		34BADB9C1C9E470D00582335 /* SMArticleListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SMArticleListController.swift; path = "../../summarizer/Summarizer/Classes/View Controllers/SMArticleListController.swift"; sourceTree = "<group>"; };
+		34BADB951C9E449E00582335 /* SMViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMViewController.swift; sourceTree = "<group>"; };
+		34BADB981C9E44F700582335 /* SMConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMConstants.swift; sourceTree = "<group>"; };
+		34BADB9C1C9E470D00582335 /* SMArticleListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMArticleListController.swift; sourceTree = "<group>"; };
+		34BADB9F1C9E484300582335 /* NSLayoutConstraint+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+Extensions.swift"; sourceTree = "<group>"; };
+		34BADBA01C9E484300582335 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
+		34BADBA11C9E484300582335 /* UILabel+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
+		34BADBA21C9E484300582335 /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		34BADBA81C9E4A7B00582335 /* SMArticleDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMArticleDataSource.swift; sourceTree = "<group>"; };
+		34DCF7561C9E4E2700E82D84 /* SMArticleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SMArticleCell.swift; path = Views/SMArticleCell.swift; sourceTree = "<group>"; };
+		34DCF7591C9E4EFA00E82D84 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,9 +54,9 @@
 		343C4C6F1C9CDEC400A67766 = {
 			isa = PBXGroup;
 			children = (
-				34BADB9A1C9E468800582335 /* Default-568h@2x.png */,
-				343C4C7A1C9CDEC400A67766 /* Summarizer */,
+				34DCF7591C9E4EFA00E82D84 /* Default-568h@2x.png */,
 				343C4C791C9CDEC400A67766 /* Products */,
+				343C4C7A1C9CDEC400A67766 /* Summarizer */,
 			);
 			sourceTree = "<group>";
 		};
@@ -59,9 +71,11 @@
 		343C4C7A1C9CDEC400A67766 /* Summarizer */ = {
 			isa = PBXGroup;
 			children = (
-				343C4C7B1C9CDEC400A67766 /* AppDelegate.swift */,
-				34BADB981C9E44F700582335 /* SMConstants.swift */,
+				34BADB9E1C9E482E00582335 /* Constants+Extensions */,
+				34BADBA71C9E4A6200582335 /* Models */,
 				34BADB971C9E44A700582335 /* View Controllers */,
+				34DCF7581C9E4E2A00E82D84 /* Views */,
+				343C4C7B1C9CDEC400A67766 /* AppDelegate.swift */,
 				343C4C851C9CDEC400A67766 /* Assets.xcassets */,
 				343C4C8A1C9CDEC400A67766 /* Info.plist */,
 				343C4C821C9CDEC400A67766 /* Summarizer.xcdatamodeld */,
@@ -72,10 +86,38 @@
 		34BADB971C9E44A700582335 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				34BADB951C9E449E00582335 /* SMViewController.swift */,
 				34BADB9C1C9E470D00582335 /* SMArticleListController.swift */,
+				34BADB951C9E449E00582335 /* SMViewController.swift */,
 			);
-			name = "View Controllers";
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		34BADB9E1C9E482E00582335 /* Constants+Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				34BADB9F1C9E484300582335 /* NSLayoutConstraint+Extensions.swift */,
+				34BADB981C9E44F700582335 /* SMConstants.swift */,
+				34BADBA01C9E484300582335 /* UIColor+Extensions.swift */,
+				34BADBA11C9E484300582335 /* UILabel+Extensions.swift */,
+				34BADBA21C9E484300582335 /* UIView+Extensions.swift */,
+			);
+			path = "Constants+Extensions";
+			sourceTree = "<group>";
+		};
+		34BADBA71C9E4A6200582335 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				34BADBA81C9E4A7B00582335 /* SMArticleDataSource.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		34DCF7581C9E4E2A00E82D84 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				34DCF7561C9E4E2700E82D84 /* SMArticleCell.swift */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,7 +179,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				343C4C861C9CDEC400A67766 /* Assets.xcassets in Resources */,
-				34BADB9B1C9E468800582335 /* Default-568h@2x.png in Resources */,
+				34DCF75A1C9E4EFA00E82D84 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,10 +191,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				34BADB961C9E449E00582335 /* SMViewController.swift in Sources */,
+				34BADBA31C9E484300582335 /* NSLayoutConstraint+Extensions.swift in Sources */,
 				34BADB991C9E44F700582335 /* SMConstants.swift in Sources */,
+				34BADBA61C9E484300582335 /* UIView+Extensions.swift in Sources */,
 				343C4C841C9CDEC400A67766 /* Summarizer.xcdatamodeld in Sources */,
+				34BADBA51C9E484300582335 /* UILabel+Extensions.swift in Sources */,
+				34BADBA41C9E484300582335 /* UIColor+Extensions.swift in Sources */,
+				34DCF7571C9E4E2700E82D84 /* SMArticleCell.swift in Sources */,
 				343C4C7C1C9CDEC400A67766 /* AppDelegate.swift in Sources */,
 				34BADB9D1C9E470D00582335 /* SMArticleListController.swift in Sources */,
+				34BADBA91C9E4A7B00582335 /* SMArticleDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

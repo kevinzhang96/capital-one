@@ -13,7 +13,11 @@ class SMViewController: UIViewController {
     convenience init() {
         self.init(nibName: nil, bundle: nil)
         
-        self.view.backgroundColor = SMConstants.bgColor
+        configureViews()
+    }
+    
+    func configureViews() {
+        self.view.backgroundColor = SMConstants.bgColor1
     }
     
 }
