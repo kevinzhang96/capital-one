@@ -14,6 +14,8 @@ Verified links that work include:
 Be careful; the NYT and Washington Post both begin blocking requests once you have made too many.  Their sites should work as well, but I am no longer able to test this.
 
 ### Screenshots
-<img src="images/home.png" align="left" height="100" width="56">
-<img src="images/home.png" align="left" height="100" width="56">
-<img src="images/home.png" align="left" height="100" width="56">
+<img src="images/home.png" height="300" width="169">
+<img src="images/list.png" height="300" width="169">
+<img src="images/add.png" height="300" width="169">
+<img src="images/summary.png" height="300" width="169">
+<img src="images/safari.png" height="300" width="169">
