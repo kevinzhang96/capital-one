@@ -143,11 +143,6 @@ class SMArticleListController: SMViewController, UITableViewDelegate, UITableVie
         titles = NSMutableArray(array: t)
         summaries = NSMutableArray(array: m)
         
-        print(texts.count)
-        print(urls.count)
-        print(titles.count)
-        print(summaries.count)
-        
         truncateExcess()
         
         articleList.reloadData()
@@ -244,12 +239,6 @@ class SMArticleListController: SMViewController, UITableViewDelegate, UITableVie
             completionHandler: { [unowned self]
                 (request, response, data, error) in
                 let json = JSON(data: data!)
-                
-                print(NSString(data: data!, encoding: NSASCIIStringEncoding) as! String)
-                print(json)
-                print(request)
-                print(response)
-                print(error)
                 
                 var titleDone = false
                 var summDone = false
