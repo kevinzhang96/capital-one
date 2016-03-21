@@ -50,7 +50,9 @@ class SMArticleListController: SMViewController, UITableViewDelegate, UITableVie
         )
         navItem.leftBarButtonItem = clearButton
         
-        navBar.backgroundColor = SMConstants.bgColor1
+        navBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
+        navBar.shadowImage = UIImage()
+        navBar.translucent = true
         navBar.items = [navItem]
         
         refreshControl.addTarget(self, action: "refresh", forControlEvents: .ValueChanged)
@@ -71,6 +73,7 @@ class SMArticleListController: SMViewController, UITableViewDelegate, UITableVie
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
         refresh()
     }
     
@@ -87,10 +90,10 @@ class SMArticleListController: SMViewController, UITableViewDelegate, UITableVie
             message: withCancel ? "URL was invalid, try again!" : "Enter an article URL here",
             preferredStyle: .Alert
         )
+        
         alert.addAction(action)
-        if withCancel {
-            alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
-        }
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        
         alert.addTextFieldWithConfigurationHandler(self.addTextField)
         alert.view.setNeedsLayout()
         return alert
@@ -147,11 +150,13 @@ class SMArticleListController: SMViewController, UITableViewDelegate, UITableVie
             let html = NSString(data: data!, encoding: NSASCIIStringEncoding)! as String
             
             dispatch_async(dispatch_get_main_queue(), { [unowned self, html] in
+                
                 self.articles.addObject(html)
                 self.urls.addObject(url)
                 
                 self.prefs.setValue(self.articles, forKey: "articles")
                 self.prefs.setValue(self.urls, forKey: "urls")
+                
                 completion?()
             })
         }

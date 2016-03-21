@@ -12,6 +12,7 @@
 		343C4C861C9CDEC400A67766 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 343C4C851C9CDEC400A67766 /* Assets.xcassets */; };
 		344C2A8B1C9FBAD100D28BDA /* SMArticleSummaryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344C2A8A1C9FBAD100D28BDA /* SMArticleSummaryController.swift */; };
 		344C2A8E1CA05E6900D28BDA /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344C2A8D1CA05E6900D28BDA /* Article.swift */; };
+		344C2A901CA075F900D28BDA /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344C2A8F1CA075F900D28BDA /* String+Extensions.swift */; };
 		34BADB961C9E449E00582335 /* SMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BADB951C9E449E00582335 /* SMViewController.swift */; };
 		34BADB991C9E44F700582335 /* SMConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BADB981C9E44F700582335 /* SMConstants.swift */; };
 		34BADB9D1C9E470D00582335 /* SMArticleListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BADB9C1C9E470D00582335 /* SMArticleListController.swift */; };
@@ -30,6 +31,7 @@
 		343C4C8A1C9CDEC400A67766 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		344C2A8A1C9FBAD100D28BDA /* SMArticleSummaryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMArticleSummaryController.swift; sourceTree = "<group>"; };
 		344C2A8D1CA05E6900D28BDA /* Article.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
+		344C2A8F1CA075F900D28BDA /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		34BADB951C9E449E00582335 /* SMViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMViewController.swift; sourceTree = "<group>"; };
 		34BADB981C9E44F700582335 /* SMConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMConstants.swift; sourceTree = "<group>"; };
 		34BADB9C1C9E470D00582335 /* SMArticleListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMArticleListController.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				34BADBA01C9E484300582335 /* UIColor+Extensions.swift */,
 				34BADBA11C9E484300582335 /* UILabel+Extensions.swift */,
 				34BADBA21C9E484300582335 /* UIView+Extensions.swift */,
+				344C2A8F1CA075F900D28BDA /* String+Extensions.swift */,
 			);
 			path = "Constants+Extensions";
 			sourceTree = "<group>";
@@ -269,6 +272,7 @@
 				34BADB961C9E449E00582335 /* SMViewController.swift in Sources */,
 				34BADBA31C9E484300582335 /* NSLayoutConstraint+Extensions.swift in Sources */,
 				34BADB991C9E44F700582335 /* SMConstants.swift in Sources */,
+				344C2A901CA075F900D28BDA /* String+Extensions.swift in Sources */,
 				34BADBA61C9E484300582335 /* UIView+Extensions.swift in Sources */,
 				34BADBA51C9E484300582335 /* UILabel+Extensions.swift in Sources */,
 				34BADBA41C9E484300582335 /* UIColor+Extensions.swift in Sources */,
