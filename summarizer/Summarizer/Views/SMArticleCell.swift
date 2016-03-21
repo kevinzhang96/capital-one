@@ -10,7 +10,11 @@ import UIKit
 
 class SMArticleCell: UITableViewCell {
     
-    var articleText: String! = nil
+    var article: Article! = nil {
+        didSet {
+            titleLabel.text = "\u{2022} " + article.title
+        }
+    }
     private var titleLabel: UILabel = UILabel()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -19,11 +23,9 @@ class SMArticleCell: UITableViewCell {
         self.backgroundColor = UIColor.clearColor()
     }
     
-    convenience init(text: String) {
+    convenience init() {
         self.init(style: .Default, reuseIdentifier: nil)
-        articleText = text
         
-        titleLabel.text = text
         titleLabel.font = UIFont.systemFontOfSize(10)
         titleLabel.numberOfLines = 0
         
@@ -34,6 +36,9 @@ class SMArticleCell: UITableViewCell {
         
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("H:|-10-[tl]-10-|", views: viewsDict))
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("V:|-5-[tl]-5-|", views: viewsDict))
+        
+        self.contentView.layer.borderColor = UIColor.blackColor().CGColor
+        self.contentView.layer.borderWidth = 0.5
     }
     
     required init?(coder aDecoder: NSCoder) {

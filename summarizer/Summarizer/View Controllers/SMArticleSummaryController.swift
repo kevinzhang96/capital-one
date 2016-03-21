@@ -13,13 +13,9 @@ import SwiftyJSON
 class SMArticleSummaryController: SMViewController {
     
     var article: Article! { didSet {
-        getSummary(article.url)
-        
-        if let a = findAuthor(article.text) {
-            authorLabel.text = "Author: " + a
-        } else {
-            authorLabel.text = "Author: None found"
-        }
+        titleLabel.text = "Title: " + article.title
+        authorLabel.text = "Author: " + article.author
+        summaryText.text = article.summary
     } }
     
     private var titleLabel:         UILabel         = UILabel()
@@ -31,11 +27,9 @@ class SMArticleSummaryController: SMViewController {
     override func configureViews() {
         super.configureViews()
         
-        titleLabel.text = "Title: "
         titleLabel.font = UIFont.systemFontOfSize(10)
         titleLabel.numberOfLines = 0
         
-        authorLabel.text = "Author: "
         authorLabel.font = UIFont.systemFontOfSize(10)
         authorLabel.numberOfLines = 0
         
@@ -70,12 +64,6 @@ class SMArticleSummaryController: SMViewController {
         self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("V:|-20-[tl]-10-[al]-10-[st]-10-[hl(==20)]-10-|", views: viewsDict))
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-//        getBody(article.text)
-    }
-    
     func showInSafari() {
         UIApplication.sharedApplication().openURL(NSURL(string: article.url)!)
     }
@@ -84,42 +72,4 @@ class SMArticleSummaryController: SMViewController {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func findTitle(s: String) -> String? {
-        return s.getRegexCapture("<title>(.*)</title>")
-    }
-    
-    func findAuthor(s: String) -> String? {
-        return nil
-    }
-    
-    func getBody(s: String) -> String? {
-        let oneline = s.stringByReplacingOccurrencesOfString("\n", withString: "")
-        let c = oneline.getRegexCapture("<body.*>(.*)</body>")
-        return c
-    }
-    
-    func getSummary(url: String) {
-        let requestURL = "http://clipped.me/algorithm/clippedapi.php?url=" + url
-        Alamofire.request(.GET, requestURL).response(
-            completionHandler: { [unowned self]
-                (request, response, data, error) in
-                let json = JSON(data: data!)
-                
-                print(json)
-                
-                if let t = json["title"].string {
-                    self.titleLabel.text = "Title: " + t
-                }
-                
-                if let summary = json["summary"].array {
-                    var text = ""
-                    for item in summary {
-                        text += "\u{2022} " + item.string! + "\n\n"
-                    }
-                    self.summaryText.text = text
-                }
-            }
-        )
-    }
-
 }

@@ -18,17 +18,21 @@ class SMArticleListController: SMViewController, UITableViewDelegate, UITableVie
     
     // MARK: Private properties
     private let prefs = NSUserDefaults.standardUserDefaults()
-    private var articles:       NSMutableArray          = NSMutableArray()
-    private var urls:           NSMutableArray          = NSMutableArray()
     private var navBar:         UINavigationBar         = UINavigationBar()
     private var urlField:       UITextField             = UITextField()
     private let refreshControl: UIRefreshControl        = UIRefreshControl()
+    
+    // Need to store article components separately because of NSUserDefault restrictions
+    private var texts:          NSMutableArray          = NSMutableArray()
+    private var urls:           NSMutableArray          = NSMutableArray()
+    private var titles:         NSMutableArray          = NSMutableArray()
+    private var summaries:      NSMutableArray          = NSMutableArray()
     
     // MARK: - Configure views for project
     override func configureViews() {
         super.configureViews()
         
-        articleList.backgroundColor = SMConstants.bgColor2
+        articleList.backgroundColor = SMConstants.bgColor1
         articleList.separatorStyle = .None
         
         articleList.delegate = self
@@ -54,6 +58,8 @@ class SMArticleListController: SMViewController, UITableViewDelegate, UITableVie
         navBar.shadowImage = UIImage()
         navBar.translucent = true
         navBar.items = [navItem]
+        
+        self.view.backgroundColor = SMConstants.bgColor2
         
         refreshControl.addTarget(self, action: "refresh", forControlEvents: .ValueChanged)
         articleList.addSubview(refreshControl)
@@ -115,56 +121,36 @@ class SMArticleListController: SMViewController, UITableViewDelegate, UITableVie
     }
     
     func refresh() {
-        guard let s = prefs.valueForKey("articles") as? NSArray else {
-            print("Unable to serialize saved urls as NSMutableArray object")
+        guard let s = prefs.valueForKey("texts") as? NSArray else {
+            print("Could not find existing texts")
             return
         }
         guard let u = prefs.valueForKey("urls") as? NSArray else {
-            print("Unable to serialize saved urls as NSMutableArray object")
+            print("Could not find existing urls")
+            return
+        }
+        guard let t = prefs.valueForKey("titles") as? NSArray else {
+            print("Could not find existing titles")
+            return
+        }
+        guard let m = prefs.valueForKey("summaries") as? NSArray else {
+            print("Could not find existing summaries")
             return
         }
         
-        articles = NSMutableArray(array: s)
+        texts = NSMutableArray(array: s)
         urls = NSMutableArray(array: u)
+        titles = NSMutableArray(array: t)
+        summaries = NSMutableArray(array: m)
+        
         articleList.reloadData()
+        
         refreshControl.endRefreshing()
-    }
-    
-    // MARK: - Update and clear articles
-    func clearArticles() {
-        articles = NSMutableArray()
-        urls = NSMutableArray()
-        prefs.setValue(articles, forKey: "articles")
-        prefs.setValue(urls, forKey: "urls")
-        articleList.reloadData()
-    }
-    
-    // MARK: Handle a new article request
-    func handleArticleRequest(url: String, completion: (() -> ())? = nil) {
-        Alamofire.request(.GET, url).response { [unowned self] (request, response, data, error) in
-            guard error == nil else {
-                self.showErrorAlert()
-                return
-            }
-            
-            let html = NSString(data: data!, encoding: NSASCIIStringEncoding)! as String
-            
-            dispatch_async(dispatch_get_main_queue(), { [unowned self, html] in
-                
-                self.articles.addObject(html)
-                self.urls.addObject(url)
-                
-                self.prefs.setValue(self.articles, forKey: "articles")
-                self.prefs.setValue(self.urls, forKey: "urls")
-                
-                completion?()
-            })
-        }
     }
     
     // MARK: - UITableViewDelegate, UITableViewDataSource methods
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return articles.count
+        return texts.count
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -172,13 +158,101 @@ class SMArticleListController: SMViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return SMArticleCell(text: articles[indexPath.row] as! String)
+        let cell = SMArticleCell()
+        cell.article = articleForIndex(indexPath.row)
+        return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let smvc = SMArticleSummaryController()
-        smvc.article = Article(text: articles[indexPath.row] as! String, url: urls[indexPath.row] as! String)
+        smvc.article = articleForIndex(indexPath.row)
         self.presentViewController(smvc, animated: true, completion: nil)
+    }
+    
+    // MARK: - Article manipulation methods
+    func articleForIndex(i: Int) -> Article {
+        return Article(
+            text:       texts[i]        as! String,
+            url:        urls[i]         as! String,
+            title:      titles[i]       as! String,
+            author:     "",
+            summary:    summaries[i]    as! String
+        )
+    }
+    
+    func clearArticles() {
+        texts = NSMutableArray()
+        urls = NSMutableArray()
+        titles = NSMutableArray()
+        summaries = NSMutableArray()
+        
+        saveArticleValues()
+        
+        articleList.reloadData()
+    }
+    
+    func saveArticleValues() {
+        prefs.setValue(texts, forKey: "texts")
+        prefs.setValue(urls, forKey: "urls")
+        prefs.setValue(titles, forKey: "titles")
+        prefs.setValue(summaries, forKey: "summaries")
+    }
+    
+    func handleArticleRequest(url: String, completion: (() -> ())? = nil) {
+        self.urls.addObject(url)
+        
+        var summaryDone = false
+        var htmlDone = false
+        
+        let requestURL = "http://clipped.me/algorithm/clippedapi.php?url=" + url
+        
+        let checkForCompletion: (() -> ()) = {
+            if summaryDone && htmlDone {
+                self.saveArticleValues()
+                dispatch_async(dispatch_get_main_queue(), {
+                    completion?()
+                })
+            }
+        }
+        
+        Alamofire.request(.GET, requestURL).response(
+            completionHandler: { [unowned self]
+                (request, response, data, error) in
+                let json = JSON(data: data!)
+                
+                if let t = json["title"].string {
+                    self.titles.addObject(t)
+                }
+                
+                if let summary = json["summary"].array {
+                    var text = ""
+                    for item in summary {
+                        text += "\u{2022} " + item.string! + "\n\n"
+                    }
+                    self.summaries.addObject(text)
+                }
+                
+                summaryDone = true
+                
+                checkForCompletion()
+            }
+        )
+        
+        Alamofire.request(.GET, url).response(
+            completionHandler: { [unowned self]
+                (request, response, data, error) in
+                guard error == nil else {
+                    self.showErrorAlert()
+                    return
+                }
+                
+                self.texts.addObject(NSString(data: data!, encoding: NSASCIIStringEncoding)! as String)
+                
+                htmlDone = true
+                
+                checkForCompletion()
+            }
+        )
     }
     
 }

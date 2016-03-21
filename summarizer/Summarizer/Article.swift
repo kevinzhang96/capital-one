@@ -12,4 +12,7 @@ import SwiftyJSON
 struct Article {
     var text: String = ""
     var url: String = ""
+    var title: String = ""
+    var author: String = ""
+    var summary: String = ""
 }
