@@ -10,10 +10,28 @@ import UIKit
 
 class SMArticleCell: UITableViewCell {
     
+    private var titleLabel: UILabel = UILabel()
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         self.backgroundColor = UIColor.clearColor()
+    }
+    
+    convenience init(text: String) {
+        self.init(style: .Default, reuseIdentifier: nil)
+        
+        titleLabel.text = text
+        titleLabel.font = UIFont.systemFontOfSize(10)
+        titleLabel.numberOfLines = 0
+        
+        let viewsDict = [
+            "tl": titleLabel
+        ]
+        self.contentView.prepareViewsForAutoLayout(viewsDict)
+        
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("H:|-10-[tl]-10-|", views: viewsDict))
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("V:|-5-[tl]-5-|", views: viewsDict))
     }
     
     required init?(coder aDecoder: NSCoder) {
