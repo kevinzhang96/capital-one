@@ -143,14 +143,32 @@ class SMArticleListController: SMViewController, UITableViewDelegate, UITableVie
         titles = NSMutableArray(array: t)
         summaries = NSMutableArray(array: m)
         
+        print(texts.count)
+        print(urls.count)
+        print(titles.count)
+        print(summaries.count)
+        
+        truncateExcess()
+        
         articleList.reloadData()
         
         refreshControl.endRefreshing()
     }
     
+    func truncateExcess() {
+        let currentNum = min(texts.count, urls.count, titles.count, summaries.count)
+        
+        self.texts.removeObjectsInRange(NSRange(location: currentNum, length: self.texts.count - currentNum))
+        self.urls.removeObjectsInRange(NSRange(location: currentNum, length: self.urls.count - currentNum))
+        self.titles.removeObjectsInRange(NSRange(location: currentNum, length: self.titles.count - currentNum))
+        self.summaries.removeObjectsInRange(NSRange(location: currentNum, length: self.summaries.count - currentNum))
+        
+        saveArticleValues()
+    }
+    
     // MARK: - UITableViewDelegate, UITableViewDataSource methods
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return texts.count
+        return min(texts.count, urls.count, titles.count, summaries.count)
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -203,15 +221,22 @@ class SMArticleListController: SMViewController, UITableViewDelegate, UITableVie
         
         var summaryDone = false
         var htmlDone = false
+        var checkedOnce = false
         
         let requestURL = "http://clipped.me/algorithm/clippedapi.php?url=" + url
         
-        let checkForCompletion: (() -> ()) = {
-            if summaryDone && htmlDone {
-                self.saveArticleValues()
-                dispatch_async(dispatch_get_main_queue(), {
-                    completion?()
-                })
+        let checkForCompletion: (() -> ()) = { [unowned self] in
+            if checkedOnce == true {
+                if summaryDone && htmlDone {
+                    self.saveArticleValues()
+                    dispatch_async(dispatch_get_main_queue(), {
+                        completion?()
+                    })
+                } else {
+                    self.truncateExcess()
+                }
+            } else {
+                checkedOnce = true
             }
         }
         
@@ -220,8 +245,18 @@ class SMArticleListController: SMViewController, UITableViewDelegate, UITableVie
                 (request, response, data, error) in
                 let json = JSON(data: data!)
                 
+                print(NSString(data: data!, encoding: NSASCIIStringEncoding) as! String)
+                print(json)
+                print(request)
+                print(response)
+                print(error)
+                
+                var titleDone = false
+                var summDone = false
+                
                 if let t = json["title"].string {
                     self.titles.addObject(t)
+                    titleDone = true
                 }
                 
                 if let summary = json["summary"].array {
@@ -230,9 +265,10 @@ class SMArticleListController: SMViewController, UITableViewDelegate, UITableVie
                         text += "\u{2022} " + item.string! + "\n\n"
                     }
                     self.summaries.addObject(text)
+                    summDone = true
                 }
                 
-                summaryDone = true
+                summaryDone = titleDone && summDone
                 
                 checkForCompletion()
             }
