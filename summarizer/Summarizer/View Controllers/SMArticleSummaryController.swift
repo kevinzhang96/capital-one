@@ -10,7 +10,11 @@ import UIKit
 
 class SMArticleSummaryController: SMViewController {
     
-    var text: String!
+    var text: String! {
+        didSet {
+            summaryText.text = text
+        }
+    }
     
     private var titleLabel: UILabel = UILabel()
     private var authorLabel: UILabel = UILabel()
@@ -23,7 +27,7 @@ class SMArticleSummaryController: SMViewController {
         
         authorLabel.text = "Author: "
         
-        summaryText.text = self.text
+        summaryText.editable = false
         
         let viewsDict = [
             "tl": titleLabel,

@@ -139,7 +139,9 @@ class SMArticleListController: SMViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
+        let smvc = SMArticleSummaryController()
+        smvc.text = articles[indexPath.row]
+        self.presentViewController(smvc, animated: true, completion: nil)
     }
     
     func pullArticles() {

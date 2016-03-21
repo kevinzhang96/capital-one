@@ -10,6 +10,7 @@ import UIKit
 
 class SMArticleCell: UITableViewCell {
     
+    var articleText: String! = nil
     private var titleLabel: UILabel = UILabel()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -20,6 +21,7 @@ class SMArticleCell: UITableViewCell {
     
     convenience init(text: String) {
         self.init(style: .Default, reuseIdentifier: nil)
+        articleText = text
         
         titleLabel.text = text
         titleLabel.font = UIFont.systemFontOfSize(10)
