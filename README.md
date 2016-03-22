@@ -13,6 +13,16 @@ Verified links that work include:
 
 Be careful; the NYT and Washington Post both begin blocking requests once you have made too many.  Their sites should work as well, but I am no longer able to test this.
 
+### Skills
+- Alamofire (networking requests library)
+- SwiftyJSON (JSON manipulation library)
+- NSUserDefaults (storage for small amounts of simple, persistent data)
+- iOS asset catalogs
+- MVC
+- Protocols, delegates and extensions
+- Asynchronous handlers
+- iOS threading (Grand Central Dispatch)
+
 ### Screenshots
 <img src="images/home.png" height="300" width="169">
 <img src="images/list.png" height="300" width="169">
