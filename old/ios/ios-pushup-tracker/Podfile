@@ -1,0 +1,11 @@
+# Uncomment this line to define a global platform for your project
+# platform :ios, '6.0'
+
+target 'pushups' do
+    
+pod 'Parse' #http://www.parse.com
+pod 'ParseUI' #http://www.parse.com
+pod 'MBProgressHUD', '~> 0.9.1' #https://github.com/jdg/MBProgressHUD
+
+end
+

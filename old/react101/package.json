@@ -1,0 +1,23 @@
+{
+  "name": "react101",
+  "version": "1.0.0",
+  "description": "Welcome to React 101. Please complete the pre-work before the in-person event. It's called [reversed classroom](https://en.wikipedia.org/wiki/Flipped_classroom) and it will allow us to focus on the more advanced topics during the in-person event.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/C1-SoftwareEngineeringSummit/react101.git"
+  },
+  "author": "Azat Mardan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/C1-SoftwareEngineeringSummit/react101/issues"
+  },
+  "homepage": "https://github.com/C1-SoftwareEngineeringSummit/react101#readme",
+  "devDependencies": {
+    "babel-cli": "^6.5.0",
+    "babel-preset-react": "^6.5.0"
+  }
+}
