@@ -26,6 +26,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		Parse.initializeWithConfiguration(config);
 		
+		let q = PFUser.query()
+		q?.findObjectsInBackgroundWithBlock({ (objs, error) in
+			guard error == nil else {
+				print("Parse query failed with error \(error!)")
+				return
+			}
+			
+			print(objs)
+		})
+		
 		return true
 	}
 	
