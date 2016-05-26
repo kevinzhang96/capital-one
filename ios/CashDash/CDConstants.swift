@@ -24,7 +24,7 @@ struct CDParseConstants {
 }
 
 struct CDAuthenticationConstants {
-	static var username = ""
-	static var password = ""
+	static var username: String? = nil
+	static var password: String? = nil
 	static var user: PFUser? = nil
 }

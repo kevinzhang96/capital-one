@@ -35,8 +35,22 @@ class CDParseInterface: NSObject {
 		}
 	}
 	
-	static func login(username: String, pw: String) {
+	static func login() {
+		guard CDAuthenticationConstants.username != nil else {
+			print("CDParseInterface/login: login failed, stored username is nil")
+			return
+		}
+		guard CDAuthenticationConstants.password != nil else {
+			print("CDParseInterface/login: login failed, stored password is nil")
+			return
+		}
 		
+		PFUser.logInWithUsernameInBackground(CDAuthenticationConstants.username!, password: CDAuthenticationConstants.password!) { (user, error) in
+			guard error == nil else {
+				print("CDParseInterface/login: login failed with error \(error!.localizedDescription)")
+				return
+			}
+		}
 	}
 	
 	static func logout() {
