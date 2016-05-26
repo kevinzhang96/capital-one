@@ -39,10 +39,30 @@ app.get('/', function(req, res) {
   res.status(200).send('I dream of being a website.  Please star the parse-server repo on GitHub!');
 });
 
-// There will be a test page available on the /test path of your server url
-// Remove this before launching your app
-app.get('/test', function(req, res) {
-  res.sendFile(path.join(__dirname, '/public/test.html'));
+app.get('/hello', function(req, res) {
+  res.status(200).send('Hello!');
+});
+
+app.get('/sos', function(req, res) {
+  var query = new Parse.Query(Parse.Installation);
+
+  Parse.Push.send({
+    where: query, // Set our Installation query
+    data: {
+      alert: "Broadcast to everyone"
+    }
+  }, {
+    success: function() {
+      // Push was successful
+      console.log("success");
+    },
+    error: function(error) {
+      console.log("error")
+      console.log(error);
+    }
+  });
+
+  res.success("notification sent");
 });
 
 var port = process.env.PORT || 1337;
