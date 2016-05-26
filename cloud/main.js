@@ -23,8 +23,11 @@ Parse.Cloud.define('sos', function(req, res) {
 
 // iOS push testing
 Parse.Cloud.define("iosPushTest", function(request, response) {
+  var query = new Parse.Query(Parse.Installation);
+  query.equalTo('channels', 'global');
+
   Parse.Push.send({
-    "channel": "global",
+    where: query,
     data: {
         alert: "awrogianwrogianwrgioawrng"
     }
