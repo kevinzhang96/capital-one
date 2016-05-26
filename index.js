@@ -36,8 +36,11 @@ app.use(mountPath, api);
 
 // Parse Server plays nicely with the rest of your web routes
 app.get('/', function(req, res) {
-  // res.status(200).send('I dream of being a website.  Please star the parse-server repo on GitHub!');
-  Parse.Cloud.run('hello');
+  res.status(200).send('I dream of being a website.  Please star the parse-server repo on GitHub!');
+});
+
+app.get('/test', function(req, res) {
+  res.status(200).send('test');
 });
 
 app.get('/hello', function(req, res) {

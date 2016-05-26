@@ -1,7 +1,7 @@
 Parse.Cloud.define('hello', function(req, res) {
   res.success('Hi');
 });
-
+/*
 Parse.Cloud.define('sos', function(req, res) {
   var query = new Parse.Query(Parse.Installation);
 
@@ -22,4 +22,4 @@ Parse.Cloud.define('sos', function(req, res) {
   });
 
   res.success("notification sent");
-});
+}); */
