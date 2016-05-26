@@ -49,7 +49,7 @@ app.get('/hello', function(req, res) {
 });
 
 app.get('/sos', function(req, res) {
-  Parse.Cloud.run('sos');
+  Parse.Cloud.run('iosPushTest');
   res.status(200).send("sent notifications");
 });
 
