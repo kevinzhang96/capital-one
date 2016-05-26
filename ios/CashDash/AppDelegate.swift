@@ -17,24 +17,76 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
 		
+		window = UIWindow(frame: UIScreen.mainScreen().bounds)
+		
 		let config = ParseClientConfiguration(block: {
 			(ParseMutableClientConfiguration) -> Void in
-			ParseMutableClientConfiguration.applicationId = "KeSeybm7QVaTSxFmYrQ2UEaCUJPSdyrWjeaZqHWq";
-			ParseMutableClientConfiguration.clientKey = "2j5rMI29tTCLHb01lXxqUo64pWOeLeFT4l3b5BUI";
-			ParseMutableClientConfiguration.server = "http://c1-cashdash.herokuapp.com/parse";
-		});
+			ParseMutableClientConfiguration.applicationId = "KeSeybm7QVaTSxFmYrQ2UEaCUJPSdyrWjeaZqHWq"
+			ParseMutableClientConfiguration.clientKey = "2j5rMI29tTCLHb01lXxqUo64pWOeLeFT4l3b5BUI"
+			ParseMutableClientConfiguration.server = "http://cap-cashdash.herokuapp.com/parse"
+		})
 		
-		Parse.initializeWithConfiguration(config);
+		Parse.initializeWithConfiguration(config)
 		
-		let q = PFUser.query()
-		q?.findObjectsInBackgroundWithBlock({ (objs, error) in
-			guard error == nil else {
-				print("Parse query failed with error \(error!)")
-				return
+		var loggedIn = false
+		
+		// check for existing PFUser
+		if !loggedIn {
+			if let user = PFUser.currentUser() {
+				CDAuthenticationConstants.user = user
+				loggedIn = true
+				
+				print("Found existing user \(user.username); logging in and going to home screen!")
+			} else {
+				print("Unable to find existing user; searching in stored memory for login credentials")
+			}
+		}
+		
+		// check for stored credentials in NSUserDefaults
+		if !loggedIn {
+			// find username
+			if let username = NSUserDefaults.standardUserDefaults().valueForKey("username") as? String {
+				// save username
+				CDAuthenticationConstants.username = username
+				
+				print("Username \(username) was found")
+			} else {
+				print("No username was found")
 			}
 			
-			print(objs)
-		})
+			// find password
+			if let password = NSUserDefaults.standardUserDefaults().valueForKey("password") as? String {
+				// save password
+				CDAuthenticationConstants.password = password
+				loggedIn = true
+				
+				print("Password was found")
+			} else {
+				print("No password was found")
+			}
+			
+			print("Attempting to login now")
+			
+			// TODO ======================================================================================================
+			// TODO ======================================================================================================
+			// TODO ======================================================================================================
+			// TODO ======================================================================================================
+			// TODO ======================================================================================================
+			// TODO ======================================================================================================
+		}
+		
+		window?.rootViewController = loggedIn ? CDHomeScreenController() : CDLoginViewController()
+		window?.makeKeyAndVisible()
+		
+		//		let q = PFUser.query()
+		//		q?.findObjectsInBackgroundWithBlock({ (objs, error) in
+		//			guard error == nil else {
+		//				print("Parse query failed with error \(error!)")
+		//				return
+		//			}
+		//			
+		//			print(objs)
+		//		})
 		
 		return true
 	}

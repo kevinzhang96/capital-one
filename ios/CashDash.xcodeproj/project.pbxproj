@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		346D99261CF72F8700A5E5CD /* CDLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346D99251CF72F8700A5E5CD /* CDLoginViewController.swift */; };
+		346D99281CF72FE500A5E5CD /* CDHomeScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346D99271CF72FE400A5E5CD /* CDHomeScreenController.swift */; };
 		34A3F1721CF6AD5000FFC0C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A3F1711CF6AD5000FFC0C6 /* AppDelegate.swift */; };
-		34A3F1741CF6AD5000FFC0C6 /* CDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A3F1731CF6AD5000FFC0C6 /* CDViewController.swift */; };
-		34A3F1771CF6AD5000FFC0C6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34A3F1751CF6AD5000FFC0C6 /* Main.storyboard */; };
+		34A3F1741CF6AD5000FFC0C6 /* CDBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A3F1731CF6AD5000FFC0C6 /* CDBaseViewController.swift */; };
 		34A3F1791CF6AD5000FFC0C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34A3F1781CF6AD5000FFC0C6 /* Assets.xcassets */; };
 		34A3F17C1CF6AD5000FFC0C6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34A3F17A1CF6AD5000FFC0C6 /* LaunchScreen.storyboard */; };
 		34A3F1871CF6AD5000FFC0C6 /* CashDashTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A3F1861CF6AD5000FFC0C6 /* CashDashTests.swift */; };
@@ -41,10 +42,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		346D99251CF72F8700A5E5CD /* CDLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDLoginViewController.swift; sourceTree = "<group>"; };
+		346D99271CF72FE400A5E5CD /* CDHomeScreenController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDHomeScreenController.swift; sourceTree = "<group>"; };
 		34A3F16E1CF6AD5000FFC0C6 /* CashDash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CashDash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34A3F1711CF6AD5000FFC0C6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		34A3F1731CF6AD5000FFC0C6 /* CDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDViewController.swift; sourceTree = "<group>"; };
-		34A3F1761CF6AD5000FFC0C6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		34A3F1731CF6AD5000FFC0C6 /* CDBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDBaseViewController.swift; sourceTree = "<group>"; };
 		34A3F1781CF6AD5000FFC0C6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		34A3F17B1CF6AD5000FFC0C6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		34A3F17D1CF6AD5000FFC0C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -132,7 +134,6 @@
 				34D822BE1CF6AE9A00DE8C6C /* ViewControllers */,
 				34D822BD1CF6AE9300DE8C6C /* Constants+Extensions */,
 				34A3F1711CF6AD5000FFC0C6 /* AppDelegate.swift */,
-				34A3F1751CF6AD5000FFC0C6 /* Main.storyboard */,
 				34A3F1781CF6AD5000FFC0C6 /* Assets.xcassets */,
 				34A3F17A1CF6AD5000FFC0C6 /* LaunchScreen.storyboard */,
 				34A3F17D1CF6AD5000FFC0C6 /* Info.plist */,
@@ -174,7 +175,9 @@
 		34D822BE1CF6AE9A00DE8C6C /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				34A3F1731CF6AD5000FFC0C6 /* CDViewController.swift */,
+				34A3F1731CF6AD5000FFC0C6 /* CDBaseViewController.swift */,
+				346D99251CF72F8700A5E5CD /* CDLoginViewController.swift */,
+				346D99271CF72FE400A5E5CD /* CDHomeScreenController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -331,7 +334,6 @@
 			files = (
 				34A3F17C1CF6AD5000FFC0C6 /* LaunchScreen.storyboard in Resources */,
 				34A3F1791CF6AD5000FFC0C6 /* Assets.xcassets in Resources */,
-				34A3F1771CF6AD5000FFC0C6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,10 +408,12 @@
 			files = (
 				34D822C81CF6AEF900DE8C6C /* CDLogger.swift in Sources */,
 				34D822CA1CF6AEF900DE8C6C /* UIColor+Extensions.swift in Sources */,
-				34A3F1741CF6AD5000FFC0C6 /* CDViewController.swift in Sources */,
+				34A3F1741CF6AD5000FFC0C6 /* CDBaseViewController.swift in Sources */,
+				346D99281CF72FE500A5E5CD /* CDHomeScreenController.swift in Sources */,
 				34A3F1721CF6AD5000FFC0C6 /* AppDelegate.swift in Sources */,
 				34D822C91CF6AEF900DE8C6C /* NSLayoutConstraint+Extensions.swift in Sources */,
 				34D822C71CF6AEF900DE8C6C /* CDConstants.swift in Sources */,
+				346D99261CF72F8700A5E5CD /* CDLoginViewController.swift in Sources */,
 				34D822CC1CF6AEF900DE8C6C /* UIView+Extensions.swift in Sources */,
 				34D822CB1CF6AEF900DE8C6C /* UILabel+Extensions.swift in Sources */,
 			);
@@ -447,14 +451,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		34A3F1751CF6AD5000FFC0C6 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				34A3F1761CF6AD5000FFC0C6 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		34A3F17A1CF6AD5000FFC0C6 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
