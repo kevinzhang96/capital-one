@@ -15,7 +15,6 @@ class CDLoginViewController: CDBaseViewController {
 	enum CDLoginStage {
 		case Venmo
 		case Fields
-		case Confirm
 	}
 	var currentStage: CDLoginStage = .Venmo
 	
@@ -43,65 +42,139 @@ class CDLoginViewController: CDBaseViewController {
 	// configure labels for the view
 	func configureLabels() {
 		let labels = [l_venmo, l_fname, l_lname, l_phone, l_pass1, l_pass2, l_confirm]
+		let labels_stage1 = [l_venmo]
+		let labels_stage2 = labels.filter({ return labels_stage1.contains($0) })
 		
 		let _ = labels.map({
 			// configure labels here
-			$0.font = UIFont.systemFontOfSize(12)
+			$0.font = UIFont.systemFontOfSize(24)
 			$0.textColor = UIColor.blackColor()
+			$0.textAlignment = .Center
 		})
+		
+		logo.text = "CashDash"
+		logo.textAlignment = .Center
+		logo.font = UIFont.systemFontOfSize(30)
+		
+		l_venmo.text = "Venmo username"
+		l_fname.text = "First name"
+		l_lname.text = "Last name"
+		l_phone.text = "Phone number"
+		l_pass1.text = "Password"
+		l_pass2.text = "Confirm"
 	}
 	
 	// configure fields for the view
 	func configureFields() {
 		let fields = [tf_venmo, tf_first, tf_last, tf_phone, tf_pass1, tf_pass2]
+		let fields_stage1 = [tf_venmo]
+		let fields_stage2 = fields.filter({ return fields_stage1.contains($0) })
 		
 		let _ = fields.map({
 			// configure fields here
-			$0.font = UIFont.systemFontOfSize(12)
+			$0.font = UIFont.systemFontOfSize(20)
 			$0.textColor = UIColor.blackColor()
+			$0.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
 		})
 		
 		tf_venmo.placeholder = "Venmo username"
 		tf_first.placeholder = "First name"
-		tf_last.placeholder = "Last name"
+		tf_last.placeholder  = "Last name"
 		tf_phone.placeholder = "Phone number"
 		tf_pass1.placeholder = "Password"
 		tf_pass2.placeholder = "Confirm"
 	}
 	
 	func moveToStage(stage: CDLoginStage) {
+		let labels = [l_venmo, l_fname, l_lname, l_phone, l_pass1, l_pass2, l_confirm]
+		let labels_stage1 = [l_venmo]
+		let labels_stage2 = labels.filter({ return !labels_stage1.contains($0) })
+		let fields = [tf_venmo, tf_first, tf_last, tf_phone, tf_pass1, tf_pass2]
+		let fields_stage1 = [tf_venmo]
+		let fields_stage2 = fields.filter({ return !fields_stage1.contains($0) })
+		
 		switch stage {
 		case .Venmo:
-			UIView.animateWithDuration(CDUIConstants.animationDuration, animations: {
+			UIView.animateWithDuration(CDUIConstants.animationDuration, animations: { [unowned self] in
+				let _ = labels_stage1.map({ $0.alpha = 1.0 })
+				let _ = fields_stage1.map({ $0.alpha = 1.0 })
+				let _ = labels_stage2.map({ $0.alpha = 0.0 })
+				let _ = fields_stage2.map({ $0.alpha = 0.0 })
 				
-			}, completion: { (complete) in
-					
+				self.nextButton.setTitle("Next", forState: .Normal)
+				self.nextButton.backgroundColor = UIColor.blueColor()
+			}, completion: { [unowned self] (complete) in
+				let _ = labels_stage1.map({ $0.userInteractionEnabled = true })
+				let _ = fields_stage1.map({ $0.userInteractionEnabled = true })
+				let _ = labels_stage2.map({ $0.userInteractionEnabled = false })
+				let _ = fields_stage2.map({ $0.userInteractionEnabled = false })
+				
+				self.nextButton.removeTarget(self, action: #selector(CDLoginViewController.verify), forControlEvents: .TouchUpInside)
+				self.nextButton.addTarget(self, action: #selector(CDLoginViewController.moveToConfirm), forControlEvents: .TouchUpInside)
 			})
 			
 			break
 		case .Fields:
-			
-			break
-		case .Confirm:
+			UIView.animateWithDuration(CDUIConstants.animationDuration, animations: { [unowned self] in
+				let _ = labels_stage2.map({ $0.alpha = 1.0 })
+				let _ = fields_stage2.map({ $0.alpha = 1.0 })
+				let _ = labels_stage1.map({ $0.alpha = 0.0 })
+				let _ = fields_stage1.map({ $0.alpha = 0.0 })
+				
+				self.nextButton.setTitle("Register", forState: .Normal)
+				self.nextButton.backgroundColor = UIColor.greenColor()
+			}, completion: { [unowned self] (complete) in
+				let _ = labels_stage2.map({ $0.userInteractionEnabled = true })
+				let _ = fields_stage2.map({ $0.userInteractionEnabled = true })
+				let _ = labels_stage1.map({ $0.userInteractionEnabled = false })
+				let _ = fields_stage1.map({ $0.userInteractionEnabled = false })
+				
+				self.nextButton.addTarget(self, action: #selector(CDLoginViewController.verify), forControlEvents: .TouchUpInside)
+				self.nextButton.removeTarget(self, action: #selector(CDLoginViewController.moveToConfirm), forControlEvents: .TouchUpInside)
+			})
 			
 			break
 		}
 	}
 	
+	func moveToConfirm() {
+		if tf_venmo.text != nil && tf_venmo.text! != "" {
+			moveToStage(.Fields)
+		}
+	}
+	
+	func verify() {
+		
+	}
+	
+	func dismissKeyboard() {
+		self.view.resignFirstResponder()
+	}
+	
 	// MARK: - Configure views for project
 	override func configureViews() {
 		super.configureViews()
+		
+		self.view.backgroundColor = UIColor.whiteColor()
+		
+		self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(CDLoginViewController.dismissKeyboard)))
+		
+		tf_pass1.secureTextEntry = true
+		tf_pass2.secureTextEntry = true
+		
 		configureLabels()
 		configureFields()
 		
 		let viewsDict = [
-			"lv": l_venmo,
-			"lf": l_fname,
-			"ll": l_lname,
-			"lph": l_phone,
-			"lp1": l_pass1,
-			"lp2": l_pass2,
-			"lcf": l_confirm,
+			"logo": logo,
+			
+//			"lv": l_venmo,
+//			"lf": l_fname,
+//			"ll": l_lname,
+//			"lph": l_phone,
+//			"lp1": l_pass1,
+//			"lp2": l_pass2,
+//			"lcf": l_confirm,
 			
 			"tfv":  tf_venmo,
 			"tff":  tf_first,
@@ -114,13 +187,49 @@ class CDLoginViewController: CDBaseViewController {
 		]
 		self.view.prepareViewsForAutoLayout(viewsDict)
 		
+		self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("H:|-20-[logo]-20-|", views: viewsDict))
 		
+		self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("H:|[tfv]|", views: viewsDict))
+		self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("H:|[tff]|", views: viewsDict))
+		self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("H:|[tfl]|", views: viewsDict))
+		self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("H:|[tfph]|", views: viewsDict))
+		self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("H:|[tfp1]|", views: viewsDict))
+		self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("H:|[tfp2]|", views: viewsDict))
 		
-		//		self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("H:|[al]|", views: viewsDict))
-		//		self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("V:|-60-[al]|", views: viewsDict))
-		//		
-		//		self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("H:|[nb]|", views: viewsDict))
-		//		self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("V:|[nb(==60)]", views: viewsDict))
+		self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("V:[logo(==40)]", views: viewsDict))
+		
+		self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("V:[tfv(==40)]", views: viewsDict))
+		self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("V:[tff(==40)]", views: viewsDict))
+		self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("V:[tfl(==40)]", views: viewsDict))
+		self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("V:[tfph(==40)]", views: viewsDict))
+		self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("V:[tfp1(==40)]", views: viewsDict))
+		self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("V:[tfp2(==40)]", views: viewsDict))
+		
+		self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("V:|-40-[logo]-100-[tfv]", views: viewsDict))
+		self.view.addConstraints(
+			NSLayoutConstraint.constraintsWithSimpleFormat("V:|-40-[logo]-40-[tff]-10-[tfl]-10-[tfph]-10-[tfp1]-10-[tfp2]",
+			views: viewsDict)
+		)
+		
+		self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("H:|[nb]|", views: viewsDict))
+		self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("V:[nb(==40)]|", views: viewsDict))
+	}
+	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		moveToStage(.Venmo)
+	}
+	
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+		
+		let fields = [tf_venmo, tf_first, tf_last, tf_phone, tf_pass1, tf_pass2]
+		let _ = fields.map({
+			let bottomBorder = CALayer()
+			bottomBorder.frame = CGRectMake(-10, $0.frame.size.height - 1, $0.frame.size.width, 1)
+			bottomBorder.backgroundColor = UIColor.blackColor().CGColor
+			$0.layer.addSublayer(bottomBorder)
+		})
 	}
 	
 }
