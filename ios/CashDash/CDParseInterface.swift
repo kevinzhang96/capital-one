@@ -18,7 +18,7 @@ class CDParseInterface: NSObject {
 		new_user["last_name"] = last
 		new_user["phone"] = phone
 		
-		new_user.signUpInBackgroundWithBlock { [unowned completion] (success, error) in
+		new_user.signUpInBackgroundWithBlock { (success, error) in
 			guard error == nil else {
 				print("Login in the background failed with error \(error!.localizedDescription)")
 				return
