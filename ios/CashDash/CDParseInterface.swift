@@ -27,7 +27,7 @@ class CDParseInterface: NSObject {
 			NSUserDefaults.standardUserDefaults().setValue(username, forKey: "username")
 			NSUserDefaults.standardUserDefaults().setValue(pw, forKey: "password")
 			
-			CDLog("Sucessfully signed up with username \(username), current user is now \(PFUser.currentUser()); requesting tracking now")
+			CDLog("Sucessfully signed up with username \(username), current user is now \(PFUser.currentUser()!); requesting tracking now")
 			self.login()
 			
 			CDLocationManager.sharedInstance.requestPermissions()
@@ -38,19 +38,21 @@ class CDParseInterface: NSObject {
 	
 	static func login() {
 		guard CDAuthenticationConstants.username != nil else {
-			CDLog("CDParseInterface/login: login failed, stored username is nil")
+			CDLog("Login failed, stored username is nil")
 			return
 		}
 		guard CDAuthenticationConstants.password != nil else {
-			CDLog("CDParseInterface/login: login failed, stored password is nil")
+			CDLog("Login failed, stored password is nil")
 			return
 		}
 		
 		PFUser.logInWithUsernameInBackground(CDAuthenticationConstants.username!, password: CDAuthenticationConstants.password!) { (user, error) in
 			guard error == nil else {
-				CDLog("CDParseInterface/login: login failed with error \"\(error!.localizedDescription)\"")
+				CDLog("Login failed with error \"\(error!.localizedDescription)\"")
 				return
 			}
+			
+			print("Successfully logged in")
 		}
 	}
 	

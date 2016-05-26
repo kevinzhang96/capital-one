@@ -9,14 +9,17 @@
 import UIKit
 import Parse
 
+// Login stages
+enum CDLoginStage {
+	case Venmo
+	case Fields
+}
+
 class CDLoginViewController: CDBaseViewController {
 	
+	// MARK: - Properties
 	static let sharedInstance = CDBaseViewController()
 	
-	enum CDLoginStage {
-		case Venmo
-		case Fields
-	}
 	var currentStage: CDLoginStage = .Venmo
 	
 	// buttons
@@ -40,6 +43,7 @@ class CDLoginViewController: CDBaseViewController {
 	let tf_pass1 = UITextField()
 	let tf_pass2 = UITextField()
 	
+	// MARK: - UI configuration methods
 	// configure labels for the view
 	func configureLabels() {
 		let labels = [l_venmo, l_fname, l_lname, l_phone, l_pass1, l_pass2, l_confirm]
@@ -86,107 +90,6 @@ class CDLoginViewController: CDBaseViewController {
 		tf_pass2.placeholder = "Confirm"
 	}
 	
-	func moveToStage(stage: CDLoginStage) {
-		let labels = [l_venmo, l_fname, l_lname, l_phone, l_pass1, l_pass2, l_confirm]
-		let labels_stage1 = [l_venmo]
-		let labels_stage2 = labels.filter({ return !labels_stage1.contains($0) })
-		let fields = [tf_venmo, tf_first, tf_last, tf_phone, tf_pass1, tf_pass2]
-		let fields_stage1 = [tf_venmo]
-		let fields_stage2 = fields.filter({ return !fields_stage1.contains($0) })
-		
-		switch stage {
-		case .Venmo:
-			UIView.animateWithDuration(CDUIConstants.animationDuration, animations: { [unowned self] in
-				let _ = labels_stage1.map({ $0.alpha = 1.0 })
-				let _ = fields_stage1.map({ $0.alpha = 1.0 })
-				let _ = labels_stage2.map({ $0.alpha = 0.0 })
-				let _ = fields_stage2.map({ $0.alpha = 0.0 })
-				
-				self.nextButton.setTitle("Next", forState: .Normal)
-				self.nextButton.backgroundColor = UIColor.blueColor()
-			}, completion: { [unowned self] (complete) in
-				let _ = labels_stage1.map({ $0.userInteractionEnabled = true })
-				let _ = fields_stage1.map({ $0.userInteractionEnabled = true })
-				let _ = labels_stage2.map({ $0.userInteractionEnabled = false })
-				let _ = fields_stage2.map({ $0.userInteractionEnabled = false })
-				
-				self.nextButton.removeTarget(self, action: #selector(self.verify), forControlEvents: .TouchUpInside)
-				self.nextButton.addTarget(self, action: #selector(self.moveToConfirm), forControlEvents: .TouchUpInside)
-			})
-			
-			break
-		case .Fields:
-			UIView.animateWithDuration(CDUIConstants.animationDuration, animations: { [unowned self] in
-				let _ = labels_stage2.map({ $0.alpha = 1.0 })
-				let _ = fields_stage2.map({ $0.alpha = 1.0 })
-				let _ = labels_stage1.map({ $0.alpha = 0.0 })
-				let _ = fields_stage1.map({ $0.alpha = 0.0 })
-				
-				self.nextButton.setTitle("Register", forState: .Normal)
-				self.nextButton.backgroundColor = UIColor.greenColor()
-			}, completion: { [unowned self] (complete) in
-				let _ = labels_stage2.map({ $0.userInteractionEnabled = true })
-				let _ = fields_stage2.map({ $0.userInteractionEnabled = true })
-				let _ = labels_stage1.map({ $0.userInteractionEnabled = false })
-				let _ = fields_stage1.map({ $0.userInteractionEnabled = false })
-				
-				self.nextButton.removeTarget(self, action: #selector(self.moveToConfirm), forControlEvents: .TouchUpInside)
-				self.nextButton.addTarget(self, action: #selector(self.verify), forControlEvents: .TouchUpInside)
-			})
-			
-			break
-		}
-	}
-	
-	func moveToConfirm() {
-		if tf_venmo.text != nil && tf_venmo.text! != "" {
-			moveToStage(.Fields)
-		}
-	}
-	
-	func verify() {
-		guard tf_first.text != nil && tf_first.text! != "" else {
-			CDLog("No first name")
-			return
-		}
-		guard tf_last.text != nil && tf_last.text! != "" else {
-			CDLog("No last name")
-			return
-		}
-		guard tf_pass1.text != nil && tf_pass1.text! != "" else {
-			CDLog("No password")
-			return
-		}
-		guard tf_pass2.text != nil && tf_pass2.text! != "" else {
-			CDLog("No password confirmation")
-			return
-		}
-		guard tf_phone.text != nil && tf_phone.text! != "" else {
-			CDLog("No phone number")
-			return
-		}
-		guard tf_pass1.text! == tf_pass2.text! else {
-			CDLog("Passwords don't match")
-			return
-		}
-		
-		let un = tf_venmo.text!
-		let pw = tf_pass1.text!
-		let ph = tf_phone.text!
-		let fr = tf_first.text!
-		let ls = tf_last.text!
-		
-		CDParseInterface.register(un, pw: pw, phone: Int(ph)!, first: fr, last: ls, completion: {
-			self.presentViewController(CDHomeScreenController(), animated: true, completion: nil)
-		})
-	}
-	
-	func dismissKeyboard() {
-		let fields = [tf_venmo, tf_first, tf_last, tf_phone, tf_pass1, tf_pass2]
-		let _ = fields.map({ $0.resignFirstResponder() })
-	}
-	
-	// MARK: - Configure views for project
 	override func configureViews() {
 		super.configureViews()
 		
@@ -250,6 +153,7 @@ class CDLoginViewController: CDBaseViewController {
 		self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("V:[nb(==40)]|", views: viewsDict))
 	}
 	
+	// MARK: - UIViewController methods
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 		moveToStage(.Venmo)
@@ -265,6 +169,107 @@ class CDLoginViewController: CDBaseViewController {
 			bottomBorder.backgroundColor = UIColor.blackColor().CGColor
 			$0.layer.addSublayer(bottomBorder)
 		})
+	}
+	
+	// MARK: - Control flow methods
+	func moveToStage(stage: CDLoginStage) {
+		let labels = [l_venmo, l_fname, l_lname, l_phone, l_pass1, l_pass2, l_confirm]
+		let labels_stage1 = [l_venmo]
+		let labels_stage2 = labels.filter({ return !labels_stage1.contains($0) })
+		let fields = [tf_venmo, tf_first, tf_last, tf_phone, tf_pass1, tf_pass2]
+		let fields_stage1 = [tf_venmo]
+		let fields_stage2 = fields.filter({ return !fields_stage1.contains($0) })
+		
+		switch stage {
+		case .Venmo:
+			UIView.animateWithDuration(CDUIConstants.animationDuration, animations: { [unowned self] in
+				let _ = labels_stage1.map({ $0.alpha = 1.0 })
+				let _ = fields_stage1.map({ $0.alpha = 1.0 })
+				let _ = labels_stage2.map({ $0.alpha = 0.0 })
+				let _ = fields_stage2.map({ $0.alpha = 0.0 })
+				
+				self.nextButton.setTitle("Next", forState: .Normal)
+				self.nextButton.backgroundColor = UIColor.blueColor()
+				}, completion: { [unowned self] (complete) in
+					let _ = labels_stage1.map({ $0.userInteractionEnabled = true })
+					let _ = fields_stage1.map({ $0.userInteractionEnabled = true })
+					let _ = labels_stage2.map({ $0.userInteractionEnabled = false })
+					let _ = fields_stage2.map({ $0.userInteractionEnabled = false })
+					
+					self.nextButton.removeTarget(self, action: #selector(self.verify), forControlEvents: .TouchUpInside)
+					self.nextButton.addTarget(self, action: #selector(self.moveToConfirm), forControlEvents: .TouchUpInside)
+				})
+			
+			break
+		case .Fields:
+			UIView.animateWithDuration(CDUIConstants.animationDuration, animations: { [unowned self] in
+				let _ = labels_stage2.map({ $0.alpha = 1.0 })
+				let _ = fields_stage2.map({ $0.alpha = 1.0 })
+				let _ = labels_stage1.map({ $0.alpha = 0.0 })
+				let _ = fields_stage1.map({ $0.alpha = 0.0 })
+				
+				self.nextButton.setTitle("Register", forState: .Normal)
+				self.nextButton.backgroundColor = UIColor.greenColor()
+				}, completion: { [unowned self] (complete) in
+					let _ = labels_stage2.map({ $0.userInteractionEnabled = true })
+					let _ = fields_stage2.map({ $0.userInteractionEnabled = true })
+					let _ = labels_stage1.map({ $0.userInteractionEnabled = false })
+					let _ = fields_stage1.map({ $0.userInteractionEnabled = false })
+					
+					self.nextButton.removeTarget(self, action: #selector(self.moveToConfirm), forControlEvents: .TouchUpInside)
+					self.nextButton.addTarget(self, action: #selector(self.verify), forControlEvents: .TouchUpInside)
+				})
+			
+			break
+		}
+	}
+	
+	func moveToConfirm() {
+		if tf_venmo.text != nil && tf_venmo.text! != "" {
+			moveToStage(.Fields)
+		}
+	}
+	
+	func verify() {
+		guard tf_first.text != nil && tf_first.text! != "" else {
+			CDLog("No first name")
+			return
+		}
+		guard tf_last.text != nil && tf_last.text! != "" else {
+			CDLog("No last name")
+			return
+		}
+		guard tf_pass1.text != nil && tf_pass1.text! != "" else {
+			CDLog("No password")
+			return
+		}
+		guard tf_pass2.text != nil && tf_pass2.text! != "" else {
+			CDLog("No password confirmation")
+			return
+		}
+		guard tf_phone.text != nil && tf_phone.text! != "" else {
+			CDLog("No phone number")
+			return
+		}
+		guard tf_pass1.text! == tf_pass2.text! else {
+			CDLog("Passwords don't match")
+			return
+		}
+		
+		let un = tf_venmo.text!
+		let pw = tf_pass1.text!
+		let ph = tf_phone.text!
+		let fr = tf_first.text!
+		let ls = tf_last.text!
+		
+		CDParseInterface.register(un, pw: pw, phone: Int(ph)!, first: fr, last: ls, completion: {
+			self.presentViewController(CDHomeScreenController(), animated: true, completion: nil)
+		})
+	}
+	
+	func dismissKeyboard() {
+		let fields = [tf_venmo, tf_first, tf_last, tf_phone, tf_pass1, tf_pass2]
+		let _ = fields.map({ $0.resignFirstResponder() })
 	}
 	
 }

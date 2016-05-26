@@ -209,7 +209,7 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
             self.sosBtn.frame = CGRect(x: 0, y: self.screenHeight - 120, width: self.screenWidth, height: 40)
             
             }, completion: { [unowned self] (complete) in
-                
+                CDLocationManager.sharedInstance.sendRequest(PFUser.currentUser()!)
             })
 
     }
