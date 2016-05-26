@@ -38,6 +38,17 @@ class CDLocationManager: NSObject, CLLocationManagerDelegate {
 	
 	func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 		// TODO: Upload location here to Parse
+		if let curr_user = PFUser.currentUser() {
+			curr_user["location"] = locations.first
+			curr_user.saveEventually({ [unowned curr_user, locations] (success, error) in
+				guard error == nil else {
+					print("Unable to save location \(locations.first) with error: \(error!.localizedDescription)")
+					return
+				}
+				
+				print("Successfully saved location \(locations.first) to user \(curr_user.username)")
+			})
+		}
 	}
 	
 	func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
