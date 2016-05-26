@@ -177,11 +177,14 @@ class CDLoginViewController: CDBaseViewController {
 		new_user["last_name"] = tf_last.text!
 		new_user["phone"] = Int(tf_phone.text!)
 		
-		new_user.signUpInBackgroundWithBlock { (success, error) in
+		new_user.signUpInBackgroundWithBlock { [unowned self] (success, error) in
 			guard error == nil else {
 				print("Login in the background failed with error \(error!.localizedDescription)")
 				return
 			}
+			
+			NSUserDefaults.standardUserDefaults().setValue(self.tf_venmo.text!, forKey: "username")
+			NSUserDefaults.standardUserDefaults().setValue(self.tf_pass1.text!, forKey: "password")
 		}
 	}
 	
