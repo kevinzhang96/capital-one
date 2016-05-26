@@ -14,6 +14,7 @@
 		34A3F17C1CF6AD5000FFC0C6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34A3F17A1CF6AD5000FFC0C6 /* LaunchScreen.storyboard */; };
 		34A3F1871CF6AD5000FFC0C6 /* CashDashTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A3F1861CF6AD5000FFC0C6 /* CashDashTests.swift */; };
 		34A3F1921CF6AD5000FFC0C6 /* CashDashUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A3F1911CF6AD5000FFC0C6 /* CashDashUITests.swift */; };
+		780397162A58703CD4011CD8 /* Pods_CashDash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37AA709ED61DD93E8F7FE02C /* Pods_CashDash.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,9 @@
 		34A3F18D1CF6AD5000FFC0C6 /* CashDashUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CashDashUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		34A3F1911CF6AD5000FFC0C6 /* CashDashUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashDashUITests.swift; sourceTree = "<group>"; };
 		34A3F1931CF6AD5000FFC0C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		37AA709ED61DD93E8F7FE02C /* Pods_CashDash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CashDash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		43D47C60620BC22E7D728C2A /* Pods-CashDash.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CashDash.release.xcconfig"; path = "Pods/Target Support Files/Pods-CashDash/Pods-CashDash.release.xcconfig"; sourceTree = "<group>"; };
+		5D2DC32387D8C709AEE0E5BB /* Pods-CashDash.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CashDash.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CashDash/Pods-CashDash.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				780397162A58703CD4011CD8 /* Pods_CashDash.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +86,8 @@
 				34A3F1851CF6AD5000FFC0C6 /* CashDashTests */,
 				34A3F1901CF6AD5000FFC0C6 /* CashDashUITests */,
 				34A3F16F1CF6AD5000FFC0C6 /* Products */,
+				7E0D125B924506293BC079C6 /* Pods */,
+				55E384B3F94E9F0F705C76C5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -125,6 +132,23 @@
 			path = CashDashUITests;
 			sourceTree = "<group>";
 		};
+		55E384B3F94E9F0F705C76C5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				37AA709ED61DD93E8F7FE02C /* Pods_CashDash.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7E0D125B924506293BC079C6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5D2DC32387D8C709AEE0E5BB /* Pods-CashDash.debug.xcconfig */,
+				43D47C60620BC22E7D728C2A /* Pods-CashDash.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -132,9 +156,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 34A3F1961CF6AD5000FFC0C6 /* Build configuration list for PBXNativeTarget "CashDash" */;
 			buildPhases = (
+				7DB3FBDA3FDC1B43DFC8198A /* 📦 Check Pods Manifest.lock */,
 				34A3F16A1CF6AD5000FFC0C6 /* Sources */,
 				34A3F16B1CF6AD5000FFC0C6 /* Frameworks */,
 				34A3F16C1CF6AD5000FFC0C6 /* Resources */,
+				EE70D0A36A223E2A87B37493 /* 📦 Embed Pods Frameworks */,
+				38E542E411C478E118A18BBC /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -250,6 +277,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		38E542E411C478E118A18BBC /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CashDash/Pods-CashDash-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7DB3FBDA3FDC1B43DFC8198A /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		EE70D0A36A223E2A87B37493 /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CashDash/Pods-CashDash-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		34A3F16A1CF6AD5000FFC0C6 /* Sources */ = {
@@ -397,6 +472,7 @@
 		};
 		34A3F1971CF6AD5000FFC0C6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5D2DC32387D8C709AEE0E5BB /* Pods-CashDash.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = CashDash/Info.plist;
@@ -408,6 +484,7 @@
 		};
 		34A3F1981CF6AD5000FFC0C6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 43D47C60620BC22E7D728C2A /* Pods-CashDash.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = CashDash/Info.plist;
@@ -482,6 +559,7 @@
 				34A3F1981CF6AD5000FFC0C6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		34A3F1991CF6AD5000FFC0C6 /* Build configuration list for PBXNativeTarget "CashDashTests" */ = {
 			isa = XCConfigurationList;
@@ -490,6 +568,7 @@
 				34A3F19B1CF6AD5000FFC0C6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		34A3F19C1CF6AD5000FFC0C6 /* Build configuration list for PBXNativeTarget "CashDashUITests" */ = {
 			isa = XCConfigurationList;
@@ -498,6 +577,7 @@
 				34A3F19E1CF6AD5000FFC0C6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
