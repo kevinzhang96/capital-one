@@ -8,12 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		34A3F1721CF6AD5000FFC0C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A3F1711CF6AD5000FFC0C6 /* AppDelegate.swift */; };
-		34A3F1741CF6AD5000FFC0C6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A3F1731CF6AD5000FFC0C6 /* ViewController.swift */; };
+		34A3F1741CF6AD5000FFC0C6 /* CDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A3F1731CF6AD5000FFC0C6 /* CDViewController.swift */; };
 		34A3F1771CF6AD5000FFC0C6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34A3F1751CF6AD5000FFC0C6 /* Main.storyboard */; };
 		34A3F1791CF6AD5000FFC0C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34A3F1781CF6AD5000FFC0C6 /* Assets.xcassets */; };
 		34A3F17C1CF6AD5000FFC0C6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34A3F17A1CF6AD5000FFC0C6 /* LaunchScreen.storyboard */; };
 		34A3F1871CF6AD5000FFC0C6 /* CashDashTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A3F1861CF6AD5000FFC0C6 /* CashDashTests.swift */; };
 		34A3F1921CF6AD5000FFC0C6 /* CashDashUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A3F1911CF6AD5000FFC0C6 /* CashDashUITests.swift */; };
+		34D822C71CF6AEF900DE8C6C /* CDConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D822C11CF6AEF900DE8C6C /* CDConstants.swift */; };
+		34D822C81CF6AEF900DE8C6C /* CDLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D822C21CF6AEF900DE8C6C /* CDLogger.swift */; };
+		34D822C91CF6AEF900DE8C6C /* NSLayoutConstraint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D822C31CF6AEF900DE8C6C /* NSLayoutConstraint+Extensions.swift */; };
+		34D822CA1CF6AEF900DE8C6C /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D822C41CF6AEF900DE8C6C /* UIColor+Extensions.swift */; };
+		34D822CB1CF6AEF900DE8C6C /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D822C51CF6AEF900DE8C6C /* UILabel+Extensions.swift */; };
+		34D822CC1CF6AEF900DE8C6C /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D822C61CF6AEF900DE8C6C /* UIView+Extensions.swift */; };
 		780397162A58703CD4011CD8 /* Pods_CashDash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37AA709ED61DD93E8F7FE02C /* Pods_CashDash.framework */; };
 /* End PBXBuildFile section */
 
@@ -37,7 +43,7 @@
 /* Begin PBXFileReference section */
 		34A3F16E1CF6AD5000FFC0C6 /* CashDash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CashDash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34A3F1711CF6AD5000FFC0C6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		34A3F1731CF6AD5000FFC0C6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		34A3F1731CF6AD5000FFC0C6 /* CDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDViewController.swift; sourceTree = "<group>"; };
 		34A3F1761CF6AD5000FFC0C6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		34A3F1781CF6AD5000FFC0C6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		34A3F17B1CF6AD5000FFC0C6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -48,6 +54,23 @@
 		34A3F18D1CF6AD5000FFC0C6 /* CashDashUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CashDashUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		34A3F1911CF6AD5000FFC0C6 /* CashDashUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashDashUITests.swift; sourceTree = "<group>"; };
 		34A3F1931CF6AD5000FFC0C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		34D822C11CF6AEF900DE8C6C /* CDConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDConstants.swift; sourceTree = "<group>"; };
+		34D822C21CF6AEF900DE8C6C /* CDLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDLogger.swift; sourceTree = "<group>"; };
+		34D822C31CF6AEF900DE8C6C /* NSLayoutConstraint+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+Extensions.swift"; sourceTree = "<group>"; };
+		34D822C41CF6AEF900DE8C6C /* UIColor+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
+		34D822C51CF6AEF900DE8C6C /* UILabel+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
+		34D822C61CF6AEF900DE8C6C /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		34D822CD1CF6B08D00DE8C6C /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../../Library/Developer/Xcode/DerivedData/CashDash-ewapepvbmnxurdcvseqcjnpjftzt/Build/Products/Debug-iphonesimulator/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
+		34D822CE1CF6B08D00DE8C6C /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "../../../Library/Developer/Xcode/DerivedData/CashDash-ewapepvbmnxurdcvseqcjnpjftzt/Build/Products/Debug-iphonesimulator/Bolts/Bolts.framework"; sourceTree = "<group>"; };
+		34D822CF1CF6B08D00DE8C6C /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = "../../../Library/Developer/Xcode/DerivedData/CashDash-ewapepvbmnxurdcvseqcjnpjftzt/Build/Products/Debug-iphonesimulator/Facebook-iOS-SDK/FacebookSDK.framework"; sourceTree = "<group>"; };
+		34D822D01CF6B08D00DE8C6C /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../../../Library/Developer/Xcode/DerivedData/CashDash-ewapepvbmnxurdcvseqcjnpjftzt/Build/Products/Debug-iphonesimulator/FBSDKCoreKit/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
+		34D822D11CF6B08D00DE8C6C /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../../../Library/Developer/Xcode/DerivedData/CashDash-ewapepvbmnxurdcvseqcjnpjftzt/Build/Products/Debug-iphonesimulator/FBSDKLoginKit/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
+		34D822D21CF6B08D00DE8C6C /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = "../../../Library/Developer/Xcode/DerivedData/CashDash-ewapepvbmnxurdcvseqcjnpjftzt/Build/Products/Debug-iphonesimulator/Parse/Parse.framework"; sourceTree = "<group>"; };
+		34D822D31CF6B08D00DE8C6C /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtils.framework; path = "../../../Library/Developer/Xcode/DerivedData/CashDash-ewapepvbmnxurdcvseqcjnpjftzt/Build/Products/Debug-iphonesimulator/ParseFacebookUtils/ParseFacebookUtils.framework"; sourceTree = "<group>"; };
+		34D822D41CF6B08D00DE8C6C /* ParseFacebookUtilsV4.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtilsV4.framework; path = "../../../Library/Developer/Xcode/DerivedData/CashDash-ewapepvbmnxurdcvseqcjnpjftzt/Build/Products/Debug-iphonesimulator/ParseFacebookUtilsV4/ParseFacebookUtilsV4.framework"; sourceTree = "<group>"; };
+		34D822D51CF6B08D00DE8C6C /* ParseTwitterUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseTwitterUtils.framework; path = "../../../Library/Developer/Xcode/DerivedData/CashDash-ewapepvbmnxurdcvseqcjnpjftzt/Build/Products/Debug-iphonesimulator/ParseTwitterUtils/ParseTwitterUtils.framework"; sourceTree = "<group>"; };
+		34D822D61CF6B08D00DE8C6C /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseUI.framework; path = "../../../Library/Developer/Xcode/DerivedData/CashDash-ewapepvbmnxurdcvseqcjnpjftzt/Build/Products/Debug-iphonesimulator/ParseUI/ParseUI.framework"; sourceTree = "<group>"; };
+		34D822D71CF6B08D00DE8C6C /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "../../../Library/Developer/Xcode/DerivedData/CashDash-ewapepvbmnxurdcvseqcjnpjftzt/Build/Products/Debug-iphonesimulator/SwiftyJSON/SwiftyJSON.framework"; sourceTree = "<group>"; };
 		37AA709ED61DD93E8F7FE02C /* Pods_CashDash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CashDash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		43D47C60620BC22E7D728C2A /* Pods-CashDash.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CashDash.release.xcconfig"; path = "Pods/Target Support Files/Pods-CashDash/Pods-CashDash.release.xcconfig"; sourceTree = "<group>"; };
 		5D2DC32387D8C709AEE0E5BB /* Pods-CashDash.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CashDash.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CashDash/Pods-CashDash.debug.xcconfig"; sourceTree = "<group>"; };
@@ -104,8 +127,11 @@
 		34A3F1701CF6AD5000FFC0C6 /* CashDash */ = {
 			isa = PBXGroup;
 			children = (
+				34D822C01CF6AEA300DE8C6C /* Interfaces */,
+				34D822BF1CF6AEA000DE8C6C /* Models */,
+				34D822BE1CF6AE9A00DE8C6C /* ViewControllers */,
+				34D822BD1CF6AE9300DE8C6C /* Constants+Extensions */,
 				34A3F1711CF6AD5000FFC0C6 /* AppDelegate.swift */,
-				34A3F1731CF6AD5000FFC0C6 /* ViewController.swift */,
 				34A3F1751CF6AD5000FFC0C6 /* Main.storyboard */,
 				34A3F1781CF6AD5000FFC0C6 /* Assets.xcassets */,
 				34A3F17A1CF6AD5000FFC0C6 /* LaunchScreen.storyboard */,
@@ -132,9 +158,55 @@
 			path = CashDashUITests;
 			sourceTree = "<group>";
 		};
+		34D822BD1CF6AE9300DE8C6C /* Constants+Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				34D822C11CF6AEF900DE8C6C /* CDConstants.swift */,
+				34D822C21CF6AEF900DE8C6C /* CDLogger.swift */,
+				34D822C31CF6AEF900DE8C6C /* NSLayoutConstraint+Extensions.swift */,
+				34D822C41CF6AEF900DE8C6C /* UIColor+Extensions.swift */,
+				34D822C51CF6AEF900DE8C6C /* UILabel+Extensions.swift */,
+				34D822C61CF6AEF900DE8C6C /* UIView+Extensions.swift */,
+			);
+			name = "Constants+Extensions";
+			sourceTree = "<group>";
+		};
+		34D822BE1CF6AE9A00DE8C6C /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				34A3F1731CF6AD5000FFC0C6 /* CDViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		34D822BF1CF6AEA000DE8C6C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		34D822C01CF6AEA300DE8C6C /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Interfaces;
+			sourceTree = "<group>";
+		};
 		55E384B3F94E9F0F705C76C5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				34D822CD1CF6B08D00DE8C6C /* Alamofire.framework */,
+				34D822CE1CF6B08D00DE8C6C /* Bolts.framework */,
+				34D822CF1CF6B08D00DE8C6C /* FacebookSDK.framework */,
+				34D822D01CF6B08D00DE8C6C /* FBSDKCoreKit.framework */,
+				34D822D11CF6B08D00DE8C6C /* FBSDKLoginKit.framework */,
+				34D822D21CF6B08D00DE8C6C /* Parse.framework */,
+				34D822D31CF6B08D00DE8C6C /* ParseFacebookUtils.framework */,
+				34D822D41CF6B08D00DE8C6C /* ParseFacebookUtilsV4.framework */,
+				34D822D51CF6B08D00DE8C6C /* ParseTwitterUtils.framework */,
+				34D822D61CF6B08D00DE8C6C /* ParseUI.framework */,
+				34D822D71CF6B08D00DE8C6C /* SwiftyJSON.framework */,
 				37AA709ED61DD93E8F7FE02C /* Pods_CashDash.framework */,
 			);
 			name = Frameworks;
@@ -220,6 +292,7 @@
 				TargetAttributes = {
 					34A3F16D1CF6AD5000FFC0C6 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = XF283F7SB6;
 					};
 					34A3F1811CF6AD5000FFC0C6 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -331,8 +404,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				34A3F1741CF6AD5000FFC0C6 /* ViewController.swift in Sources */,
+				34D822C81CF6AEF900DE8C6C /* CDLogger.swift in Sources */,
+				34D822CA1CF6AEF900DE8C6C /* UIColor+Extensions.swift in Sources */,
+				34A3F1741CF6AD5000FFC0C6 /* CDViewController.swift in Sources */,
 				34A3F1721CF6AD5000FFC0C6 /* AppDelegate.swift in Sources */,
+				34D822C91CF6AEF900DE8C6C /* NSLayoutConstraint+Extensions.swift in Sources */,
+				34D822C71CF6AEF900DE8C6C /* CDConstants.swift in Sources */,
+				34D822CC1CF6AEF900DE8C6C /* UIView+Extensions.swift in Sources */,
+				34D822CB1CF6AEF900DE8C6C /* UILabel+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -475,10 +554,13 @@
 			baseConfigurationReference = 5D2DC32387D8C709AEE0E5BB /* Pods-CashDash.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = CashDash/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = theanimasian.CashDash;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -487,10 +569,13 @@
 			baseConfigurationReference = 43D47C60620BC22E7D728C2A /* Pods-CashDash.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = CashDash/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = theanimasian.CashDash;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

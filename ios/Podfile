@@ -4,11 +4,9 @@
 use_frameworks!
 
 target 'CashDash' do
-	pod 'Parse', '~> 1.13.0'
+	pod 'Parse'
 	pod 'ParseUI'
 	pod 'ParseFacebookUtilsV4'
-	pod 'ParseFacebookUtils'
-	pod 'ParseTwitterUtils'
 	pod 'SwiftyJSON'
 	pod 'Alamofire'
 end
