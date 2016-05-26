@@ -3,7 +3,7 @@
 
 use_frameworks!
 
-target 'capital-project' do
+target 'CashDash' do
 	pod 'Parse', '~> 1.13.0'
 	pod 'ParseUI'
 	pod 'ParseFacebookUtilsV4'
