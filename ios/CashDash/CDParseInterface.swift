@@ -10,7 +10,7 @@ import UIKit
 import Parse
 
 class CDParseInterface: NSObject {
-	static func register(username: String, pw: String, phone: Int, first: String, last: String) {
+	static func register(username: String, pw: String, phone: Int, first: String, last: String, completion: (() -> ())? = nil) {
 		let new_user = PFUser()
 		new_user.username = username
 		new_user.password = pw
@@ -18,7 +18,7 @@ class CDParseInterface: NSObject {
 		new_user["last_name"] = last
 		new_user["phone"] = phone
 		
-		new_user.signUpInBackgroundWithBlock { (success, error) in
+		new_user.signUpInBackgroundWithBlock { [unowned completion] (success, error) in
 			guard error == nil else {
 				print("Login in the background failed with error \(error!.localizedDescription)")
 				return
@@ -30,10 +30,18 @@ class CDParseInterface: NSObject {
 			print("Sucessfully logged in with username \(username); requesting tracking now")
 			
 			CDLocationManager.sharedInstance.requestPermissions()
+			
+			completion?()
 		}
 	}
 	
 	static func login(username: String, pw: String) {
 		
+	}
+	
+	static func logout() {
+		NSUserDefaults.standardUserDefaults().setValue(nil, forKey: "username")
+		NSUserDefaults.standardUserDefaults().setValue(nil, forKey: "password")
+		PFUser.logOut()
 	}
 }

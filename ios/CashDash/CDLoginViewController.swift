@@ -176,7 +176,9 @@ class CDLoginViewController: CDBaseViewController {
 		let fr = tf_first.text!
 		let ls = tf_last.text!
 		
-		CDParseInterface.register(un, pw: pw, phone: Int(ph)!, first: fr, last: ls)
+		CDParseInterface.register(un, pw: pw, phone: Int(ph)!, first: fr, last: ls, completion: {
+			self.presentViewController(CDHomeScreenController(), animated: true, completion: nil)
+		})
 	}
 	
 	func dismissKeyboard() {
