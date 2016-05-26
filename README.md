@@ -10,3 +10,6 @@ Parse setup tutorial [here](https://devcenter.heroku.com/articles/deploying-a-pa
 	- Heroku-CLI
 	- Parse
 	- MongoDB
+
+# Parse Access
+Instructions mostly online [here](https://github.com/ParsePlatform/parse-server).  Run `npm install -g parse-server mongodb-runner` to install required binaries, then `cd` into the server directory and do `mongodb-runner start` and `parse-server --appId APP_ID --masterKey MASTER_KEY`.
