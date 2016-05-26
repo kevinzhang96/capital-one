@@ -27,7 +27,7 @@ Parse.Cloud.define("iosPushTest", function(request, response) {
   query.equalTo('channels', 'global');
 
   Parse.Push.send({
-    where: query,
+    where: { "deviceType": "ios" },
     data: {
         alert: "awrogianwrogianwrgioawrng"
     }
