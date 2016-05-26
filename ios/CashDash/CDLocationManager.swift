@@ -43,24 +43,30 @@ class CDLocationManager: NSObject, CLLocationManagerDelegate {
 			CDLog("No known location; could not send request")
 			return
 		}
-		
-		// get location and create query
-		let location = manager.location!
-		let query = PFInstallation.query()
-		guard query != nil else {
-			CDLog("Unable to create PFInstallation query for surrounding devices")
-			return
+
+		var params = {
+			
 		}
 		
-		// create a query for installations (devices) nearby
-		PFPush.sendPushMessageToQueryInBackground(query!, withMessage: "Hello world!", block: { (success, error) in
-			guard error == nil else {
-				CDLog("Unable to send push notification; error \"\(error!.localizedDescription)\"")
-				return
-			}
-			
-			CDLog("Successfully sent notification to surrounding installations")
-		})
+		
+		
+//		// get location and create query
+//		let location = manager.location!
+//		let query = PFInstallation.query()
+//		guard query != nil else {
+//			CDLog("Unable to create PFInstallation query for surrounding devices")
+//			return
+//		}
+//		
+//		// create a query for installations (devices) nearby
+//		PFPush.sendPushMessageToQueryInBackground(query!, withMessage: "Hello world!", block: { (success, error) in
+//			guard error == nil else {
+//				CDLog("Unable to send push notification; error \"\(error!.localizedDescription)\"")
+//				return
+//			}
+//			
+//			CDLog("Successfully sent notification to surrounding installations")
+//		})
 	}
 	
 	func receiveRequest(user: PFUser) {
