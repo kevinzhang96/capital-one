@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		Parse.initializeWithConfiguration(config)
 		
-		var loggedIn = false
+		var loggedIn = true
 		
 		// check for existing PFUser
 		if !loggedIn {
