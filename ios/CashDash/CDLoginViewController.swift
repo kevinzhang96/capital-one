@@ -21,19 +21,8 @@ class CDLoginViewController: CDBaseViewController {
 	static let sharedInstance = CDBaseViewController()
 	
 	var currentStage: CDLoginStage = .Venmo
-	
-	// buttons
 	let nextButton = UIButton()
-	
-	// labels
 	let logo = UILabel()
-	let l_venmo = UILabel()
-	let l_fname = UILabel()
-	let l_lname = UILabel()
-	let l_phone = UILabel()
-	let l_pass1 = UILabel()
-	let l_pass2 = UILabel()
-	let l_confirm = UILabel()
 	
 	// text fields
 	let tf_venmo = UITextField()
@@ -44,38 +33,14 @@ class CDLoginViewController: CDBaseViewController {
 	let tf_pass2 = UITextField()
 	
 	// MARK: - UI configuration methods
-	// configure labels for the view
 	func configureLabels() {
-		let labels = [l_venmo, l_fname, l_lname, l_phone, l_pass1, l_pass2, l_confirm]
-//		let labels_stage1 = [l_venmo]
-//		let labels_stage2 = labels.filter({ return labels_stage1.contains($0) })
-		
-		let _ = labels.map({
-			// configure labels here
-			$0.font = UIFont.systemFontOfSize(24)
-			$0.textColor = UIColor.blackColor()
-			$0.textAlignment = .Center
-		})
-		
 		logo.text = "CashDash"
 		logo.textAlignment = .Center
 		logo.font = UIFont.systemFontOfSize(30)
-		
-		l_venmo.text = "Venmo username"
-		l_fname.text = "First name"
-		l_lname.text = "Last name"
-		l_phone.text = "Phone number"
-		l_pass1.text = "Password"
-		l_pass2.text = "Confirm"
 	}
 	
-	// configure fields for the view
 	func configureFields() {
-		let fields = [tf_venmo, tf_first, tf_last, tf_phone, tf_pass1, tf_pass2]
-//		let fields_stage1 = [tf_venmo]
-//		let fields_stage2 = fields.filter({ return fields_stage1.contains($0) })
-		
-		let _ = fields.map({
+		let _ = [tf_venmo, tf_first, tf_last, tf_phone, tf_pass1, tf_pass2].map({
 			// configure fields here
 			$0.font = UIFont.systemFontOfSize(20)
 			$0.textColor = UIColor.blackColor()
@@ -105,14 +70,6 @@ class CDLoginViewController: CDBaseViewController {
 		
 		let viewsDict = [
 			"logo": logo,
-			
-//			"lv": l_venmo,
-//			"lf": l_fname,
-//			"ll": l_lname,
-//			"lph": l_phone,
-//			"lp1": l_pass1,
-//			"lp2": l_pass2,
-//			"lcf": l_confirm,
 			
 			"tfv":  tf_venmo,
 			"tff":  tf_first,
@@ -173,9 +130,6 @@ class CDLoginViewController: CDBaseViewController {
 	
 	// MARK: - Control flow methods
 	func moveToStage(stage: CDLoginStage) {
-		let labels = [l_venmo, l_fname, l_lname, l_phone, l_pass1, l_pass2, l_confirm]
-		let labels_stage1 = [l_venmo]
-		let labels_stage2 = labels.filter({ return !labels_stage1.contains($0) })
 		let fields = [tf_venmo, tf_first, tf_last, tf_phone, tf_pass1, tf_pass2]
 		let fields_stage1 = [tf_venmo]
 		let fields_stage2 = fields.filter({ return !fields_stage1.contains($0) })
@@ -183,17 +137,13 @@ class CDLoginViewController: CDBaseViewController {
 		switch stage {
 		case .Venmo:
 			UIView.animateWithDuration(CDUIConstants.animationDuration, animations: { [unowned self] in
-				let _ = labels_stage1.map({ $0.alpha = 1.0 })
 				let _ = fields_stage1.map({ $0.alpha = 1.0 })
-				let _ = labels_stage2.map({ $0.alpha = 0.0 })
 				let _ = fields_stage2.map({ $0.alpha = 0.0 })
 				
 				self.nextButton.setTitle("Next", forState: .Normal)
 				self.nextButton.backgroundColor = UIColor.blueColor()
 				}, completion: { [unowned self] (complete) in
-					let _ = labels_stage1.map({ $0.userInteractionEnabled = true })
 					let _ = fields_stage1.map({ $0.userInteractionEnabled = true })
-					let _ = labels_stage2.map({ $0.userInteractionEnabled = false })
 					let _ = fields_stage2.map({ $0.userInteractionEnabled = false })
 					
 					self.nextButton.removeTarget(self, action: #selector(self.verify), forControlEvents: .TouchUpInside)
@@ -203,17 +153,13 @@ class CDLoginViewController: CDBaseViewController {
 			break
 		case .Fields:
 			UIView.animateWithDuration(CDUIConstants.animationDuration, animations: { [unowned self] in
-				let _ = labels_stage2.map({ $0.alpha = 1.0 })
 				let _ = fields_stage2.map({ $0.alpha = 1.0 })
-				let _ = labels_stage1.map({ $0.alpha = 0.0 })
 				let _ = fields_stage1.map({ $0.alpha = 0.0 })
 				
 				self.nextButton.setTitle("Register", forState: .Normal)
 				self.nextButton.backgroundColor = UIColor.greenColor()
 				}, completion: { [unowned self] (complete) in
-					let _ = labels_stage2.map({ $0.userInteractionEnabled = true })
 					let _ = fields_stage2.map({ $0.userInteractionEnabled = true })
-					let _ = labels_stage1.map({ $0.userInteractionEnabled = false })
 					let _ = fields_stage1.map({ $0.userInteractionEnabled = false })
 					
 					self.nextButton.removeTarget(self, action: #selector(self.moveToConfirm), forControlEvents: .TouchUpInside)
