@@ -19,8 +19,8 @@ if (process.env.GCM_SENDER_ID && process.env.GCM_API_KEY) {
 if (process.env.APNS_ENABLE) {
     pushConfig['ios'] = [
         {
-            pfx: 'ParsePushDevelopmentCertificate.p12', // P12 file only
-            bundleId: 'beta.codepath.parsetesting',  // change to match bundleId
+            pfx: 'certificate.p12', // P12 file only
+            bundleId: 'theanimasian.CashDash',  // change to match bundleId
             production: false // dev certificate
         }
     ]
@@ -60,6 +60,10 @@ app.use(mountPath, api);
 // Parse Server plays nicely with the rest of your web routes
 app.get('/', function(req, res) {
   res.status(200).send('I dream of being a web site.');
+});
+
+app.get('/test', function(req, res) {
+  res.status(200).send('test');
 });
 
 app.get('/push', function(req, res) {
