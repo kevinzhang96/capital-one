@@ -84,7 +84,7 @@ class CDLocationManager: NSObject, CLLocationManagerDelegate {
 				return
 			}
 			
-			CDLog("Successfully saved location \(locations.first!.coordinate) to user \(curr_user.username!)")
+			CDLog("Successfully saved location <\(locations.first!.coordinate.latitude), \(locations.first!.coordinate.longitude)> to user \(curr_user.username!)")
 		})
 	}
 	
