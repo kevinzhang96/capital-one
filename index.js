@@ -45,10 +45,12 @@ app.get('/test', function(req, res) {
 
 app.get('/hello', function(req, res) {
   Parse.Cloud.run('hello');
+  res.status(200).send('hello');
 });
 
 app.get('/sos', function(req, res) {
   Parse.Cloud.run('sos');
+  res.status(200).send("sent notifications");
 });
 
 var port = process.env.PORT || 1337;
