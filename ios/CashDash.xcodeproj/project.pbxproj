@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		344EFA271CF74E93008D5248 /* CDLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344EFA261CF74E93008D5248 /* CDLocationManager.swift */; };
+		344EFA291CF75FC6008D5248 /* CDParseInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344EFA281CF75FC6008D5248 /* CDParseInterface.swift */; };
 		346D99261CF72F8700A5E5CD /* CDLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346D99251CF72F8700A5E5CD /* CDLoginViewController.swift */; };
 		346D99281CF72FE500A5E5CD /* CDHomeScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346D99271CF72FE400A5E5CD /* CDHomeScreenController.swift */; };
 		34A3F1721CF6AD5000FFC0C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A3F1711CF6AD5000FFC0C6 /* AppDelegate.swift */; };
@@ -44,6 +45,7 @@
 
 /* Begin PBXFileReference section */
 		344EFA261CF74E93008D5248 /* CDLocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDLocationManager.swift; sourceTree = "<group>"; };
+		344EFA281CF75FC6008D5248 /* CDParseInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDParseInterface.swift; sourceTree = "<group>"; };
 		346D99251CF72F8700A5E5CD /* CDLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDLoginViewController.swift; sourceTree = "<group>"; };
 		346D99271CF72FE400A5E5CD /* CDHomeScreenController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDHomeScreenController.swift; sourceTree = "<group>"; };
 		34A3F16E1CF6AD5000FFC0C6 /* CashDash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CashDash.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -188,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				344EFA261CF74E93008D5248 /* CDLocationManager.swift */,
+				344EFA281CF75FC6008D5248 /* CDParseInterface.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -417,6 +420,7 @@
 				34D822C91CF6AEF900DE8C6C /* NSLayoutConstraint+Extensions.swift in Sources */,
 				34D822C71CF6AEF900DE8C6C /* CDConstants.swift in Sources */,
 				346D99261CF72F8700A5E5CD /* CDLoginViewController.swift in Sources */,
+				344EFA291CF75FC6008D5248 /* CDParseInterface.swift in Sources */,
 				34D822CC1CF6AEF900DE8C6C /* UIView+Extensions.swift in Sources */,
 				34D822CB1CF6AEF900DE8C6C /* UILabel+Extensions.swift in Sources */,
 				344EFA271CF74E93008D5248 /* CDLocationManager.swift in Sources */,

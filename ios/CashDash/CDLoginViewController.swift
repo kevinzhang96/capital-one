@@ -170,22 +170,13 @@ class CDLoginViewController: CDBaseViewController {
 			return
 		}
 		
-		let new_user = PFUser()
-		new_user.username = tf_venmo.text!
-		new_user.password = tf_pass1.text!
-		new_user["first_name"] = tf_first.text!
-		new_user["last_name"] = tf_last.text!
-		new_user["phone"] = Int(tf_phone.text!)
+		let un = tf_venmo.text!
+		let pw = tf_pass1.text!
+		let ph = tf_phone.text!
+		let fr = tf_first.text!
+		let ls = tf_last.text!
 		
-		new_user.signUpInBackgroundWithBlock { [unowned self] (success, error) in
-			guard error == nil else {
-				print("Login in the background failed with error \(error!.localizedDescription)")
-				return
-			}
-			
-			NSUserDefaults.standardUserDefaults().setValue(self.tf_venmo.text!, forKey: "username")
-			NSUserDefaults.standardUserDefaults().setValue(self.tf_pass1.text!, forKey: "password")
-		}
+		CDParseInterface.register(un, pw: pw, phone: Int(ph)!, first: fr, last: ls)
 	}
 	
 	func dismissKeyboard() {
@@ -260,8 +251,6 @@ class CDLoginViewController: CDBaseViewController {
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 		moveToStage(.Venmo)
-		
-		CDLocationManager.sharedInstance.requestPermissions()
 	}
 	
 	override func viewDidLayoutSubviews() {

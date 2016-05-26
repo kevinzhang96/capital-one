@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import Parse
 
 class CDHomeScreenController: CDBaseViewController {
 	
 	override func configureViews() {
-		
+		PFUser.logOut()
 	}
 	
 }

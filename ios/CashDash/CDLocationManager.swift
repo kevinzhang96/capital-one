@@ -32,14 +32,14 @@ class CDLocationManager: NSObject, CLLocationManagerDelegate {
 		if CLLocationManager.authorizationStatus() == .AuthorizedAlways {
 			manager.startUpdatingLocation()
 		} else {
-			print("Unable to begin tracking; authorization status is not AuthroizedAlways, but \(CLLocationManager.authorizationStatus())")
+			print("Unable to begin tracking; authorization status is not AuthorizedAlways, but \(CLLocationManager.authorizationStatus())")
 		}
 	}
 	
 	func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 		// TODO: Upload location here to Parse
 		if let curr_user = PFUser.currentUser() {
-			curr_user["location"] = locations.first
+			curr_user["location"] = PFGeoPoint(location: locations.first)
 			curr_user.saveEventually({ [unowned curr_user, locations] (success, error) in
 				guard error == nil else {
 					print("Unable to save location \(locations.first) with error: \(error!.localizedDescription)")
