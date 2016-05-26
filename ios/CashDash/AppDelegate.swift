@@ -9,6 +9,8 @@
 import UIKit
 import Parse
 
+let NESSIE_API_KEY = "1b204cc46c793503e1e8c438ebd9c3ad"
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 	
