@@ -22,7 +22,8 @@ Parse.Cloud.define('sos', function(req, res) {
     error: function(error) {
       console.log("error")
       console.log(error);
-    }
+    },
+    useMasterKey: true
   });
 
   console.log("TEST3");
