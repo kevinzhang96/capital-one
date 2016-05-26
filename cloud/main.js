@@ -20,4 +20,6 @@ Parse.Cloud.define('sos', function(req, res) {
       console.log(error);
     }
   });
+  
+  res.success("notification sent");
 });
