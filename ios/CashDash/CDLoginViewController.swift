@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class CDLoginViewController: CDBaseViewController {
 	
@@ -144,6 +145,31 @@ class CDLoginViewController: CDBaseViewController {
 	}
 	
 	func verify() {
+		guard tf_first.text != nil && tf_first.text! != "" else {
+			print("No first name")
+			return
+		}
+		guard tf_last.text != nil && tf_last.text! != "" else {
+			print("No last name")
+			return
+		}
+		guard tf_pass1.text != nil && tf_pass1.text! != "" else {
+			print("No password")
+			return
+		}
+		guard tf_pass2.text != nil && tf_pass2.text! != "" else {
+			print("No password confirmation")
+			return
+		}
+		guard tf_phone.text != nil && tf_phone.text! != "" else {
+			print("No phone number")
+			return
+		}
+		guard tf_pass1.text! == tf_pass2.text! else {
+			print("Passwords don't match")
+			return
+		}
+		
 		
 	}
 	
