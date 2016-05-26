@@ -16,9 +16,16 @@ var api = new ParseServer({
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
   appId: process.env.APP_ID || 'KeSeybm7QVaTSxFmYrQ2UEaCUJPSdyrWjeaZqHWq',
   masterKey: process.env.MASTER_KEY || 'TTbrjiJoG1omIocMkbZnIsxJw1bLHQciyZ9UkCO2', //Add your master key here. Keep it secret!
-  serverURL: process.env.SERVER_URL || 'http://cap-cashdash.herokuapp.com',  // Don't forget to change to https if needed
+  serverURL: process.env.SERVER_URL || 'http://cap-cashdash.herokuapp.com/parse',  // Don't forget to change to https if needed
   liveQuery: {
     classNames: ["Posts", "Comments"] // List of classes to support for query subscriptions
+  },
+  push: {
+    ios: {
+      pfx: 'certificate.p12',
+      bundleId: 'theanimasian.CashDash',
+      production: false
+    }
   }
 });
 // Client-keys like the javascript key or the .NET key are not necessary with parse-server
