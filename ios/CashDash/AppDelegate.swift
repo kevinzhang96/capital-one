@@ -40,9 +40,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				CDAuthenticationConstants.user = user
 				loggedIn = true
 				
-				print("Found existing user \(user.username); logging in and going to home screen!")
+				CDLog("Found existing user \(user.username); logging in and going to home screen!")
 			} else {
-				print("Unable to find existing user; searching in stored memory for login credentials")
+				CDLog("Unable to find existing user; searching in stored memory for login credentials")
 			}
 		}
 		
@@ -53,9 +53,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				// save username
 				CDAuthenticationConstants.username = username
 				
-				print("Username \(username) was found")
+				CDLog("Username \(username) was found")
 			} else {
-				print("No username was found")
+				CDLog("No username was found")
 			}
 			
 			// find password
@@ -64,12 +64,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				CDAuthenticationConstants.password = password
 				loggedIn = true
 				
-				print("Password was found")
+				CDLog("Password was found")
 			} else {
-				print("No password was found")
+				CDLog("No password was found")
 			}
 			
-			print("Attempting to login now")
+			CDLog("Attempting to login now")
 			
 			CDParseInterface.login()
 		}

@@ -130,8 +130,8 @@ class CDLoginViewController: CDBaseViewController {
 				let _ = labels_stage1.map({ $0.userInteractionEnabled = false })
 				let _ = fields_stage1.map({ $0.userInteractionEnabled = false })
 				
-				self.nextButton.removeTarget(self, action: "moveToConfirm", forControlEvents: .TouchUpInside)
-				self.nextButton.addTarget(self, action: "verify", forControlEvents: .TouchUpInside)
+				self.nextButton.removeTarget(self, action: #selector(self.moveToConfirm), forControlEvents: .TouchUpInside)
+				self.nextButton.addTarget(self, action: #selector(self.verify), forControlEvents: .TouchUpInside)
 			})
 			
 			break
@@ -146,27 +146,27 @@ class CDLoginViewController: CDBaseViewController {
 	
 	func verify() {
 		guard tf_first.text != nil && tf_first.text! != "" else {
-			print("No first name")
+			CDLog("No first name")
 			return
 		}
 		guard tf_last.text != nil && tf_last.text! != "" else {
-			print("No last name")
+			CDLog("No last name")
 			return
 		}
 		guard tf_pass1.text != nil && tf_pass1.text! != "" else {
-			print("No password")
+			CDLog("No password")
 			return
 		}
 		guard tf_pass2.text != nil && tf_pass2.text! != "" else {
-			print("No password confirmation")
+			CDLog("No password confirmation")
 			return
 		}
 		guard tf_phone.text != nil && tf_phone.text! != "" else {
-			print("No phone number")
+			CDLog("No phone number")
 			return
 		}
 		guard tf_pass1.text! == tf_pass2.text! else {
-			print("Passwords don't match")
+			CDLog("Passwords don't match")
 			return
 		}
 		

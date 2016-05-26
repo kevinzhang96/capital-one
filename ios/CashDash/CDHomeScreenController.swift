@@ -62,7 +62,6 @@ class CDHomeScreenController: CDBaseViewController {
     }
     
     override func configureViews() {
-		CDParseInterface.logout()
         super.configureViews()
         
 		self.view.backgroundColor = UIColor.whiteColor()
