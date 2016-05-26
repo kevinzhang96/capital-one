@@ -31,17 +31,21 @@ Parse.Cloud.define('sos', function(req, res) {
 
 // iOS push testing
 Parse.Cloud.define("iosPushTest", function(request, response) {
+  Parse.Cloud.useMasterKey();  
 
   Parse.Push.send({
     channels: ["global"],
     data: {
-      alert: "awrogianwrogianwrgioawrng"
+        alert: "awrogianwrogianwrgioawrng"
     }
-  }, { success: function() {
+  }, { 
+    success: function() {
       console.log("#### PUSH OK");
-  }, error: function(error) {
+    }, error: function(error) {
       console.log("#### PUSH ERROR" + error.message);
-  }, useMasterKey: true});
+    }, 
+    useMasterKey: true
+  });
 
   response.success('success');
 });
