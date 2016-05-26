@@ -8,13 +8,15 @@
 
 import UIKit
 import CoreLocation
+import Parse
 
 class CDLocationManager: NSObject, CLLocationManagerDelegate {
 	static let sharedInstance = CDLocationManager()
 	
 	let manager = CLLocationManager()
 	
-	init() {
+	override init() {
+		super.init()
 		manager.delegate = self
 	}
 	
@@ -36,6 +38,26 @@ class CDLocationManager: NSObject, CLLocationManagerDelegate {
 	
 	func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 		// TODO: Upload location here to Parse
-		PFUser.currentUser().set
+	}
+	
+	func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+		if status == .AuthorizedAlways {
+			print("Successfully got permissions to update location; beginning tracking")
+			self.beginTracking()
+		} else {
+			print("Unsuccessful in getting permissions: current status \(status)")
+		}
+	}
+	
+	func sendRequest(user: PFUser) {
+		if let location = manager.location {
+			// TODO: send request from current location
+		} else {
+			print("No known location; could not send request")
+		}
+	}
+	
+	func receiveRequest(user: PFUser) {
+		// TODO: handle received request from user in the area
 	}
 }

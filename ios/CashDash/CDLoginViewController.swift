@@ -244,6 +244,8 @@ class CDLoginViewController: CDBaseViewController {
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 		moveToStage(.Venmo)
+		
+		CDLocationManager.sharedInstance.requestPermissions()
 	}
 	
 	override func viewDidLayoutSubviews() {
