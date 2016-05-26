@@ -43,8 +43,8 @@ class CDLoginViewController: CDBaseViewController {
 	// configure labels for the view
 	func configureLabels() {
 		let labels = [l_venmo, l_fname, l_lname, l_phone, l_pass1, l_pass2, l_confirm]
-		let labels_stage1 = [l_venmo]
-		let labels_stage2 = labels.filter({ return labels_stage1.contains($0) })
+//		let labels_stage1 = [l_venmo]
+//		let labels_stage2 = labels.filter({ return labels_stage1.contains($0) })
 		
 		let _ = labels.map({
 			// configure labels here
@@ -68,8 +68,8 @@ class CDLoginViewController: CDBaseViewController {
 	// configure fields for the view
 	func configureFields() {
 		let fields = [tf_venmo, tf_first, tf_last, tf_phone, tf_pass1, tf_pass2]
-		let fields_stage1 = [tf_venmo]
-		let fields_stage2 = fields.filter({ return fields_stage1.contains($0) })
+//		let fields_stage1 = [tf_venmo]
+//		let fields_stage2 = fields.filter({ return fields_stage1.contains($0) })
 		
 		let _ = fields.map({
 			// configure fields here
@@ -110,8 +110,8 @@ class CDLoginViewController: CDBaseViewController {
 				let _ = labels_stage2.map({ $0.userInteractionEnabled = false })
 				let _ = fields_stage2.map({ $0.userInteractionEnabled = false })
 				
-				self.nextButton.removeTarget(self, action: #selector(CDLoginViewController.verify), forControlEvents: .TouchUpInside)
-				self.nextButton.addTarget(self, action: #selector(CDLoginViewController.moveToConfirm), forControlEvents: .TouchUpInside)
+				self.nextButton.removeTarget(self, action: #selector(self.verify), forControlEvents: .TouchUpInside)
+				self.nextButton.addTarget(self, action: #selector(self.moveToConfirm), forControlEvents: .TouchUpInside)
 			})
 			
 			break
@@ -130,8 +130,8 @@ class CDLoginViewController: CDBaseViewController {
 				let _ = labels_stage1.map({ $0.userInteractionEnabled = false })
 				let _ = fields_stage1.map({ $0.userInteractionEnabled = false })
 				
-				self.nextButton.addTarget(self, action: #selector(CDLoginViewController.verify), forControlEvents: .TouchUpInside)
-				self.nextButton.removeTarget(self, action: #selector(CDLoginViewController.moveToConfirm), forControlEvents: .TouchUpInside)
+				self.nextButton.removeTarget(self, action: "moveToConfirm", forControlEvents: .TouchUpInside)
+				self.nextButton.addTarget(self, action: "verify", forControlEvents: .TouchUpInside)
 			})
 			
 			break
@@ -170,11 +170,24 @@ class CDLoginViewController: CDBaseViewController {
 			return
 		}
 		
+		let new_user = PFUser()
+		new_user.username = tf_venmo.text!
+		new_user.password = tf_pass1.text!
+		new_user["first_name"] = tf_first.text!
+		new_user["last_name"] = tf_last.text!
+		new_user["phone"] = Int(tf_phone.text!)
 		
+		new_user.signUpInBackgroundWithBlock { (success, error) in
+			guard error == nil else {
+				print("Login in the background failed with error \(error!.localizedDescription)")
+				return
+			}
+		}
 	}
 	
 	func dismissKeyboard() {
-		self.view.resignFirstResponder()
+		let fields = [tf_venmo, tf_first, tf_last, tf_phone, tf_pass1, tf_pass2]
+		let _ = fields.map({ $0.resignFirstResponder() })
 	}
 	
 	// MARK: - Configure views for project
@@ -183,7 +196,7 @@ class CDLoginViewController: CDBaseViewController {
 		
 		self.view.backgroundColor = UIColor.whiteColor()
 		
-		self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(CDLoginViewController.dismissKeyboard)))
+		self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard)))
 		
 		tf_pass1.secureTextEntry = true
 		tf_pass2.secureTextEntry = true

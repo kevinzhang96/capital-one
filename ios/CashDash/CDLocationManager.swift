@@ -52,6 +52,7 @@ class CDLocationManager: NSObject, CLLocationManagerDelegate {
 	func sendRequest(user: PFUser) {
 		if let location = manager.location {
 			// TODO: send request from current location
+			print(location)
 		} else {
 			print("No known location; could not send request")
 		}
