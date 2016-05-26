@@ -1,7 +1,7 @@
 # Cash Dash
-Parse setup tutorial [here](https://devcenter.heroku.com/articles/deploying-a-parse-server-to-heroku#create-an-app)!  Submodule located at [cashdash-parse](github.com/kevinzhang96/cashdash-parse).
+Parse setup tutorial [here](https://devcenter.heroku.com/articles/deploying-a-parse-server-to-heroku#create-an-app)!  Submodule located at [cashdash-parse](https://github.com/kevinzhang96/cashdash-parse).
 
-===APIs and SDKs===
+# APIs and SDKs
 - iOS
 	- Alamofire (networking)
 	- SwiftyJSON (data processing)
