@@ -9,7 +9,7 @@ Parse.Cloud.define('sos', function(req, res) {
 
   console.log("TEST2");
   Parse.Push.send({
-
+    channels: ["global"],
     where: query, // Set our Installation query
     data: {
       alert: "Broadcast to everyone"
