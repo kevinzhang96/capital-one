@@ -3,8 +3,6 @@ Parse.Cloud.define('hello', function(req, res) {
 });
 
 Parse.Cloud.define('sos', function(req, res) {
-  console.log("TEST1");
-  
   Parse.Push.send({
     channels: ["global"],
     data: {
@@ -21,18 +19,10 @@ Parse.Cloud.define('sos', function(req, res) {
     },
     useMasterKey: true
   });
-
-  console.log("TEST3");
-
-  res.success("notification sent");
-  
-  console.log("TEST4");
 });
 
 // iOS push testing
 Parse.Cloud.define("iosPushTest", function(request, response) {
-  Parse.Cloud.useMasterKey();  
-
   Parse.Push.send({
     channels: ["global"],
     data: {
@@ -43,7 +33,8 @@ Parse.Cloud.define("iosPushTest", function(request, response) {
       console.log("#### PUSH OK");
     }, error: function(error) {
       console.log("#### PUSH ERROR" + error.message);
-    } 
+    },
+    useMasterKey: true
   });
 
   response.success('success');
