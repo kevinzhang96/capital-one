@@ -36,6 +36,14 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
 	let bt_acpt = UIButton()
 	let bt_dcln = UIButton()
 	
+	// info panel
+	var panel: UIView = UIView()
+	var panel_phone: UIButton = UIButton()
+	var panel_text: UITextView = UITextView()
+	var panel_cancel: UIButton = UIButton()
+	var panel_finish: UIButton = UIButton()
+	
+	// miscellaneous UI elements
 	let map = MKMapView()
 	let logo = UILabel()
 	let cashAmt = UITextField()
@@ -124,11 +132,11 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
 		bt_reqs.backgroundColor = UIColor(r: 76, g: 173, b: 0, a: 1)
 		
 		bt_acpt.setTitle("Accept", forState: .Normal)
-		bt_acpt.backgroundColor = UIColor(r: 173, g: 76, b: 0, a: 1)
+		bt_acpt.backgroundColor = UIColor(r: 76, g: 173, b: 0, a: 1)
 		bt_acpt.frame = CGRect(x: 0, y: screenHeight, width: screenWidth/2, height: bt_height)
 		
 		bt_dcln.setTitle("Decline", forState: .Normal)
-		bt_dcln.backgroundColor = UIColor(r: 173, g: 76, b: 0, a: 1)
+		bt_dcln.backgroundColor = UIColor(r: 51, g: 102, b: 0, a: 1)
 		bt_dcln.frame = CGRect(x: screenWidth/2, y: screenHeight, width: screenWidth/2, height: bt_height)
 		
 		bt_cash.addTarget(self, action: #selector(CDHomeScreenController.moveToCash), forControlEvents: .TouchUpInside)
@@ -180,6 +188,33 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
 		self.view.addSubview(bt_acpt)
 		self.view.addSubview(bt_dcln)
 		
+		// panel configuration
+		panel.frame = CGRectMake(0, 0, screenWidth, 2.85 * bt_height)
+		panel.backgroundColor = UIColor(r: 76, g: 173, b: 0, a: 1)
+		
+		panel_text.frame = CGRectMake(0, 0, screenWidth, 1.25 * bt_height)
+		panel_text.textColor = UIColor.whiteColor()
+		panel_text.font = UIFont.systemFontOfSize(18)
+		
+		panel_phone.frame = CGRectMake(0, 1.35 * bt_height, screenWidth, bt_height * 0.6)
+		panel_phone.addTarget(self, action: #selector(CDHomeScreenController.callNumber), forControlEvents: .TouchUpInside)
+		panel_phone.titleLabel?.font = UIFont.systemFontOfSize(18)
+		
+		panel_cancel.frame = CGRectMake(0, 1.85 * bt_height, screenWidth/2, bt_height)
+		panel_cancel.setTitle("Cancel", forState: .Normal)
+		panel_cancel.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+		
+		panel_finish.frame = CGRectMake(screenWidth/2, 2 * bt_height, screenWidth/2, bt_height)
+		panel_finish.setTitle("Finish", forState: .Normal)
+		panel_finish.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+		
+		let _ = [panel_text, panel_phone, panel_cancel, panel_finish].map({
+			panel.addSubview($0)
+			$0.backgroundColor = UIColor(r: 76, g: 173, b: 0, a: 1)
+		})
+		
+		self.view.addSubview(panel)
+		
 		// -------- Nessie API GET Request --------
 		guard let location = loc.manager.location else {
 			CDLog("No location was found")
@@ -218,6 +253,10 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
 		annotation.title = data["username"]!
 		annotation.subtitle = "Needs $" + data["cash"]! + "\nPhone #: " + data["phone"]!
 		self.map.addAnnotation(annotation)
+		
+		panel_phone.setTitle(data["phone"]!, forState: .Normal)
+		panel_text.text = data["name"]! + ": " + data["username"]! + "\n" + "Transaction amount: " + data["cash"]!
+		
 		
 		setState(.Dash)
 	}
@@ -260,6 +299,11 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
 				self.cashAmt.frame = CGRect(x: 0, y: self.screenHeight - self.bt_height, width: self.screenWidth/2, height: self.bt_height)
 			}
 		})
+	}
+	
+	func callNumber(sender: UIButton) {
+		let uri = "tel://" + sender.titleLabel!.text!
+		UIApplication.sharedApplication().openURL(NSURL(string: uri)!)
 	}
 	
 	// MARK: - MKMapViewDelegate methods

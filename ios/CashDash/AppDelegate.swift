@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// check for login and show correct controller
 		let loggedIn = CDParseInterface.checkForLogin()
 		window = UIWindow(frame: UIScreen.mainScreen().bounds)
-		window?.rootViewController = loggedIn ? CDHomeScreenController() : CDLoginViewController()
+		window?.rootViewController = loggedIn ? CDHomeScreenController.sharedInstance : CDLoginViewController()
 		window?.makeKeyAndVisible()
 		
 		return true
