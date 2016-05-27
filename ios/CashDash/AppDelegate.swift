@@ -51,8 +51,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
 		// process received data
-		// CDLog(userInfo)
-		
 		guard let username = userInfo["username"] as? String else {
 			CDLog("No username was provided in the notification")
 			return
@@ -93,8 +91,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		]
 		
 		CDLog(values)
-		
-        CDHomeScreenController.sharedInstance.showSOSMap()
         CDHomeScreenController.sharedInstance.handlePush(values)
 		
 	}

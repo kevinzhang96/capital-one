@@ -85,17 +85,6 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
     }
     
     func configureLabels() {
-//		func printFonts() {
-//			let fontFamilyNames = UIFont.familyNames()
-//			for familyName in fontFamilyNames {
-//				print("------------------------------")
-//				print("Font Family Name = [\(familyName)]")
-//				let names = UIFont.fontNamesForFamilyName(familyName as! String)
-//				print("Font Names = [\(names)]")
-//			}
-//		}
-//		printFonts()
-		
         logo.text			= "CashDash"
         logo.textAlignment 	= .Center
         logo.font			= UIFont(name: "KaushanScript-Regular", size: 44)
@@ -319,6 +308,5 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
 	}
 	func keyboardWillHide(notification:NSNotification) {
 		adjustingHeight(false, notification: notification)
-		print("yes")
 	}
 }
