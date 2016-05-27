@@ -116,9 +116,9 @@
 				34A3F1701CF6AD5000FFC0C6 /* CashDash */,
 				34A3F1851CF6AD5000FFC0C6 /* CashDashTests */,
 				34A3F1901CF6AD5000FFC0C6 /* CashDashUITests */,
-				34A3F16F1CF6AD5000FFC0C6 /* Products */,
-				7E0D125B924506293BC079C6 /* Pods */,
 				55E384B3F94E9F0F705C76C5 /* Frameworks */,
+				7E0D125B924506293BC079C6 /* Pods */,
+				34A3F16F1CF6AD5000FFC0C6 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -135,15 +135,15 @@
 		34A3F1701CF6AD5000FFC0C6 /* CashDash */ = {
 			isa = PBXGroup;
 			children = (
+				34D822BD1CF6AE9300DE8C6C /* Constants+Extensions */,
 				34D822C01CF6AEA300DE8C6C /* Interfaces */,
 				34D822BF1CF6AEA000DE8C6C /* Models */,
 				34D822BE1CF6AE9A00DE8C6C /* ViewControllers */,
-				34D822BD1CF6AE9300DE8C6C /* Constants+Extensions */,
 				34A3F1711CF6AD5000FFC0C6 /* AppDelegate.swift */,
 				34A3F1781CF6AD5000FFC0C6 /* Assets.xcassets */,
-				34A3F17A1CF6AD5000FFC0C6 /* LaunchScreen.storyboard */,
 				34A3F17D1CF6AD5000FFC0C6 /* Info.plist */,
 				349AFEA81CF7F37E00ACCFEE /* KaushanScript-Regular.ttf */,
+				34A3F17A1CF6AD5000FFC0C6 /* LaunchScreen.storyboard */,
 			);
 			path = CashDash;
 			sourceTree = "<group>";
@@ -176,17 +176,17 @@
 				34D822C51CF6AEF900DE8C6C /* UILabel+Extensions.swift */,
 				34D822C61CF6AEF900DE8C6C /* UIView+Extensions.swift */,
 			);
-			name = "Constants+Extensions";
+			path = "Constants+Extensions";
 			sourceTree = "<group>";
 		};
 		34D822BE1CF6AE9A00DE8C6C /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				34A3F1731CF6AD5000FFC0C6 /* CDBaseViewController.swift */,
-				346D99251CF72F8700A5E5CD /* CDLoginViewController.swift */,
 				346D99271CF72FE400A5E5CD /* CDHomeScreenController.swift */,
+				346D99251CF72F8700A5E5CD /* CDLoginViewController.swift */,
 			);
-			name = ViewControllers;
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		34D822BF1CF6AEA000DE8C6C /* Models */ = {
@@ -194,7 +194,7 @@
 			children = (
 				344EFA261CF74E93008D5248 /* CDLocationManager.swift */,
 			);
-			name = Models;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		34D822C01CF6AEA300DE8C6C /* Interfaces */ = {
@@ -202,7 +202,7 @@
 			children = (
 				344EFA281CF75FC6008D5248 /* CDParseInterface.swift */,
 			);
-			name = Interfaces;
+			path = Interfaces;
 			sourceTree = "<group>";
 		};
 		55E384B3F94E9F0F705C76C5 /* Frameworks */ = {
@@ -469,6 +469,7 @@
 				34A3F17B1CF6AD5000FFC0C6 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
