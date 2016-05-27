@@ -1,8 +1,8 @@
 {
   "cash":"50",
   "cashordash":"dash",
-  "latitude":"38.915584",
-  "longitude":"-77.15434",
+  "latitude":"38.92554545",
+  "longitude":"-77.1548234",
   "name":"Sahaj Bhatt",
   "phone":"7327623380",
   "username":"sahaj97"

@@ -33,6 +33,10 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>KaushanScript-Regular.ttf</string>
+	</array>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Request money from people around you!</string>
 	<key>UISupportedInterfaceOrientations</key>

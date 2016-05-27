@@ -11,6 +11,7 @@
 		344EFA291CF75FC6008D5248 /* CDParseInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344EFA281CF75FC6008D5248 /* CDParseInterface.swift */; };
 		346D99261CF72F8700A5E5CD /* CDLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346D99251CF72F8700A5E5CD /* CDLoginViewController.swift */; };
 		346D99281CF72FE500A5E5CD /* CDHomeScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346D99271CF72FE400A5E5CD /* CDHomeScreenController.swift */; };
+		349AFEA91CF7F37E00ACCFEE /* KaushanScript-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 349AFEA81CF7F37E00ACCFEE /* KaushanScript-Regular.ttf */; };
 		34A3F1721CF6AD5000FFC0C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A3F1711CF6AD5000FFC0C6 /* AppDelegate.swift */; };
 		34A3F1741CF6AD5000FFC0C6 /* CDBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A3F1731CF6AD5000FFC0C6 /* CDBaseViewController.swift */; };
 		34A3F1791CF6AD5000FFC0C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34A3F1781CF6AD5000FFC0C6 /* Assets.xcassets */; };
@@ -48,6 +49,7 @@
 		344EFA281CF75FC6008D5248 /* CDParseInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDParseInterface.swift; sourceTree = "<group>"; };
 		346D99251CF72F8700A5E5CD /* CDLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDLoginViewController.swift; sourceTree = "<group>"; };
 		346D99271CF72FE400A5E5CD /* CDHomeScreenController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDHomeScreenController.swift; sourceTree = "<group>"; };
+		349AFEA81CF7F37E00ACCFEE /* KaushanScript-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "KaushanScript-Regular.ttf"; sourceTree = "<group>"; };
 		34A3F16E1CF6AD5000FFC0C6 /* CashDash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CashDash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34A3F1711CF6AD5000FFC0C6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		34A3F1731CF6AD5000FFC0C6 /* CDBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDBaseViewController.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 				34A3F1781CF6AD5000FFC0C6 /* Assets.xcassets */,
 				34A3F17A1CF6AD5000FFC0C6 /* LaunchScreen.storyboard */,
 				34A3F17D1CF6AD5000FFC0C6 /* Info.plist */,
+				349AFEA81CF7F37E00ACCFEE /* KaushanScript-Regular.ttf */,
 			);
 			path = CashDash;
 			sourceTree = "<group>";
@@ -190,7 +193,6 @@
 			isa = PBXGroup;
 			children = (
 				344EFA261CF74E93008D5248 /* CDLocationManager.swift */,
-				344EFA281CF75FC6008D5248 /* CDParseInterface.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -198,6 +200,7 @@
 		34D822C01CF6AEA300DE8C6C /* Interfaces */ = {
 			isa = PBXGroup;
 			children = (
+				344EFA281CF75FC6008D5248 /* CDParseInterface.swift */,
 			);
 			name = Interfaces;
 			sourceTree = "<group>";
@@ -340,6 +343,7 @@
 			files = (
 				34A3F17C1CF6AD5000FFC0C6 /* LaunchScreen.storyboard in Resources */,
 				34A3F1791CF6AD5000FFC0C6 /* Assets.xcassets in Resources */,
+				349AFEA91CF7F37E00ACCFEE /* KaushanScript-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -90,9 +90,21 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
     }
     
     func configureLabels() {
-        logo.text			= "Cash Dash"
+//		func printFonts() {
+//			let fontFamilyNames = UIFont.familyNames()
+//			for familyName in fontFamilyNames {
+//				print("------------------------------")
+//				print("Font Family Name = [\(familyName)]")
+//				let names = UIFont.fontNamesForFamilyName(familyName as! String)
+//				print("Font Names = [\(names)]")
+//			}
+//		}
+//		printFonts()
+		
+        logo.text			= "CashDash"
         logo.textAlignment 	= .Center
-        logo.font			= UIFont.systemFontOfSize(30)
+        logo.font			= UIFont(name: "KaushanScript-Regular", size: 44)
+		logo.textColor		= UIColor(r: 76, g: 173, b: 0, a: 1)
     }
     
     func configureFields() {
