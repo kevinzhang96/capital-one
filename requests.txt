@@ -1,19 +1,21 @@
 {
-  "username": "kevinzhang500",
-  "cash": 50,
-  "phone": 2133279833,
-  "name": "Kevin Zhang",
-  “latitude”: 38.926524,
-  “longitude”: -77.216236,
+  "username": “sahaj97”,
+  "cash": "50",
+  "phone": "7327623380",
+  "name": “Sahaj Bhatt”,
   “cashordash”: “cash”
+  “latitude”: "38.915584",
+  “longitude”: "-77.154348",
+  “cashordash”: “dash”
 }
 
 {
-  "username": “sahaj97”,
-  "cash": 50,
-  "phone": 7327623380,
-  "name": “Sahaj Bhatt”,
-  “latitude”: 38.915584,
-  “longitude”: -77.154348,
-  “cashordash”: “dash”
+  "cash":"50",
+  "cashordash":"cash",
+  "latitude":"38.926524",
+  "longitude":"-77.216236",
+  "name":"Kevin Zhang",
+  "phone":"2133279833",
+  "username":"kevinzhang500"
 }
+
