@@ -291,7 +291,7 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
 		let long = String(location.coordinate.longitude)
 		
 		// construct URL request
-		let urlString = "http://api.reimaginebanking.com/atms?key=" + NESSIE_API_KEY + "&lat=" + lat + "&lng=" + long + "&rad=0.5"
+		let urlString = "http://api.reimaginebanking.com/atms?key=" + NESSIE_API_KEY + "&lat=" + lat + "&lng=" + long + "&rad=1.0"
 		let url = NSURL(string: urlString)
 		
 		// make request to Nessie API
