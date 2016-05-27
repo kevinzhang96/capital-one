@@ -61,7 +61,6 @@ class CDLocationManager: NSObject, CLLocationManagerDelegate {
 		if status == .AuthorizedAlways {
 			CDLog("Successfully got permissions to update location; beginning tracking")
 			self.beginTracking()
-			CDHomeScreenController.sharedInstance.showATMMap()
 		} else {
 			CDLog("Unsuccessful in getting permissions: current status \(status)")
 		}

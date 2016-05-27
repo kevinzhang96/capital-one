@@ -21,37 +21,33 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
 	// MARK: - Properties
 	static let sharedInstance = CDHomeScreenController()
     static let screenSize = UIScreen.mainScreen().bounds
-	
-	var cashActAvailable: Bool = false
-	var dashActAvailable: Bool = false
-	var cashActActive: Bool = false
-	var dashActActive: Bool = false
-	var dashData: [String:String]? = nil
-	
-	let screenWidth = screenSize.width
+    let screenWidth = screenSize.width
     let screenHeight = screenSize.height
     var currentStage : CDHomeStage = .dash
     
     // location management
     let CDLocManager = CDLocationManager.sharedInstance
 
-	let uiHeight		= CGFloat(floatLiteral: 40.0)
-	
     // buttons
-    let cashBtn			= UIButton()
-    let dashBtn			= UIButton()
-    let sosBtn			= UIButton()
-    let acceptBtn		= UIButton()
-    let declineBtn		= UIButton()
-	
-	// maps
-	let atmMap = MKMapView()
-	let sosMap = MKMapView()
-	
+    let cashBtn = UIButton()
+    let dashBtn = UIButton()
+    let sosBtn = UIButton()
+    let acceptBtn = UIButton()
+    let declineBtn = UIButton()
+    let uiHeight = CGFloat(floatLiteral: 40.0)
+    
     // labels
     let logo = UILabel()
+    
+    // text fields
     let cashAmt = UITextField()
+    
+    // stacks
     let navigationStack = UIStackView()
+    
+    // maps
+    let atmMap = MKMapView()
+    let sosMap = MKMapView()
 	
 	// MARK: - UI configuration methods
     func configureButtons() {
@@ -74,13 +70,12 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
         sosBtn.backgroundColor = UIColor(r: 76, g: 173, b: 0, a: 1)
         
         acceptBtn.setTitle("Accept", forState: .Normal)
-		acceptBtn.backgroundColor = UIColor(r: 51, g: 102, b: 0, a: 1)
-		acceptBtn.backgroundColor = UIColor(r: 173, g: 76, b: 0, a: 1)
+        acceptBtn.backgroundColor = UIColor(r: 173, g: 76, b: 0, a: 1)
         acceptBtn.frame = CGRect(x: 0, y: 0, width: screenWidth/2, height: uiHeight)
         
         declineBtn.setTitle("Decline", forState: .Normal)
-        declineBtn.backgroundColor = UIColor(r: 76, g: 173, b: 0, a: 1)
-		declineBtn.frame = CGRect(x: screenWidth/2, y: 0, width: screenWidth/2, height: uiHeight)
+        declineBtn.backgroundColor = UIColor(r: 173, g: 76, b: 0, a: 1)
+        declineBtn.frame = CGRect(x: screenWidth/2, y: 0, width: screenWidth/2, height: uiHeight)
         
         cashBtn.addTarget(self, action: #selector(CDHomeScreenController.showATMMap), forControlEvents: .TouchUpInside)
         dashBtn.addTarget(self, action: #selector(CDHomeScreenController.showSOSMap), forControlEvents: .TouchUpInside)
@@ -144,12 +139,6 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
         
         self.cashAmt.frame = CGRect(x: -self.screenWidth/2, y: self.screenHeight - uiHeight, width: self.screenWidth/2, height: uiHeight)
         self.view.addSubview(cashAmt)
-		
-		self.acceptBtn.frame = CGRect(x: 0, y: self.screenHeight, width: self.screenWidth, height: uiHeight)
-		self.view.addSubview(acceptBtn)
-		
-		self.declineBtn.frame = CGRect(x: self.screenWidth/2, y: self.screenHeight, width: self.screenWidth/2, height: uiHeight)
-		self.view.addSubview(declineBtn)
     }
 	
 	// MARK: - Map navigation functions
@@ -158,27 +147,11 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
         if (currentStage != .cash) {
             cashBtn.backgroundColor = UIColor(r: 51, g: 102, b: 0, a: 1)
             dashBtn.backgroundColor = UIColor(r: 76, g: 173, b: 0, a: 1)
-			sosBtn.setTitle("SOS", forState: .Normal)
+            sosBtn.setTitle("SOS", forState: .Normal)
             sosBtn.addTarget(self, action: #selector(CDHomeScreenController.showTextFieldForSos), forControlEvents: .TouchUpInside)
-			
+            
             UIView.animateWithDuration(CDUIConstants.animationDuration, animations: { [unowned self] in
-				if !self.dashActActive && !self.cashActActive {
-					self.sosBtn.frame = CGRect(x: 0, y: self.screenHeight - self.uiHeight, width: self.screenWidth, height: self.uiHeight)
-				} else {
-					if self.cashActActive {
-						// TODO: show dasher panel
-					}
-					if self.dashActActive {
-						self.sosBtn.frame = CGRect(x: 0, y: self.screenHeight, width: self.screenWidth, height: self.uiHeight)
-					}
-					if self.cashActAvailable {
-						self.sosBtn.frame = CGRect(x: 0, y: self.screenHeight - self.uiHeight, width: self.screenWidth, height: self.uiHeight)
-						self.sosBtn.setTitle("Requesting...", forState: .Normal)
-					}
-				}
-				
-				self.acceptBtn.frame = CGRect(x: 0, y: self.screenHeight, width: self.screenWidth, height: self.uiHeight)
-				self.declineBtn.frame = CGRect(x: self.screenWidth/2, y: self.screenHeight, width: self.screenWidth/2, height: self.uiHeight)
+                self.sosBtn.frame = CGRect(x: 0, y: self.screenHeight - self.uiHeight, width: self.screenWidth, height: self.uiHeight)
 			})
 			
             // -------- Nessie API GET Request --------
@@ -223,49 +196,34 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
     func showSOSMap() {
         cashAmt.resignFirstResponder()
         if (currentStage != .dash) {
+            
             dashBtn.backgroundColor = UIColor(r: 51, g: 102, b: 0, a: 1)
             cashBtn.backgroundColor = UIColor(r: 76, g: 173, b: 0, a: 1)
-			
+            
+            
             UIView.animateWithDuration(CDUIConstants.animationDuration, animations: { [unowned self] in
                 self.sosBtn.frame = CGRect(x: self.screenWidth/2, y: self.screenHeight, width: self.screenWidth/2, height: self.uiHeight)
                 self.cashAmt.frame = CGRect(x: 0, y: self.screenHeight, width: self.screenWidth/2, height: self.uiHeight)
-				
-				if self.dashActAvailable && !self.cashActAvailable {
-					if self.dashActActive {
-						// TODO: show casher panel
-					} else {
-						self.acceptBtn.frame = CGRect(x: 0, y: self.screenHeight - self.uiHeight, width: self.screenWidth/2, height: self.uiHeight)
-						self.declineBtn.frame = CGRect(x: self.screenWidth/2, y: self.screenHeight - self.uiHeight, width: self.screenWidth/2, height: self.uiHeight)
-					}
-				} else {
-					self.acceptBtn.frame = CGRect(x: 0, y: self.screenHeight, width: self.screenWidth, height: self.uiHeight)
-					self.declineBtn.frame = CGRect(x: self.screenWidth/2, y: self.screenHeight, width: self.screenWidth/2, height: self.uiHeight)
-				}
-			}, completion: { [unowned self] (complete) in
-				self.sosBtn.frame = CGRect(x: 0, y: self.screenHeight, width: self.screenWidth, height: self.uiHeight)
-				self.cashAmt.frame = CGRect(x: -self.screenWidth/2, y: self.screenHeight - self.uiHeight, width: self.screenWidth/2, height: self.uiHeight)
-			})
-			
-			let viewRegion = MKCoordinateRegionMakeWithDistance((CDLocManager.manager.location?.coordinate)!, 2000, 2000)
-			let adjustedRegion = atmMap.regionThatFits(viewRegion)
-			atmMap.setRegion(adjustedRegion, animated: true)
-			atmMap.showsUserLocation = true
-			
+                
+                
+                
+                }, completion: { [unowned self] (complete) in
+                    self.sosBtn.frame = CGRect(x: 0, y: self.screenHeight, width: self.screenWidth, height: self.uiHeight)
+                    self.cashAmt.frame = CGRect(x: -self.screenWidth/2, y: self.screenHeight - self.uiHeight, width: self.screenWidth/2, height: self.uiHeight)
+                })
+            
+            
             currentStage = .dash
         }
     }
     
     func handlePush(data : [String:String]) {
-		self.dashActAvailable = true
-		self.dashData = data
-		self.showSOSMap()
-		
-//		let annotation = MKPointAnnotation()
-//		annotation.coordinate.latitude = Double(data["latitude"]!)!
-//		annotation.coordinate.longitude = Double(data["longitude"]!)!
-//		annotation.title = data["username"]!
-//		annotation.subtitle = "Needs $" + data["cash"]! + "\nPhone #: " + data["phone"]!
-//		self.atmMap.addAnnotation(annotation)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate.latitude = Double(data["latitude"]!)!
+        annotation.coordinate.longitude = Double(data["longitude"]!)!
+        annotation.title = data["username"]!
+        annotation.subtitle = "Needs $" + data["cash"]! + "\nPhone #: " + data["phone"]!
+        self.atmMap.addAnnotation(annotation)
     }
 	
     func acceptSosRequest() {
@@ -278,10 +236,9 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
     
     func startSosRequest() {
         cashAmt.resignFirstResponder()
-		self.cashActAvailable = true
 		
         UIView.animateWithDuration(CDUIConstants.animationDuration, animations: { [unowned self] in
-            self.sosBtn.setTitle("Requesting...", forState: .Normal)
+            self.sosBtn.setTitle("SOS", forState: .Normal)
             self.sosBtn.frame = CGRect(x: 0, y: self.screenHeight - self.uiHeight, width: self.screenWidth, height: self.uiHeight)
             self.cashAmt.frame = CGRect(x: -self.screenWidth/2, y: self.screenHeight - self.uiHeight, width: self.screenWidth/2, height: self.uiHeight)
 		}, completion: { [unowned self] (complete) in
