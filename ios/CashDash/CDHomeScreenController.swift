@@ -169,7 +169,7 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
                 (data, response, error) in
                 //Add markers for nearby ATM's
                 let json = JSON(data: data!)
-                print(json)
+                //print(json)
                 var annotations = [MKAnnotation]()
                 for (_, subJSON):(String, JSON) in json["data"] {
                     let annotation = MKPointAnnotation()
@@ -226,14 +226,17 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
     }
     
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
-        UIView.animateWithDuration(CDUIConstants.animationDuration, animations: { [unowned self] in
-            self.acceptBtn.frame = CGRect(x: 0, y: self.screenHeight - self.uiHeight, width: self.screenWidth/2, height: self.uiHeight)
-            
-            self.declineBtn.frame = CGRect(x: self.screenWidth/2, y: self.screenHeight - self.uiHeight, width: self.screenWidth/2, height: self.uiHeight)
-            
-            }, completion: { [unowned self] (complete) in
+        print("clicked")
+        if (currentStage == .dash) {
+            UIView.animateWithDuration(CDUIConstants.animationDuration, animations: { [unowned self] in
+                self.acceptBtn.frame = CGRect(x: 0, y: self.screenHeight - self.uiHeight, width: self.screenWidth/2, height: self.uiHeight)
                 
-            })
+                self.declineBtn.frame = CGRect(x: self.screenWidth/2, y: self.screenHeight - self.uiHeight, width: self.screenWidth/2, height: self.uiHeight)
+                
+                }, completion: { [unowned self] (complete) in
+                    
+                })
+        }
     }
     
     func acceptSosRequest() {
@@ -246,6 +249,17 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
     
     func startSosRequest() {
         cashAmt.resignFirstResponder()
+        UIView.animateWithDuration(CDUIConstants.animationDuration, animations: { [unowned self] in
+            
+            self.sosBtn.setTitle("SOS", forState: .Normal)
+            self.sosBtn.frame = CGRect(x: 0, y: self.screenHeight - self.uiHeight, width: self.screenWidth, height: self.uiHeight)
+            
+            self.cashAmt.frame = CGRect(x: -self.screenWidth/2, y: self.screenHeight - self.uiHeight, width: self.screenWidth/2, height: self.uiHeight)
+            
+            }, completion: { [unowned self] (complete) in
+                self.sosBtn.removeTarget(self, action: #selector(CDHomeScreenController.startSosRequest), forControlEvents: .TouchUpInside)
+                self.sosBtn.addTarget(self, action: #selector(CDHomeScreenController.showTextFieldForSos), forControlEvents: .TouchUpInside)
+            })
         
         
 
@@ -260,7 +274,8 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
             self.cashAmt.frame = CGRect(x: 0, y: self.screenHeight - self.uiHeight, width: self.screenWidth/2, height: self.uiHeight)
             
         }, completion: { [unowned self] (complete) in
-                
+            self.sosBtn.removeTarget(self, action: #selector(CDHomeScreenController.showTextFieldForSos), forControlEvents: .TouchUpInside)
+            self.sosBtn.addTarget(self, action: #selector(CDHomeScreenController.startSosRequest), forControlEvents: .TouchUpInside)
         })
     }
     
