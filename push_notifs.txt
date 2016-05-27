@@ -1,20 +1,11 @@
-{
-  "cash":"50",
-  "cashordash":"dash",
-  "latitude":"38.92554545",
-  "longitude":"-77.1548234",
-  "name":"Sahaj Bhatt",
-  "phone":"7327623380",
-  "username":"sahaj97"
-}
+towers: 38.925786, -77.217107
 
 {
   "cash":"50",
   "cashordash":"cash",
-  "latitude":"38.926524",
-  "longitude":"-77.216236",
-  "name":"Kevin Zhang",
-  "phone":"2133279833",
-  "username":"kevinzhang500"
+  "latitude":"38.913423",
+  "longitude":"-77.202107",
+  "name":"Sahaj Bhatt",
+  "phone":"7327623380",
+  "username":"sahaj97"
 }
-
