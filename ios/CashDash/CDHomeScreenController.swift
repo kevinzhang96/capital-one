@@ -52,7 +52,7 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
 			bt_cash.backgroundColor = UIColor(r: 51, g: 102, b: 0, a: 1)
 			bt_dash.backgroundColor = UIColor(r: 76, g: 173, b: 0, a: 1)
 			
-			bt_reqs.frame = CGRect(x: 0, y: screenHeight - bt_height, width: screenWidth, height: bt_height)
+//			bt_reqs.frame = CGRect(x: 0, y: screenHeight - bt_height, width: screenWidth, height: bt_height)
 			cashAmt.frame = CGRect(x: -screenWidth/2, y: screenHeight - bt_height, width: screenWidth/2, height: bt_height)
 			
 			bt_reqs.setTitle("SOS", forState: .Normal)
@@ -61,10 +61,17 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
 			
 			UIView.animateWithDuration(CDUIConstants.animationDuration, animations: { [unowned self] in
 				self.bt_reqs.frame = CGRect(x: 0, y: self.screenHeight - self.bt_height, width: self.screenWidth, height: self.bt_height)
-				})
+			})
+			
+			CDLog(bt_reqs.frame)
 			
 			// center map on current location
-			let viewRegion = MKCoordinateRegionMakeWithDistance((loc.manager.location?.coordinate)!, 2000, 2000)
+			guard let coors = loc.manager.location?.coordinate else {
+				CDLog("No coordinates exist; unable to adjust map")
+				return
+			}
+			
+			let viewRegion = MKCoordinateRegionMakeWithDistance(coors, 2000, 2000)
 			let adjustedRegion = map.regionThatFits(viewRegion)
 			map.setRegion(adjustedRegion, animated: true)
 			map.showsUserLocation = true
@@ -76,14 +83,14 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
 			bt_cash.backgroundColor = UIColor(r: 76, g: 173, b: 0, a: 1)
 			
 			UIView.animateWithDuration(CDUIConstants.animationDuration, animations: { [unowned self] in
-				self.bt_reqs.frame.origin = CGPoint(x: self.screenWidth, y: self.screenHeight)
+				self.bt_reqs.frame.origin = CGPoint(x: self.bt_reqs.frame.origin.x, y: self.screenHeight)
 				// CGRect(x: self.screenWidth, y: self.screenHeight, width: self.screenWidth/2, height: self.bt_height)
-				self.cashAmt.frame.origin = CGPoint(x: 0, y: self.screenHeight)
+				self.cashAmt.frame.origin = CGPoint(x: self.cashAmt.frame.origin.x, y: self.screenHeight)
 				// CGRect(x: 0, y: self.screenHeight, width: self.screenWidth/2, height: self.bt_height)
-				}, completion: { [unowned self] (complete) in
-					self.bt_reqs.frame = CGRect(x: 0, y: self.screenHeight, width: self.screenWidth, height: self.bt_height)
-					self.cashAmt.frame = CGRect(x: -self.screenWidth/2, y: self.screenHeight - self.bt_height, width: self.screenWidth/2, height: self.bt_height)
-				})
+			}, completion: { [unowned self] (complete) in
+				self.bt_reqs.frame = CGRect(x: 0, y: self.screenHeight, width: self.screenWidth, height: self.bt_height)
+				self.cashAmt.frame = CGRect(x: -self.screenWidth/2, y: self.screenHeight - self.bt_height, width: self.screenWidth/2, height: self.bt_height)
+			})
 			
 			break
 		}
@@ -157,14 +164,11 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
 		configureButtons()
 		self.view.backgroundColor = UIColor.whiteColor()
 		
-		self.view.addSubview(bt_reqs)
-		self.view.addSubview(cashAmt)
-		
 		let viewsDict = [
 			"logo": logo,
 			"navs": navigationStack,
 			"map": map,
-			]
+		]
 		self.view.prepareViewsForAutoLayout(viewsDict)
 		
 		self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("H:|-20-[logo]-20-|", views: viewsDict))
@@ -173,6 +177,9 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
 		
 		self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("V:|-40-[logo(==40)]-20-[navs][map]|", views: viewsDict))
 		self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("V:[navs(==40)]", views: viewsDict))
+		
+		self.view.addSubview(bt_reqs)
+		self.view.addSubview(cashAmt)
 		
 		// -------- Nessie API GET Request --------
 		guard let location = loc.manager.location else {
@@ -214,17 +221,17 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
 		self.map.addAnnotation(annotation)
 	}
 	
-	func startSosRequest() {
+	func sendCashRequest() {
 		cashAmt.resignFirstResponder()
 		
 		UIView.animateWithDuration(CDUIConstants.animationDuration, animations: { [unowned self] in
 			self.bt_reqs.setTitle("SOS", forState: .Normal)
 			self.bt_reqs.frame = CGRect(x: 0, y: self.screenHeight - self.bt_height, width: self.screenWidth, height: self.bt_height)
 			self.cashAmt.frame = CGRect(x: -self.screenWidth/2, y: self.screenHeight - self.bt_height, width: self.screenWidth/2, height: self.bt_height)
-			}, completion: { [unowned self] (complete) in
-				self.bt_reqs.removeTarget(self, action: #selector(CDHomeScreenController.startSosRequest), forControlEvents: .TouchUpInside)
-				self.bt_reqs.addTarget(self, action: #selector(CDHomeScreenController.showCashTextField), forControlEvents: .TouchUpInside)
-			})
+		}, completion: { [unowned self] (complete) in
+			self.bt_reqs.removeTarget(self, action: #selector(CDHomeScreenController.sendCashRequest), forControlEvents: .TouchUpInside)
+			self.bt_reqs.addTarget(self, action: #selector(CDHomeScreenController.showCashTextField), forControlEvents: .TouchUpInside)
+		})
 	}
 	
 	func showCashTextField() {
@@ -232,10 +239,10 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
 			self.bt_reqs.setTitle("Request SOS", forState: .Normal)
 			self.bt_reqs.frame = CGRect(x: self.screenWidth/2, y: self.screenHeight - self.bt_height, width: self.screenWidth/2, height: self.bt_height)
 			self.cashAmt.frame = CGRect(x: 0, y: self.screenHeight - self.bt_height, width: self.screenWidth/2, height: self.bt_height)
-			}, completion: { [unowned self] (complete) in
-				self.bt_reqs.removeTarget(self, action: #selector(CDHomeScreenController.showCashTextField), forControlEvents: .TouchUpInside)
-				self.bt_reqs.addTarget(self, action: #selector(CDHomeScreenController.startSosRequest), forControlEvents: .TouchUpInside)
-			})
+		}, completion: { [unowned self] (complete) in
+			self.bt_reqs.removeTarget(self, action: #selector(CDHomeScreenController.showCashTextField), forControlEvents: .TouchUpInside)
+			self.bt_reqs.addTarget(self, action: #selector(CDHomeScreenController.sendCashRequest), forControlEvents: .TouchUpInside)
+		})
 	}
 	
 	func adjustingHeight(show:Bool, notification:NSNotification) {
@@ -258,15 +265,19 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
 		CDLog("map view clicked")
 		if (currentStage == .Dash) {
 			UIView.animateWithDuration(CDUIConstants.animationDuration, animations: { [unowned self] in
-				self.bt_acpt.frame   = CGRect(x:		0,
+				self.bt_acpt.frame   = CGRect(
+					x:		0,
 					y:		self.screenHeight - self.bt_height,
 					width:	self.screenWidth/2,
-					height:	self.bt_height)
-				self.bt_dcln.frame  = CGRect(x:		self.screenWidth/2,
+					height:	self.bt_height
+				)
+				self.bt_dcln.frame  = CGRect(
+					x:		self.screenWidth/2,
 					y:		self.screenHeight - self.bt_height,
 					width:	self.screenWidth/2,
-					height:	self.bt_height)
-				})
+					height:	self.bt_height
+				)
+			})
 		}
 	}
 	

@@ -59,9 +59,7 @@ class CDParseInterface: NSObject {
 			CDLog("Sucessfully signed up with username \(username), current user is now \(PFUser.currentUser()!); requesting tracking now")
 			self.login()
 			
-			CDLocationManager.sharedInstance.requestPermissions()
-			
-			completion?()
+			CDLocationManager.sharedInstance.requestPermissions(completion)
 		}
 	}
 	

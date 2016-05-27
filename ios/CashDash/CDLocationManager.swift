@@ -14,6 +14,7 @@ class CDLocationManager: NSObject, CLLocationManagerDelegate {
 	// MARK: - Properties & Initializers
 	static let sharedInstance = CDLocationManager()
 	let manager = CLLocationManager()
+	var completion: (() -> ())? = nil
 	
 	override init() {
 		super.init()
@@ -21,7 +22,8 @@ class CDLocationManager: NSObject, CLLocationManagerDelegate {
 	}
 	
 	// MARK: - Location methods
-	func requestPermissions() {
+	func requestPermissions(completion: (() -> ())? = nil) {
+		self.completion = completion
 		if CLLocationManager.authorizationStatus() == .NotDetermined {
 			manager.requestAlwaysAuthorization()
 		} else {
@@ -55,6 +57,9 @@ class CDLocationManager: NSObject, CLLocationManagerDelegate {
 			
 			CDLog("Successfully saved location <\(locations.first!.coordinate.latitude), \(locations.first!.coordinate.longitude)> to user \(curr_user.username!)")
 		})
+		
+		completion?()
+		completion = nil
 	}
 	
 	func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
