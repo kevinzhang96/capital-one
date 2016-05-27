@@ -211,20 +211,19 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
                     self.cashAmt.frame = CGRect(x: -self.screenWidth/2, y: self.screenHeight - self.uiHeight, width: self.screenWidth/2, height: self.uiHeight)
                 })
             
-            let data = ["latitude":37.00, "longitude":80.00, "username":"JOE", "cash":5,"phone":1234567890]
-            let json = JSON(data: data)
-            let annotation = MKPointAnnotation()
-            annotation.coordinate.latitude = json["latitude"]
-            annotation.coordinate.longitude = json["longitude"]
-            annotation.title = json["username"]
-            annotation.description = "Needs $" + json["cash"] + "\nPhone #: " + json["phone"]
-            self.atmMap.addAnnotation(annotation)
             
             currentStage = .dash
         }
     }
     
-    func handlePush(
+    func handlePush(data : [String:String]) {
+        let annotation = MKPointAnnotation()
+        annotation.coordinate.latitude = Double(data["latitude"]!)!
+        annotation.coordinate.longitude = Double(data["longitude"]!)!
+        annotation.title = data["username"]!
+        annotation.subtitle = "Needs $" + data["cash"]! + "\nPhone #: " + data["phone"]!
+        self.atmMap.addAnnotation(annotation)
+    }
     
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
         UIView.animateWithDuration(CDUIConstants.animationDuration, animations: { [unowned self] in
