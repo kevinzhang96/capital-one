@@ -5,3 +5,11 @@
 *.xcbkptlist
 certificates/*
 ios/CashDash.xcworkspace/xcuserdata/kevinzhang.xcuserdatad/UserInterfaceState.xcuserstate
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
