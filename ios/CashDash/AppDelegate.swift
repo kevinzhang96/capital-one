@@ -93,8 +93,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		]
 		
 		CDLog(values)
-        
-        CDHomeScreenController.sharedInstance.showSosMap()
+		
+        CDHomeScreenController.sharedInstance.showSOSMap()
         CDHomeScreenController.sharedInstance.handlePush(values)
 		
 	}
