@@ -69,12 +69,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			CDLog("No name was provided in the notification")
 			return
 		}
+		guard let lat = userInfo["latitude"] as? String else {
+			CDLog("No latitude was provided in the notification")
+			return
+		}
+		guard let long = userInfo["longitude"] as? String else {
+			CDLog("No longitude was provided in the notification")
+			return
+		}
 		
 		let values = [
 			"username": username,
 			"cash": cash,
 			"phone": phone,
-			"name": name
+			"name": name,
+			"latitude": lat,
+			"longitude": long
 		]
 		
 		CDLog(values)
