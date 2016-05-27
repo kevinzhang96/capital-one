@@ -17,6 +17,12 @@ enum CDHomeStage {
 	case Dash
 }
 
+enum CDActiveAction {
+	case Cash
+	case Dash
+	case None
+}
+
 class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, MKMapViewDelegate {
 	// MARK: - Properties
 	static let sharedInstance = CDHomeScreenController()
@@ -26,6 +32,7 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
 	
 	let loc = CDLocationManager.sharedInstance
 	var currentStage : CDHomeStage = .Cash
+	var currentAction: CDActiveAction = .None
 	
 	// MARK: UI properties
 	// buttons
@@ -102,6 +109,20 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
 	}
 	func moveToCash() { setState(.Cash) }
 	func moveToDash() { setState(.Dash) }
+	
+	func setActiveAction(act: CDActiveAction) {
+		switch act {
+		case .Cash:
+			
+			break
+		case .Dash:
+			
+			break
+		case .None:
+			
+			break
+		}
+	}
 	
 	func acceptCashRequest() {
 		// TODO
@@ -194,6 +215,7 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
 		
 		panel_text.frame = CGRectMake(0, 0, screenWidth, 1.25 * bt_height)
 		panel_text.textColor = UIColor.whiteColor()
+		panel_text.textAlignment = .Center
 		panel_text.font = UIFont.systemFontOfSize(18)
 		
 		panel_phone.frame = CGRectMake(0, 1.35 * bt_height, screenWidth, bt_height * 0.6)
@@ -230,7 +252,11 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
 		// make request to Nessie API
 		let task = NSURLSession.sharedSession().dataTaskWithURL(url!){ [unowned self] (data, response, error) in
 			//Add markers for nearby ATM's
-			let json = JSON(data: data!)
+			guard let d = data else {
+				CDLog("Unable to retrieve data from Nessie API")
+				return
+			}
+			let json = JSON(data: d)
 			var annotations = [MKAnnotation]()
 			
 			for (_, subJSON):(String, JSON) in json["data"] {
@@ -257,8 +283,9 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
 		panel_phone.setTitle(data["phone"]!, forState: .Normal)
 		panel_text.text = data["name"]! + ": " + data["username"]! + "\n" + "Transaction amount: " + data["cash"]!
 		
-		
-		setState(.Dash)
+		if data["username"] != CDAuthenticationConstants.username {
+//			if data["cashordash"]!
+		}
 	}
 	
 	func sendCashRequest() {
