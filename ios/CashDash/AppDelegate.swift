@@ -27,6 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		})
 		Parse.initializeWithConfiguration(config)
 		
+		UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+		
 		// register for notifications
 		let settings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
 		application.registerUserNotificationSettings(settings)
