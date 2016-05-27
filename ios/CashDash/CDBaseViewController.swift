@@ -16,8 +16,6 @@ class CDBaseViewController: UIViewController {
 		self.configureViews()
 	}
 	
-	func configureViews() {
-		
-	}
+	func configureViews() {}
 	
 }

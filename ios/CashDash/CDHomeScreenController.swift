@@ -153,8 +153,14 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
             })
             
             //Nessie API GET Request
-            let lat = String(CDLocManager.manager.location!.coordinate.latitude)
-            let long = String(CDLocManager.manager.location!.coordinate.longitude)
+			guard let location = CDLocManager.manager.location else {
+				CDLog("No location was found")
+				return
+			}
+			
+            let lat = String(location.coordinate.latitude)
+            let long = String(location.coordinate.longitude)
+        
             let radius = "0.5"
             let urlString = "http://api.reimaginebanking.com/atms?key=" + NESSIE_API_KEY + "&lat=" + lat + "&lng=" + long + "&rad=" + radius
             
@@ -251,7 +257,7 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
             
             self.cashAmt.frame = CGRect(x: 0, y: self.screenHeight - self.uiHeight, width: self.screenWidth/2, height: self.uiHeight)
             
-            }, completion: { [unowned self] (complete) in
+        }, completion: { [unowned self] (complete) in
                 
         })
     }

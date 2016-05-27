@@ -11,8 +11,8 @@ import CoreLocation
 import Parse
 
 class CDLocationManager: NSObject, CLLocationManagerDelegate {
+	// MARK: - Properties & Initializers
 	static let sharedInstance = CDLocationManager()
-	
 	let manager = CLLocationManager()
 	
 	override init() {
@@ -20,6 +20,7 @@ class CDLocationManager: NSObject, CLLocationManagerDelegate {
 		manager.delegate = self
 	}
 	
+	// MARK: - Location methods
 	func requestPermissions() {
 		if CLLocationManager.authorizationStatus() == .NotDetermined {
 			manager.requestAlwaysAuthorization()
@@ -36,20 +37,24 @@ class CDLocationManager: NSObject, CLLocationManagerDelegate {
 		}
 	}
 	
+	// MARK: - CLLocationManagerDelegate methods
 	func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-		// TODO: Upload location here to Parse
-		CDLog("Got location update: \(locations.first), current user: \(PFUser.currentUser())")
-		if let curr_user = PFUser.currentUser() {
-			curr_user["location"] = PFGeoPoint(location: locations.first)
-			curr_user.saveEventually({ [unowned curr_user, locations] (success, error) in
-				guard error == nil else {
-					CDLog("Unable to save location \(locations.first) with error: \(error!.localizedDescription)")
-					return
-				}
-				
-				CDLog("Successfully saved location \(locations.first) to user \(curr_user.username)")
-			})
+		//		CDLog("Got location update: \(locations.first), current user: \(PFUser.currentUser())")
+		guard PFUser.currentUser() != nil else {
+			return
 		}
+		
+		// get current user and update
+		let curr_user = PFUser.currentUser()!
+		curr_user["location"] = PFGeoPoint(location: locations.first)
+		curr_user.saveEventually({ [unowned curr_user, locations] (success, error) in
+			guard error == nil else {
+				CDLog("Unable to save location \(locations.first!) with error: \(error!.localizedDescription)")
+				return
+			}
+			
+			CDLog("Successfully saved location <\(locations.first!.coordinate.latitude), \(locations.first!.coordinate.longitude)> to user \(curr_user.username!)")
+		})
 	}
 	
 	func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
@@ -61,16 +66,38 @@ class CDLocationManager: NSObject, CLLocationManagerDelegate {
 		}
 	}
 	
+	// MARK: - Push notification methods
 	func sendRequest(user: PFUser) {
-		if let location = manager.location {
-			// TODO: send request from current location
-			CDLog(location)
-		} else {
-			CDLog("No known location; could not send request")
-		}
+//		guard manager.location != nil else {
+//			CDLog("No known location; could not send request")
+//			return
+//		}
+//
+//		let params = {
+//			
+//		}
+//		
+//		// get location and create query
+//		let location = manager.location!
+//		let query = PFInstallation.query()
+//		guard query != nil else {
+//			CDLog("Unable to create PFInstallation query for surrounding devices")
+//			return
+//		}
+//		
+//		// create a query for installations (devices) nearby
+//		PFPush.sendPushMessageToQueryInBackground(query!, withMessage: "Hello world!", block: { (success, error) in
+//			guard error == nil else {
+//				CDLog("Unable to send push notification; error \"\(error!.localizedDescription)\"")
+//				return
+//			}
+//			
+//			CDLog("Successfully sent notification to surrounding installations")
+//		})
 	}
 	
 	func receiveRequest(user: PFUser) {
 		// TODO: handle received request from user in the area
 	}
+	
 }

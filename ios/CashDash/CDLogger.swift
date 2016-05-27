@@ -6,7 +6,7 @@ public func CDLog<T>(object: T, _ file: String = #file, _ function: String = #fu
 	let filename = fileLastPathComponent.stringByDeletingPathExtension
 	var str = "\(filename).\(function)[\(line)] "
 	let len = 120 - str.characters.count
-	str += String(count: len, repeatedValue: Character("="))
+	str += String(count: len, repeatedValue: Character("-"))
 	print(str)
 	print("--> \(object)\n\n", terminator: "")
 }
