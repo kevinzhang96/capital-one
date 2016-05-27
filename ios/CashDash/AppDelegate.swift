@@ -92,7 +92,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		CDLog(values)
         CDHomeScreenController.sharedInstance.handlePush(values)
-		
 	}
 	
 }
