@@ -209,7 +209,7 @@ class CDLoginViewController: CDBaseViewController {
 		let ls = tf_last.text!
 		
 		CDParseInterface.register(un, pw: pw, phone: Int(ph)!, first: fr, last: ls, completion: {
-			self.presentViewController(CDHomeScreenController(), animated: true, completion: nil)
+			self.presentViewController(CDHomeScreenController.sharedInstance, animated: true, completion: nil)
 		})
 	}
 	

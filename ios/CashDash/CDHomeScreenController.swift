@@ -13,7 +13,7 @@ import CoreLocation
 import SwiftyJSON
 
 class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, MKMapViewDelegate {
-	
+	static let sharedInstance = CDHomeScreenController()
     static let screenSize = UIScreen.mainScreen().bounds
     let screenWidth = screenSize.width
     let screenHeight = screenSize.height
@@ -210,6 +210,7 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
                     self.sosBtn.frame = CGRect(x: 0, y: self.screenHeight, width: self.screenWidth, height: self.uiHeight)
                     self.cashAmt.frame = CGRect(x: -self.screenWidth/2, y: self.screenHeight - self.uiHeight, width: self.screenWidth/2, height: self.uiHeight)
                 })
+            
             let data = ["latitude":37.00, "longitude":80.00, "username":"JOE", "cash":5,"phone":1234567890]
             let json = JSON(data: data)
             let annotation = MKPointAnnotation()
@@ -222,6 +223,8 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
             currentStage = .dash
         }
     }
+    
+    func handlePush(
     
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
         UIView.animateWithDuration(CDUIConstants.animationDuration, animations: { [unowned self] in
