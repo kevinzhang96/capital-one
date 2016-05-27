@@ -77,6 +77,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			CDLog("No longitude was provided in the notification")
 			return
 		}
+		guard let cashordash = userInfo["cashordash"] as? String else {
+			CDLog("No cash or dash data was provided in the notification")
+			return
+		}
 		
 		let values = [
 			"username": username,
@@ -84,7 +88,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			"phone": phone,
 			"name": name,
 			"latitude": lat,
-			"longitude": long
+			"longitude": long,
+			"cashordash": cashordash
 		]
 		
 		CDLog(values)

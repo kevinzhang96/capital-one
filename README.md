@@ -21,6 +21,6 @@ Integration with iOS through the migrated Parse server can be found [here](https
 Access the database at https://www.mlab.com/databases/heroku_trnhb0fs/.  You will need a login; contact a team member for information.  The Parse dashboard appears to be bugged at the moment; data does not show up correctly.
 
 # Heroku
-Dashboard available [here](https://dashboard-preview.heroku.com/apps/cap-cashdash/resources).
+Dashboard available [here](https://dashboard-preview.heroku.com/apps/cap-cashdash/resources).  App is deployed at https://cap-cashdash.herokuapp.com; endpoints are available through /parse, at /push and /test.  API keys are needed (client key, master key, and REST API key).  
 
 
