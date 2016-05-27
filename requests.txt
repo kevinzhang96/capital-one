@@ -1,12 +1,11 @@
 {
-  "username": “sahaj97”,
-  "cash": "50",
-  "phone": "7327623380",
-  "name": “Sahaj Bhatt”,
-  “cashordash”: “cash”
-  “latitude”: "38.915584",
-  “longitude”: "-77.154348",
-  “cashordash”: “dash”
+  "cash":"50",
+  "cashordash":"dash",
+  "latitude":"38.915584",
+  "longitude":"-77.15434",
+  "name":"Sahaj Bhatt",
+  "phone":"7327623380",
+  "username":"sahaj97"
 }
 
 {
