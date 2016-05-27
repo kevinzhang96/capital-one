@@ -32,6 +32,9 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
     let cashBtn = UIButton()
     let dashBtn = UIButton()
     let sosBtn = UIButton()
+    let acceptBtn = UIButton()
+    let declineBtn = UIButton()
+    let uiHeight = CGFloat(floatLiteral: 40.0)
     
     //labels
     let logo = UILabel()
@@ -39,7 +42,7 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
     //text fields
     let cashAmt = UITextField()
     
-    //views
+    //stacks
     let navigationStack = UIStackView()
     
     //maps
@@ -50,13 +53,11 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
         
         cashBtn.setTitle("Cash", forState: .Normal)
         cashBtn.backgroundColor = UIColor(r: 76, g: 173, b: 0, a: 1)
+        cashBtn.frame = CGRect(x: 0, y: 0, width: screenWidth/2, height: uiHeight)
+        
         dashBtn.setTitle("Dash", forState: .Normal)
         dashBtn.backgroundColor = UIColor(r: 76, g: 173, b: 0, a: 1)
-        sosBtn.setTitle("SOS", forState: .Normal)
-        sosBtn.backgroundColor = UIColor(r: 76, g: 173, b: 0, a: 1)
-        
-        cashBtn.frame = CGRect(x: 0, y: 0, width: screenWidth/2, height: 40)
-        dashBtn.frame = CGRect(x: screenWidth/2, y: 0, width: screenWidth/2, height: 40)
+        dashBtn.frame = CGRect(x: screenWidth/2, y: 0, width: screenWidth/2, height: uiHeight)
         
         navigationStack.addSubview(cashBtn)
         navigationStack.addSubview(dashBtn)
@@ -65,31 +66,52 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
         navigationStack.alignment = .Fill
         navigationStack.backgroundColor = UIColor.blackColor()
         
+        sosBtn.setTitle("SOS", forState: .Normal)
+        sosBtn.backgroundColor = UIColor(r: 76, g: 173, b: 0, a: 1)
         
+        acceptBtn.setTitle("Accept", forState: .Normal)
+        acceptBtn.backgroundColor = UIColor(r: 173, g: 76, b: 0, a: 1)
+        acceptBtn.frame = CGRect(x: 0, y: 0, width: screenWidth/2, height: uiHeight)
+        
+        declineBtn.setTitle("Decline", forState: .Normal)
+        declineBtn.backgroundColor = UIColor(r: 173, g: 76, b: 0, a: 1)
+        declineBtn.frame = CGRect(x: screenWidth/2, y: 0, width: screenWidth/2, height: uiHeight)
         
         cashBtn.addTarget(self, action: #selector(CDHomeScreenController.showAtmMap), forControlEvents: .TouchUpInside)
         dashBtn.addTarget(self, action: #selector(CDHomeScreenController.showSosMap), forControlEvents: .TouchUpInside)
-        sosBtn.addTarget(self, action: #selector(CDHomeScreenController.startSosRequest), forControlEvents: .TouchUpInside)
+        sosBtn.addTarget(self, action: #selector(CDHomeScreenController.showTextFieldForSos), forControlEvents: .TouchUpInside)
+        acceptBtn.addTarget(self, action: #selector(CDHomeScreenController.acceptSosRequest), forControlEvents: .TouchUpInside)
+        declineBtn.addTarget(self, action: #selector(CDHomeScreenController.declineSosRequest), forControlEvents: .TouchUpInside)
+    }
+    
+    func configureLabels() {
+        logo.text = "Cash Dash"
+        logo.textAlignment = .Center
+        logo.font = UIFont.systemFontOfSize(30)
+    }
+    
+    func configureFields() {
+        cashAmt.font = UIFont.systemFontOfSize(20)
+        cashAmt.textColor = UIColor.blackColor()
+        cashAmt.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
+        cashAmt.keyboardType = UIKeyboardType.NumberPad
+        
+        cashAmt.placeholder = "Enter cash amount"
+        cashAmt.backgroundColor = UIColor(r: 76, g: 173, b: 0, a: 1)
     }
     
     override func configureViews() {
-
-		//CDParseInterface.logout()
 
         super.configureViews()
         
 		self.view.backgroundColor = UIColor.whiteColor()
         
-        logo.text = "Cash Dash"
-        logo.textAlignment = .Center
-        logo.font = UIFont.systemFontOfSize(30)
-        
+        configureLabels()
+        configureFields()
         configureButtons()
         
         let viewsDict = [
             "logo": logo,
-            
-//            "sb": sosBtn,
             
             "ns": navigationStack,
             
@@ -101,40 +123,36 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
         self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("H:|-20-[logo]-20-|", views: viewsDict))
         self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("V:|-40-[logo(==40)]-20-[ns][am]|", views: viewsDict))
         
-//        self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("V:[am(==120)]", views: viewsDict))
         self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("H:|[am]|", views: viewsDict))
         
         self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("H:|[ns]|", views: viewsDict))
         self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("V:[ns(==40)]", views: viewsDict))
         
-//        self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("H:|[cb][db]|", views: viewsDict))
-//        self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("V:[cb(==40)]", views: viewsDict))
-//        self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("V:[db(==40)]", views: viewsDict))
         
-//        self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("V:|-40-[logo(==40)]", views: viewsDict))
-        
-//        self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("H:|[sb]|", views: viewsDict))
-//        self.view.addConstraints(NSLayoutConstraint.constraintsWithSimpleFormat("V:[sb(==40)]|", views: viewsDict))
-        
-        self.sosBtn.frame = CGRect(x: 0, y: self.screenHeight - 40, width: self.screenWidth, height: 40)
+        self.sosBtn.frame = CGRect(x: 0, y: self.screenHeight - uiHeight, width: self.screenWidth, height: uiHeight)
         self.view.addSubview(sosBtn)
+        
+        self.cashAmt.frame = CGRect(x: -self.screenWidth/2, y: self.screenHeight - uiHeight, width: self.screenWidth/2, height: uiHeight)
+        self.view.addSubview(cashAmt)
         
     }
     
     func showAtmMap() {
+        cashAmt.resignFirstResponder()
         if (currentStage != .cash) {
             cashBtn.backgroundColor = UIColor(r: 51, g: 102, b: 0, a: 1)
             dashBtn.backgroundColor = UIColor(r: 76, g: 173, b: 0, a: 1)
-            self.sosBtn.setTitle("SOS", forState: .Normal)
+            sosBtn.setTitle("SOS", forState: .Normal)
+            sosBtn.addTarget(self, action: #selector(CDHomeScreenController.showTextFieldForSos), forControlEvents: .TouchUpInside)
             
             UIView.animateWithDuration(CDUIConstants.animationDuration, animations: { [unowned self] in
-                //self.sosBtn.setTitle("Request SOS", forState: .Normal)
-                self.sosBtn.frame = CGRect(x: 0, y: self.screenHeight - 40, width: self.screenWidth, height: 40)
+                self.sosBtn.frame = CGRect(x: 0, y: self.screenHeight - self.uiHeight, width: self.screenWidth, height: self.uiHeight)
                 
                 }, completion: { [unowned self] (complete) in
                     
-                })
+            })
             
+            //Nessie API GET Request
             let lat = String(CDLocManager.manager.location!.coordinate.latitude)
             let long = String(CDLocManager.manager.location!.coordinate.longitude)
             let radius = "0.5"
@@ -143,7 +161,7 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
             let url = NSURL(string: urlString)
             let task = NSURLSession.sharedSession().dataTaskWithURL(url!){
                 (data, response, error) in
-                //print(NSString(data: data!, encoding: NSUTF8StringEncoding))
+                //Add markers for nearby ATM's
                 let json = JSON(data: data!)
                 print(json)
                 var annotations = [MKAnnotation]()
@@ -152,8 +170,7 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
                     annotation.coordinate.latitude = subJSON["geocode"]["lat"].double!
                     annotation.coordinate.longitude = subJSON["geocode"]["lng"].double!
                     annotation.title = subJSON["name"].string!
-                    let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: nil)
-                    annotations.append(annotationView.annotation!)
+                    annotations.append(annotation)
                 }
                 self.atmMap.addAnnotations(annotations)
             }
@@ -164,63 +181,130 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
             let adjustedRegion = atmMap.regionThatFits(viewRegion)
             atmMap.setRegion(adjustedRegion, animated: true)
             atmMap.showsUserLocation = true
+            
             currentStage = .cash
         }
     }
     
-//    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
-//            let identifier = "pin"
-//            print(annotation.title)
-//            var view: MKPinAnnotationView
-//            if let dequeuedView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
-//                as? MKPinAnnotationView { // 2
-//                dequeuedView.annotation = annotation
-//                view = dequeuedView
-//            } else {
-//                // 3
-//                view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-//                view.canShowCallout = true
-//                view.calloutOffset = CGPoint(x: -5, y: 5)
-//                view.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIView
-//            }
-//            return view
-//    }
-    
     func showSosMap() {
+        cashAmt.resignFirstResponder()
         if (currentStage != .dash) {
-        dashBtn.backgroundColor = UIColor(r: 51, g: 102, b: 0, a: 1)
-        cashBtn.backgroundColor = UIColor(r: 76, g: 173, b: 0, a: 1)
-        
-        //Show users in area
-        UIView.animateWithDuration(CDUIConstants.animationDuration, animations: { [unowned self] in
-            //self.sosBtn.setTitle("Request SOS", forState: .Normal)
-            self.sosBtn.frame = CGRect(x: 0, y: self.screenHeight, width: self.screenWidth, height: 40)
             
-            }, completion: { [unowned self] (complete) in
+            dashBtn.backgroundColor = UIColor(r: 51, g: 102, b: 0, a: 1)
+            cashBtn.backgroundColor = UIColor(r: 76, g: 173, b: 0, a: 1)
+            
+            
+            UIView.animateWithDuration(CDUIConstants.animationDuration, animations: { [unowned self] in
+                self.sosBtn.frame = CGRect(x: self.screenWidth/2, y: self.screenHeight, width: self.screenWidth/2, height: self.uiHeight)
+                self.cashAmt.frame = CGRect(x: 0, y: self.screenHeight, width: self.screenWidth/2, height: self.uiHeight)
                 
-            })
+                
+                
+                }, completion: { [unowned self] (complete) in
+                    self.sosBtn.frame = CGRect(x: 0, y: self.screenHeight, width: self.screenWidth, height: self.uiHeight)
+                    self.cashAmt.frame = CGRect(x: -self.screenWidth/2, y: self.screenHeight - self.uiHeight, width: self.screenWidth/2, height: self.uiHeight)
+                })
+            let data = ["latitude":37.00, "longitude":80.00, "username":"JOE", "cash":5,"phone":1234567890]
+            let json = JSON(data: data)
+            let annotation = MKPointAnnotation()
+            annotation.coordinate.latitude = json["latitude"]
+            annotation.coordinate.longitude = json["longitude"]
+            annotation.title = json["username"]
+            annotation.description = "Needs $" + json["cash"] + "\nPhone #: " + json["phone"]
+            self.atmMap.addAnnotation(annotation)
+            
             currentStage = .dash
         }
     }
     
-    func startSosRequest() {
+    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
         UIView.animateWithDuration(CDUIConstants.animationDuration, animations: { [unowned self] in
-            self.sosBtn.setTitle("Request SOS", forState: .Normal)
-            self.sosBtn.frame = CGRect(x: 0, y: self.screenHeight - 120, width: self.screenWidth, height: 40)
+            self.acceptBtn.frame = CGRect(x: 0, y: self.screenHeight - self.uiHeight, width: self.screenWidth/2, height: self.uiHeight)
+            
+            self.declineBtn.frame = CGRect(x: self.screenWidth/2, y: self.screenHeight - self.uiHeight, width: self.screenWidth/2, height: self.uiHeight)
             
             }, completion: { [unowned self] (complete) in
                 
             })
+    }
+    
+    func acceptSosRequest() {
+        
+    }
+    
+    func declineSosRequest() {
+        
+    }
+    
+    func startSosRequest() {
+        cashAmt.resignFirstResponder()
+        
+        
 
+    }
+    
+    func showTextFieldForSos() {
+        UIView.animateWithDuration(CDUIConstants.animationDuration, animations: { [unowned self] in
+            
+            self.sosBtn.setTitle("Request SOS", forState: .Normal)
+            self.sosBtn.frame = CGRect(x: self.screenWidth/2, y: self.screenHeight - self.uiHeight, width: self.screenWidth/2, height: self.uiHeight)
+            
+            self.cashAmt.frame = CGRect(x: 0, y: self.screenHeight - self.uiHeight, width: self.screenWidth/2, height: self.uiHeight)
+            
+            }, completion: { [unowned self] (complete) in
+                
+        })
+    }
+    
+    func keyboardWillShow(notification:NSNotification) {
+        adjustingHeight(true, notification: notification)
+    }
+    
+    func keyboardWillHide(notification:NSNotification) {
+        adjustingHeight(false, notification: notification)
+        print("yes")
+    }
+    
+    func adjustingHeight(show:Bool, notification:NSNotification) {
+        
+        UIView.animateWithDuration(CDUIConstants.animationDuration, animations: { () -> Void in
+            if (show) {
+                var userInfo = notification.userInfo!
+                let keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).CGRectValue()
+                let changeInHeight = (CGRectGetHeight(keyboardFrame) + self.uiHeight)
+                self.sosBtn.frame = CGRect(x: self.screenWidth/2, y: self.screenHeight - changeInHeight, width: self.screenWidth/2, height: self.uiHeight)
+                self.cashAmt.frame = CGRect(x: 0, y: self.screenHeight - changeInHeight, width: self.screenWidth/2, height: self.uiHeight)
+            } else {
+                self.sosBtn.frame = CGRect(x: self.screenWidth/2, y: self.screenHeight - self.uiHeight, width: self.screenWidth/2, height: self.uiHeight)
+                self.cashAmt.frame = CGRect(x: 0, y: self.screenHeight - self.uiHeight, width: self.screenWidth/2, height: self.uiHeight)
+            }
+            
+        })
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CDHomeScreenController.keyboardWillShow), name: UIKeyboardWillShowNotification, object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CDHomeScreenController.keyboardWillHide), name: UIKeyboardWillHideNotification, object: nil)
+        
+        // Do any additional setup after loading the view, typically from a nib.
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         atmMap.delegate = self
-        //atmMap.showsUserLocation = true
         
         showAtmMap()
     }
 
-	
+    override func viewWillDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        cashAmt.resignFirstResponder()
+    }
 }
