@@ -18,8 +18,10 @@ enum CDHomeStage {
 }
 
 enum CDActiveAction {
-	case Cash
-	case Dash
+	case CashPending
+	case Cashing
+	case DashInvite
+	case Dashing
 	case None
 }
 
@@ -60,13 +62,13 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
 	func setState(stage: CDHomeStage) {
 		cashAmt.resignFirstResponder()
 		currentStage = stage
+		panel.frame.origin.y = screenHeight
 		
 		switch stage {
 		case .Cash:
 			// TODO
 			bt_cash.backgroundColor = UIColor(r: 51, g: 102, b: 0, a: 1)
 			bt_dash.backgroundColor = UIColor(r: 76, g: 173, b: 0, a: 1)
-			bt_reqs.setTitle("Request", forState: .Normal)
 			bt_reqs.addTarget(self, action: #selector(CDHomeScreenController.showCashTextField), forControlEvents: .TouchUpInside)
 			
 			cashAmt.frame = CGRect(x: -screenWidth/2, y: screenHeight - bt_height, width: screenWidth/2, height: bt_height)
@@ -97,8 +99,8 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
 			UIView.animateWithDuration(CDUIConstants.animationDuration, animations: { [unowned self] in
 				self.bt_reqs.frame.origin = CGPoint(x: self.bt_reqs.frame.origin.x, y: self.screenHeight)
 				self.cashAmt.frame.origin = CGPoint(x: self.cashAmt.frame.origin.x, y: self.screenHeight)
-				self.bt_acpt.frame.origin = CGPointMake(0, self.screenHeight - self.bt_height)
-				self.bt_dcln.frame.origin = CGPointMake(self.screenWidth/2, self.screenHeight - self.bt_height)
+				self.bt_acpt.frame.origin = CGPointMake(0, self.screenHeight)
+				self.bt_dcln.frame.origin = CGPointMake(self.screenWidth/2, self.screenHeight)
 			}, completion: { [unowned self] (complete) in
 				self.bt_reqs.frame = CGRect(x: 0, y: self.screenHeight, width: self.screenWidth, height: self.bt_height)
 				self.cashAmt.frame = CGRect(x: -self.screenWidth/2, y: self.screenHeight - self.bt_height, width: self.screenWidth/2, height: self.bt_height)
@@ -112,24 +114,62 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
 	
 	func setActiveAction(act: CDActiveAction) {
 		switch act {
-		case .Cash:
-			
-			break
-		case .Dash:
-			
-			break
+		case .CashPending:
+			UIView.animateWithDuration(CDUIConstants.animationDuration, animations: {
+				self.bt_cash.backgroundColor = UIColor(r: 51, g: 102, b: 0, a: 1)
+				self.bt_dash.backgroundColor = UIColor(r: 76, g: 173, b: 0, a: 1)
+				self.panel.frame.origin.y = self.screenHeight
+				self.bt_acpt.frame.origin.y = self.screenHeight
+				self.bt_dcln.frame.origin.y = self.screenHeight
+				self.bt_reqs.frame.origin.y = self.screenHeight - self.bt_height
+				self.cashAmt.frame.origin.y = self.screenHeight - self.bt_height
+			})
+		case .Cashing:
+			UIView.animateWithDuration(CDUIConstants.animationDuration, animations: {
+				self.bt_cash.backgroundColor = UIColor(r: 51, g: 102, b: 0, a: 1)
+				self.bt_dash.backgroundColor = UIColor(r: 76, g: 173, b: 0, a: 1)
+				self.panel.frame.origin.y = self.screenHeight - self.panel.frame.size.height
+				self.bt_acpt.frame.origin.y = self.screenHeight
+				self.bt_dcln.frame.origin.y = self.screenHeight
+				self.bt_reqs.frame.origin.y = self.screenHeight
+				self.cashAmt.frame.origin.y = self.screenHeight
+			})
+		case .DashInvite:
+			UIView.animateWithDuration(CDUIConstants.animationDuration, animations: {
+				self.bt_dash.backgroundColor = UIColor(r: 51, g: 102, b: 0, a: 1)
+				self.bt_cash.backgroundColor = UIColor(r: 76, g: 173, b: 0, a: 1)
+				self.panel.frame.origin.y = self.screenHeight
+				self.bt_acpt.frame.origin.y = self.screenHeight - self.bt_height
+				self.bt_dcln.frame.origin.y = self.screenHeight - self.bt_height
+				self.bt_reqs.frame.origin.y = self.screenHeight
+				self.cashAmt.frame.origin.y = self.screenHeight
+			})
+		case .Dashing:
+			UIView.animateWithDuration(CDUIConstants.animationDuration, animations: {
+				self.bt_dash.backgroundColor = UIColor(r: 51, g: 102, b: 0, a: 1)
+				self.bt_cash.backgroundColor = UIColor(r: 76, g: 173, b: 0, a: 1)
+				self.panel.frame.origin.y = self.screenHeight - self.panel.frame.size.height
+				self.bt_acpt.frame.origin.y = self.screenHeight
+				self.bt_dcln.frame.origin.y = self.screenHeight
+				self.bt_reqs.frame.origin.y = self.screenHeight
+				self.cashAmt.frame.origin.y = self.screenHeight
+			})
 		case .None:
-			
-			break
+			setState(currentStage)
 		}
 	}
 	
+	func hidePanel() {
+		setActiveAction(.None)
+		setState(currentStage)
+	}
+	
 	func acceptCashRequest() {
-		// TODO
+		setActiveAction(.Dashing)
 	}
 	
 	func declineCashRequest() {
-		// TODO
+		setActiveAction(.None)
 	}
 	
 	// MARK: - UI configuration methods
@@ -155,10 +195,12 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
 		bt_acpt.setTitle("Accept", forState: .Normal)
 		bt_acpt.backgroundColor = UIColor(r: 76, g: 173, b: 0, a: 1)
 		bt_acpt.frame = CGRect(x: 0, y: screenHeight, width: screenWidth/2, height: bt_height)
+		bt_acpt.addTarget(self, action: #selector(CDHomeScreenController.acceptCashRequest), forControlEvents: .TouchUpInside)
 		
 		bt_dcln.setTitle("Decline", forState: .Normal)
-		bt_dcln.backgroundColor = UIColor(r: 51, g: 102, b: 0, a: 1)
+		bt_dcln.backgroundColor = UIColor(r: 203, g: 0, b: 0, a: 1)
 		bt_dcln.frame = CGRect(x: screenWidth/2, y: screenHeight, width: screenWidth/2, height: bt_height)
+		bt_dcln.addTarget(self, action: #selector(CDHomeScreenController.declineCashRequest), forControlEvents: .TouchUpInside)
 		
 		bt_cash.addTarget(self, action: #selector(CDHomeScreenController.moveToCash), forControlEvents: .TouchUpInside)
 		bt_dash.addTarget(self, action: #selector(CDHomeScreenController.moveToDash), forControlEvents: .TouchUpInside)
@@ -210,7 +252,7 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
 		self.view.addSubview(bt_dcln)
 		
 		// panel configuration
-		panel.frame = CGRectMake(0, 0, screenWidth, 2.85 * bt_height)
+		panel.frame = CGRectMake(0, screenHeight, screenWidth, 3 * bt_height)
 		panel.backgroundColor = UIColor(r: 76, g: 173, b: 0, a: 1)
 		
 		panel_text.frame = CGRectMake(0, 0, screenWidth, 1.25 * bt_height)
@@ -222,18 +264,21 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
 		panel_phone.addTarget(self, action: #selector(CDHomeScreenController.callNumber), forControlEvents: .TouchUpInside)
 		panel_phone.titleLabel?.font = UIFont.systemFontOfSize(18)
 		
-		panel_cancel.frame = CGRectMake(0, 1.85 * bt_height, screenWidth/2, bt_height)
+		panel_cancel.frame = CGRectMake(0, 2 * bt_height, screenWidth/2, bt_height)
 		panel_cancel.setTitle("Cancel", forState: .Normal)
 		panel_cancel.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+		panel_cancel.addTarget(self, action: #selector(CDHomeScreenController.hidePanel), forControlEvents: .TouchUpInside)
 		
 		panel_finish.frame = CGRectMake(screenWidth/2, 2 * bt_height, screenWidth/2, bt_height)
 		panel_finish.setTitle("Finish", forState: .Normal)
 		panel_finish.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+		panel_finish.addTarget(self, action: #selector(CDHomeScreenController.hidePanel), forControlEvents: .TouchUpInside)
 		
 		let _ = [panel_text, panel_phone, panel_cancel, panel_finish].map({
 			panel.addSubview($0)
 			$0.backgroundColor = UIColor(r: 76, g: 173, b: 0, a: 1)
 		})
+		panel_cancel.backgroundColor = UIColor(r: 203, g: 0, b: 0, a: 1)
 		
 		self.view.addSubview(panel)
 		
@@ -284,15 +329,21 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
 		panel_text.text = data["name"]! + ": " + data["username"]! + "\n" + "Transaction amount: " + data["cash"]!
 		
 		if data["username"] != CDAuthenticationConstants.username {
-//			if data["cashordash"]!
+			if data["cashordash"]! == "dash" {
+				setActiveAction(.Cashing)
+			} else {
+				setActiveAction(.DashInvite)
+			}
 		}
 	}
 	
 	func sendCashRequest() {
 		cashAmt.resignFirstResponder()
+		setActiveAction(.CashPending)
 		
 		UIView.animateWithDuration(CDUIConstants.animationDuration, animations: { [unowned self] in
 			self.bt_reqs.setTitle("Requesting...", forState: .Normal)
+			self.bt_reqs.backgroundColor = UIColor(r: 204, g: 0, b: 0, a: 1)
 			self.bt_reqs.frame = CGRect(x: 0, y: self.screenHeight - self.bt_height, width: self.screenWidth, height: self.bt_height)
 			self.cashAmt.frame.origin.x = -self.screenWidth/2
 			// CGRect(x: -self.screenWidth/2, y: self.screenHeight - self.bt_height, width: self.screenWidth/2, height: self.bt_height)
@@ -303,8 +354,10 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
 	}
 	
 	func showCashTextField() {
+		setActiveAction(.None)
 		UIView.animateWithDuration(CDUIConstants.animationDuration, animations: { [unowned self] in
 			self.bt_reqs.setTitle("Request", forState: .Normal)
+			self.bt_reqs.backgroundColor = UIColor(r: 76, g: 173, b: 0, a: 1)
 			self.bt_reqs.frame = CGRect(x: self.screenWidth/2, y: self.screenHeight - self.bt_height, width: self.screenWidth/2, height: self.bt_height)
 			self.cashAmt.frame = CGRect(x: 0, y: self.screenHeight - self.bt_height, width: self.screenWidth/2, height: self.bt_height)
 		}, completion: { [unowned self] (complete) in
