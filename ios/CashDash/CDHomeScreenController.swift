@@ -51,19 +51,16 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
 			// TODO
 			bt_cash.backgroundColor = UIColor(r: 51, g: 102, b: 0, a: 1)
 			bt_dash.backgroundColor = UIColor(r: 76, g: 173, b: 0, a: 1)
-			
-//			bt_reqs.frame = CGRect(x: 0, y: screenHeight - bt_height, width: screenWidth, height: bt_height)
-			cashAmt.frame = CGRect(x: -screenWidth/2, y: screenHeight - bt_height, width: screenWidth/2, height: bt_height)
-			
-			bt_reqs.setTitle("SOS", forState: .Normal)
-			// TODO: REMOVE TARGETS
+			bt_reqs.setTitle("Request", forState: .Normal)
 			bt_reqs.addTarget(self, action: #selector(CDHomeScreenController.showCashTextField), forControlEvents: .TouchUpInside)
+			
+			cashAmt.frame = CGRect(x: -screenWidth/2, y: screenHeight - bt_height, width: screenWidth/2, height: bt_height)
 			
 			UIView.animateWithDuration(CDUIConstants.animationDuration, animations: { [unowned self] in
 				self.bt_reqs.frame = CGRect(x: 0, y: self.screenHeight - self.bt_height, width: self.screenWidth, height: self.bt_height)
+				self.bt_acpt.frame = CGRect(x: 0, y: self.screenHeight, width: self.screenWidth/2, height: self.bt_height)
+				self.bt_dcln.frame = CGRect(x: self.screenWidth/2, y: self.screenHeight, width: self.screenWidth/2, height: self.bt_height)
 			})
-			
-			CDLog(bt_reqs.frame)
 			
 			// center map on current location
 			guard let coors = loc.manager.location?.coordinate else {
@@ -84,9 +81,9 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
 			
 			UIView.animateWithDuration(CDUIConstants.animationDuration, animations: { [unowned self] in
 				self.bt_reqs.frame.origin = CGPoint(x: self.bt_reqs.frame.origin.x, y: self.screenHeight)
-				// CGRect(x: self.screenWidth, y: self.screenHeight, width: self.screenWidth/2, height: self.bt_height)
 				self.cashAmt.frame.origin = CGPoint(x: self.cashAmt.frame.origin.x, y: self.screenHeight)
-				// CGRect(x: 0, y: self.screenHeight, width: self.screenWidth/2, height: self.bt_height)
+				self.bt_acpt.frame.origin = CGPointMake(0, self.screenHeight - self.bt_height)
+				self.bt_dcln.frame.origin = CGPointMake(self.screenWidth/2, self.screenHeight - self.bt_height)
 			}, completion: { [unowned self] (complete) in
 				self.bt_reqs.frame = CGRect(x: 0, y: self.screenHeight, width: self.screenWidth, height: self.bt_height)
 				self.cashAmt.frame = CGRect(x: -self.screenWidth/2, y: self.screenHeight - self.bt_height, width: self.screenWidth/2, height: self.bt_height)
@@ -123,16 +120,16 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
 		navigationStack.alignment = .Fill
 		navigationStack.backgroundColor = UIColor.blackColor()
 		
-		bt_reqs.setTitle("SOS", forState: .Normal)
+		bt_reqs.setTitle("Request", forState: .Normal)
 		bt_reqs.backgroundColor = UIColor(r: 76, g: 173, b: 0, a: 1)
 		
 		bt_acpt.setTitle("Accept", forState: .Normal)
 		bt_acpt.backgroundColor = UIColor(r: 173, g: 76, b: 0, a: 1)
-		bt_acpt.frame = CGRect(x: 0, y: 0, width: screenWidth/2, height: bt_height)
+		bt_acpt.frame = CGRect(x: 0, y: screenHeight, width: screenWidth/2, height: bt_height)
 		
 		bt_dcln.setTitle("Decline", forState: .Normal)
 		bt_dcln.backgroundColor = UIColor(r: 173, g: 76, b: 0, a: 1)
-		bt_dcln.frame = CGRect(x: screenWidth/2, y: 0, width: screenWidth/2, height: bt_height)
+		bt_dcln.frame = CGRect(x: screenWidth/2, y: screenHeight, width: screenWidth/2, height: bt_height)
 		
 		bt_cash.addTarget(self, action: #selector(CDHomeScreenController.moveToCash), forControlEvents: .TouchUpInside)
 		bt_dash.addTarget(self, action: #selector(CDHomeScreenController.moveToDash), forControlEvents: .TouchUpInside)
@@ -149,9 +146,9 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
 	}
 	
 	func configureFields() {
-		cashAmt.placeholder				= "Enter cash amount"
-		cashAmt.font					= UIFont.systemFontOfSize(20)
-		cashAmt.textColor				= UIColor.blackColor()
+		cashAmt.placeholder				= "Amount"
+		cashAmt.font					= UIFont.systemFontOfSize(18)
+		cashAmt.textColor				= UIColor.whiteColor()
 		cashAmt.keyboardType			= UIKeyboardType.NumberPad
 		cashAmt.backgroundColor			= UIColor(r: 76, g: 173, b: 0, a: 1)
 		cashAmt.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
@@ -180,6 +177,8 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
 		
 		self.view.addSubview(bt_reqs)
 		self.view.addSubview(cashAmt)
+		self.view.addSubview(bt_acpt)
+		self.view.addSubview(bt_dcln)
 		
 		// -------- Nessie API GET Request --------
 		guard let location = loc.manager.location else {
@@ -219,15 +218,18 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
 		annotation.title = data["username"]!
 		annotation.subtitle = "Needs $" + data["cash"]! + "\nPhone #: " + data["phone"]!
 		self.map.addAnnotation(annotation)
+		
+		setState(.Dash)
 	}
 	
 	func sendCashRequest() {
 		cashAmt.resignFirstResponder()
 		
 		UIView.animateWithDuration(CDUIConstants.animationDuration, animations: { [unowned self] in
-			self.bt_reqs.setTitle("SOS", forState: .Normal)
+			self.bt_reqs.setTitle("Requesting...", forState: .Normal)
 			self.bt_reqs.frame = CGRect(x: 0, y: self.screenHeight - self.bt_height, width: self.screenWidth, height: self.bt_height)
-			self.cashAmt.frame = CGRect(x: -self.screenWidth/2, y: self.screenHeight - self.bt_height, width: self.screenWidth/2, height: self.bt_height)
+			self.cashAmt.frame.origin.x = -self.screenWidth/2
+			// CGRect(x: -self.screenWidth/2, y: self.screenHeight - self.bt_height, width: self.screenWidth/2, height: self.bt_height)
 		}, completion: { [unowned self] (complete) in
 			self.bt_reqs.removeTarget(self, action: #selector(CDHomeScreenController.sendCashRequest), forControlEvents: .TouchUpInside)
 			self.bt_reqs.addTarget(self, action: #selector(CDHomeScreenController.showCashTextField), forControlEvents: .TouchUpInside)
@@ -236,7 +238,7 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
 	
 	func showCashTextField() {
 		UIView.animateWithDuration(CDUIConstants.animationDuration, animations: { [unowned self] in
-			self.bt_reqs.setTitle("Request SOS", forState: .Normal)
+			self.bt_reqs.setTitle("Request", forState: .Normal)
 			self.bt_reqs.frame = CGRect(x: self.screenWidth/2, y: self.screenHeight - self.bt_height, width: self.screenWidth/2, height: self.bt_height)
 			self.cashAmt.frame = CGRect(x: 0, y: self.screenHeight - self.bt_height, width: self.screenWidth/2, height: self.bt_height)
 		}, completion: { [unowned self] (complete) in

@@ -3,7 +3,7 @@ import Parse
 
 struct CDUIConstants {
 	static let viewFactor           = UIScreen.mainScreen().bounds.size.width / 375
-	static let animationDuration    = 0.5
+	static let animationDuration    = 0.25
 	
 	struct colors {
 		// example colors
