@@ -134,9 +134,14 @@ class CDHomeScreenController: CDBaseViewController, CLLocationManagerDelegate, M
                 }, completion: { [unowned self] (complete) in
                     
                 })
-            
-            let lat = String(CDLocManager.manager.location!.coordinate.latitude)
-            let long = String(CDLocManager.manager.location!.coordinate.longitude)
+			
+			guard let location = CDLocManager.manager.location else {
+				CDLog("No location was found")
+				return
+			}
+			
+            let lat = String(location.coordinate.latitude)
+            let long = String(location.coordinate.longitude)
             let radius = "0.5"
             let urlString = "http://api.reimaginebanking.com/atms?key=" + NESSIE_API_KEY + "&lat=" + lat + "&lng=" + long + "&rad=" + radius
             

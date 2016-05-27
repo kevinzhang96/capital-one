@@ -37,19 +37,46 @@ class CDLocationManager: NSObject, CLLocationManagerDelegate {
 		}
 	}
 	
-	// MARK: - Push notification methods
-	func sendRequest(user: PFUser) {
-		guard manager.location != nil else {
-			CDLog("No known location; could not send request")
+	// MARK: - CLLocationManagerDelegate methods
+	func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+		//		CDLog("Got location update: \(locations.first), current user: \(PFUser.currentUser())")
+		guard PFUser.currentUser() != nil else {
 			return
 		}
-
-		var params = {
+		
+		// get current user and update
+		let curr_user = PFUser.currentUser()!
+		curr_user["location"] = PFGeoPoint(location: locations.first)
+		curr_user.saveEventually({ [unowned curr_user, locations] (success, error) in
+			guard error == nil else {
+				CDLog("Unable to save location \(locations.first!) with error: \(error!.localizedDescription)")
+				return
+			}
 			
+			CDLog("Successfully saved location <\(locations.first!.coordinate.latitude), \(locations.first!.coordinate.longitude)> to user \(curr_user.username!)")
+		})
+	}
+	
+	func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+		if status == .AuthorizedAlways {
+			CDLog("Successfully got permissions to update location; beginning tracking")
+			self.beginTracking()
+		} else {
+			CDLog("Unsuccessful in getting permissions: current status \(status)")
 		}
-		
-		
-		
+	}
+	
+	// MARK: - Push notification methods
+	func sendRequest(user: PFUser) {
+//		guard manager.location != nil else {
+//			CDLog("No known location; could not send request")
+//			return
+//		}
+//
+//		let params = {
+//			
+//		}
+//		
 //		// get location and create query
 //		let location = manager.location!
 //		let query = PFInstallation.query()
@@ -73,33 +100,4 @@ class CDLocationManager: NSObject, CLLocationManagerDelegate {
 		// TODO: handle received request from user in the area
 	}
 	
-	// MARK: - CLLocationManagerDelegate methods
-	func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//		CDLog("Got location update: \(locations.first), current user: \(PFUser.currentUser())")
-		guard PFUser.currentUser() != nil else {
-			return
-		}
-
-		// get current user and update
-		let curr_user = PFUser.currentUser()!
-		curr_user["location"] = PFGeoPoint(location: locations.first)
-		
-		curr_user.saveEventually({ [unowned curr_user, locations] (success, error) in
-			guard error == nil else {
-				CDLog("Unable to save location \(locations.first!) with error: \(error!.localizedDescription)")
-				return
-			}
-			
-			CDLog("Successfully saved location <\(locations.first!.coordinate.latitude), \(locations.first!.coordinate.longitude)> to user \(curr_user.username!)")
-		})
-	}
-	
-	func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-		if status == .AuthorizedAlways {
-			CDLog("Successfully got permissions to update location; beginning tracking")
-			self.beginTracking()
-		} else {
-			CDLog("Unsuccessful in getting permissions: current status \(status)")
-		}
-	}
 }
