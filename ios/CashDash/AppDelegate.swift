@@ -9,6 +9,7 @@
 import UIKit
 import Parse
 import SwiftyJSON
+import Firebase
 
 let NESSIE_API_KEY = "1b204cc46c793503e1e8c438ebd9c3ad"
 
@@ -26,6 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			ParseMutableClientConfiguration.server = "http://cap-cashdash.herokuapp.com/parse"
 		})
 		Parse.initializeWithConfiguration(config)
+		
+		FIRApp.configure()
 		
 		UIApplication.sharedApplication().applicationIconBadgeNumber = 0
 		
