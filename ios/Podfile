@@ -9,4 +9,5 @@ target 'CashDash' do
 	pod 'ParseFacebookUtilsV4'
 	pod 'SwiftyJSON'
 	pod 'Alamofire'
+	pod 'Firebase'
 end
