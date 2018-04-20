@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "F95B7A6D6E6B11371FF4A4309ABBF4EEF0045723",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "72FB1D9C0FBCF964BC7A92A0D7B7E27292523A1A" : 0,
+    "F95B7A6D6E6B11371FF4A4309ABBF4EEF0045723" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "881D6C9B-8F4E-4C83-BE5A-DEE14413FBEF",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "72FB1D9C0FBCF964BC7A92A0D7B7E27292523A1A" : "..",
+    "F95B7A6D6E6B11371FF4A4309ABBF4EEF0045723" : "ios-pushup-tracker\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "pushups",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "pushups.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.kdc.capitalone.com:grg166\/techtalks.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "72FB1D9C0FBCF964BC7A92A0D7B7E27292523A1A"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/jaredalexander\/ios-pushup-tracker.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F95B7A6D6E6B11371FF4A4309ABBF4EEF0045723"
+    }
+  ]
+}

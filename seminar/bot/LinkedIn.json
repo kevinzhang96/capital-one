@@ -1,0 +1,106 @@
+{
+  "id": "fc02e43e-3ece-45c4-a336-f1219d0e3015",
+  "name": "LinkedIn",
+  "auto": true,
+  "contexts": [],
+  "userSays": [
+    {
+      "id": "22649b3b-a75c-4611-9884-8301a311394c",
+      "data": [
+        {
+          "text": "what is "
+        },
+        {
+          "text": "kevin",
+          "alias": "first-name",
+          "meta": "@sys.given-name",
+          "userDefined": false
+        },
+        {
+          "text": "\u0027s linkedin"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "0572cb9e-4a9a-4969-aef6-e7d5f6853715",
+      "data": [
+        {
+          "text": "show me "
+        },
+        {
+          "text": "kevin",
+          "alias": "first-name",
+          "meta": "@sys.given-name",
+          "userDefined": false
+        },
+        {
+          "text": "\u0027s linkedin"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "4e176fe7-caab-4c4c-b061-5f6a6234039c",
+      "data": [
+        {
+          "text": "how do i find "
+        },
+        {
+          "text": "kevin",
+          "alias": "first-name",
+          "meta": "@sys.given-name",
+          "userDefined": false
+        },
+        {
+          "text": "\u0027s linkedin"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "dd77c4c4-eca2-41ec-b98d-1670e86b983c",
+      "data": [
+        {
+          "text": "where is "
+        },
+        {
+          "text": "kevin",
+          "alias": "first-name",
+          "meta": "@sys.given-name",
+          "userDefined": false
+        },
+        {
+          "text": "\u0027s linkedin"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "linkedin",
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "required": true,
+          "dataType": "@sys.given-name",
+          "name": "first-name",
+          "value": "$first-name",
+          "prompts": [
+            "Given name is required when searching for a LinkedIn"
+          ]
+        }
+      ],
+      "speech": []
+    }
+  ],
+  "state": "LEARNED",
+  "priority": 500000,
+  "webhookUsed": true
+}
