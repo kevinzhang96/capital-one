@@ -1,1 +1,0 @@
-curl -X POST -H "X-Parse-Application-ID: myAppId" -H "Content-Type: application/json" -d '{"score": 1337, "playerName": "kzhang", "cheatMode": false}' http://localhost:1337/parse/classes/GameScore
